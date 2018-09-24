@@ -60,6 +60,8 @@ class UserCentForm(ModelFields):
         model = UserInfo
         exclude = ['user']
     
+    def __init__(self, dc={}, pk=None, crt_user=None, nolimit=False, *args, **kw): 
+        super().__init__(dc, pk, crt_user, nolimit= True, *args, **kw)
     #def is_valid(self): 
         #return True
     

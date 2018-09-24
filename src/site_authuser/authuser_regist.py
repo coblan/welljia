@@ -72,7 +72,8 @@ class SiteRegistFormPage(RegistFormPage):
         code = make_phone_validate_code(row['phone'] )
         log.info('手机号:%(phone)s生成验证码%(code)s' % {'phone': row['phone'], 'code': code,})
         phone = row.get('phone')
-        send_validate_code(phone, code)
+        print(code)
+        #send_validate_code(phone, code)
         return {'row': row,}
 
 
