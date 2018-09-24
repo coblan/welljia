@@ -1,0 +1,62 @@
+{% extends site_base_template %}
+{% load static %}
+{% load jsonify %}
+
+{% block page_content %}
+
+<script>
+
+    crt_page_name='usercenter'
+
+    row={{ row | jsonify }}
+    heads={{ heads | jsonify }}
+</script>
+
+
+<style>
+    /*body{*/
+        /*background-color: #ebebeb;*/
+    /*}*/
+</style>
+
+<script>
+    $(function(){
+        new Vue({
+            el:'#there',
+            data:{
+                heads:heads,
+                row:row,
+            },
+            mounted:function(){
+            },
+            methods:{
+                on_submit:function(){
+                    this.$refs.userform.submit()
+                }
+            }
+        })
+
+
+    })
+</script>
+<style>
+    .submit-block .btn{
+        width: 14em !important;
+    }
+</style>
+<div id="there" class="" style="height: 100%">
+
+
+    <div style="width: 600px;margin: auto;margin-top: 3em;background-color: white;padding: 1em 5em;min-height: 500px;">
+        <h3>修改个人基本资料</h3>
+        <hr>
+        <!--<com-plain-field-panel ref="userform" class="pop" :heads="heads" :row="row" @submit="on_submit()"></com-plain-field-panel>-->
+        <com-sim-fields ref="userform" class="pop" :heads="heads" :row="row" @submit="on_submit()"></com-sim-fields>
+
+    </div>
+
+</div>
+
+
+</body>
+{% endblock %}

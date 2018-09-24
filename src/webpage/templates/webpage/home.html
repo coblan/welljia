@@ -1,0 +1,93 @@
+{% extends 'webpage/site_base.html' %}
+{% load static %}
+{% load jsonify %}
+
+{% block page_content %}
+<link href="https://cdn.bootcss.com/Swiper/4.3.0/css/swiper.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/Swiper/4.3.0/js/swiper.min.js"></script>
+
+<script>
+
+    crt_page_name='fullscreen'
+    //    page_data={
+    //        slogan:'3D/VR预先呈现会展效果，大数据精准分析办展成果。'
+    //    }
+    recomPanels={{ recomPanels | jsonify }}
+    banners={{ banners | jsonify }}
+</script>
+
+
+<style>
+    body{
+        /*background-color: #ebebeb;*/
+    }
+</style>
+
+<script>
+    $(function(){
+        new Vue({
+            el:'#there',
+            data:{
+                banners:banners,
+                recomPanels:recomPanels,
+            },
+            mounted:function(){
+                var swiper = new Swiper('.swiper-container', {
+                    spaceBetween: 30,
+                    effect: 'fade',
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    autoplay:true,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            }
+        })
+
+
+    })
+</script>
+
+<div id="there" class="" style="height: 100%">
+
+    <div>
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="banner in banners" style="height: 440px;position: relative">
+                    <div class="center-h">
+                        <img :src="banner.img" alt="">
+                    </div>
+
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination swiper-pagination-white"></div>
+            <!-- Add Arrows -->
+            <!--<div class="swiper-button-next swiper-button-white"></div>-->
+            <!--<div class="swiper-button-prev swiper-button-white"></div>-->
+        </div>
+
+
+    </div>
+
+    <div class="recomPanels wrap" v-for="panel in recomPanels">
+        <h3  class="title" v-text="panel.title"></h3> <span class="sub-title" v-text="panel.sub_title"></span>
+        <div class="item-wrap">
+            <com-yewu-rich-item v-for="yewu in panel.yewus" :yewu="yewu"></com-yewu-rich-item>
+        </div>
+    </div>
+
+</div>
+
+<div style="height: 550px;background: url(/static/images/foot_logo.jpg) no-repeat center;">
+</div>
+
+
+
+</body>
+{% endblock %}
