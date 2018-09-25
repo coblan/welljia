@@ -36,6 +36,14 @@ class Home(View):
     
     def base_context(self): 
         ctx = {}
+        #if self.request.user.is_authenticated():
+            #user =  self.request.user
+            #ctx.update({
+                #'userinfo': {
+                    #'head': user.userinfo.head or '/static/lib/images/user.png',
+                    #},
+            #})
+            #page_data['username']= self.request.user.username     
         ctx.update(self.get_top_heads())
         ctx.update(self.get_header_menu())
         return ctx    
@@ -53,11 +61,11 @@ class Home(View):
     
     def get_top_heads(self): 
         user = self.request.user
-        if user.is_authenticated():
+        if user.is_authenticated():            
             top_head = {
                 'top_heads': [
                     {'name': 'userinfo', 'editor': 'com-head-dropdown', 
-                     'label': '<i class="fa fa-user-circle"></i>', 
+                     'label': '<img src="%s" style="display:inline-block;width:24px;height:24px;border-radius:12px;"/>' % (user.userinfo.head or '/static/lib/images/user.png'), #'<i class="fa fa-user-circle"></i>', 
                      'options': [
                         {'url': '/accounts/usercenter', 'label': '修改资料',}, 
                         {'url': '/accounts/pswd', 'label': '修改密码',}, 
