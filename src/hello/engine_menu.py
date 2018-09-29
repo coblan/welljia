@@ -25,6 +25,11 @@ class PcMenu(BaseEngine):
             {'label':_('DashBoard'),'url':page('home'),'icon':fa('fa-home'), 'visible':True}, 
             
             
+            {'label':_('页面管理'),'icon':fa('fa-home'), 'visible':True,'submenu':[
+                {'label': '3D页面链接', 'url': page('link_form'),}, 
+                {'label':'单页面','url':page('ZhanRichPage'),'visible':can_touch(User, crt_user)},
+                        ]}, 
+            
             {'label':_('用户管理'),'icon':fa('fa-home'), 'visible':True,'submenu':[
                 {'label':'用户信息','url':page('admin_user'),'visible':can_touch(User, crt_user)},
                 ]}, 

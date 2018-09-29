@@ -1,0 +1,57 @@
+@import "data";
+
+.zhanshi-main-content{
+    width: 800px;
+    background-color: rgba(0,0,0,0.3);
+    height: 100%;
+
+    .banner{
+        margin: 0;
+        margin-top: $logo_top - $header_bar_height - $zhanshi_banner_height + 40px;
+
+        height: $zhanshi_banner_height;
+        display: flex;
+        .big-title{
+            position: relative;
+            width: 220px;
+            flex-grow: 0;
+            flex-shrink: 0;
+            background-color: #1d212c;
+            color: white;
+            font-size: 200%;
+            white-space: nowrap;
+        }
+
+    }
+    .menu-wrap{
+        width: 100%;
+        position: relative;
+        background-color: #4c68a6;
+        &:before{
+            content: '';
+            display: block;
+            position: absolute;
+            background-color: rgba(161,176,211,0.9);
+            height: 100%;
+            top:0;
+            width: 200vw;
+            left: -50vw;
+            opacity: 0.9;
+            z-index: -1;
+        }
+    }
+    .menu-item{
+        display: inline-block;
+        margin:auto 10px;
+        color: #8ba0d1;
+        padding-left: 30px;
+        &.active{
+            color: white;
+        }
+    }
+    .html-content{
+        color: #d2d4d7;
+        padding: 50px;
+        overflow: scroll;
+    }
+}

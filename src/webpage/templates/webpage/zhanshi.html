@@ -1,0 +1,74 @@
+{% extends 'webpage/site_base.html' %}
+{% load static %}
+{% load jsonify %}
+
+{% block page_content %}
+
+<script>
+    pageitems={{ pageitems | jsonify }}
+</script>
+
+<script>
+    $(function(){
+        new Vue({
+            el:'#there',
+            data:{
+                pageitems:pageitems,
+                crt_item:pageitems[0]
+            },
+            mounted:function(){
+            }
+        })
+
+
+    })
+</script>
+
+<div id="there" class="zhanshi-main-content center-h flex-v">
+
+    <div class="banner"  style="flex-shrink: 0;">
+        <div class="big-title">
+            <div class="center-vh">
+                <transition name="fade" >
+                    <span v-text="crt_item.label" :key="crt_item.label"></span>
+                    </transition>
+            </div>
+        </div>
+        <div class="flex-grow">
+            <transition name="fade" >
+                <img :src="crt_item.cover"  :key="crt_item.cover" alt="" width="100%" height="100%">
+            </transition>
+        </div>
+    </div>
+
+    <div class="menu-wrap" style="flex-shrink: 0;">
+        <span :class="['menu-item',{'active':crt_item==item}]"  v-for="item in pageitems"  class="clickable" @click="crt_item=item">
+            <i v-if="crt_item==item" class="fa fa-caret-up"></i>
+            <i v-else class="fa fa-caret-right"></i>
+            <span v-text="item.menu_label"></span>
+        </span>
+    </div>
+
+    <div class="html-content flex-grow">
+        <transition name="fade">
+            <div v-html="crt_item.content" :key="crt_item.content"></div>
+        </transition>
+
+    </div>
+
+</div>
+
+<style>
+    .fade-enter-active {
+        transition: opacity 3s;
+    }
+    .fade-leave-active{
+    }
+    .fade-enter /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
+    .fade-leave{
+        display: none;
+    }
+</style>
+{% endblock %}

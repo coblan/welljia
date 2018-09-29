@@ -506,6 +506,9 @@ var code = exports.code = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var collection = exports.collection = {
     findone: function findone(collection, obj_or_func) {
 
@@ -652,7 +655,7 @@ var collection = exports.collection = {
                     index_ls.push(i);
                 }
             }
-        } else {
+        } else if ((typeof func_or_obj === 'undefined' ? 'undefined' : _typeof(func_or_obj)) == 'object') {
             var obj = func_or_obj;
             for (var i = 0; i < array.length; i++) {
                 var match = true;
@@ -665,6 +668,9 @@ var collection = exports.collection = {
                     index_ls.push(i);
                 }
             }
+        } else {
+            // 删除一个直接返回了
+            return array.splice(array.indexOf(func_or_obj), 1);
         }
         var rm_item = [];
         index_ls.reverse();
@@ -695,8 +701,16 @@ var collection = exports.collection = {
             });
         }
         return out_list;
+    },
+    walk: function walk(array, callback, key) {
+        var key = key || 'children';
+        ex.each(array, function (item) {
+            callback(item);
+            if (item[key]) {
+                ex.walk(item[key], callback, key);
+            }
+        });
     }
-
 };
 
 /***/ }),

@@ -1,0 +1,42 @@
+@import "data";
+
+.left-bar{
+    background-color: #17181d;
+    width: 180px;
+    height:100vh;
+    position: relative;
+    .logo{
+        position: absolute;
+        z-index:100;
+        top:$logo_top;
+        img{
+            width: 113%;
+        }
+    }
+
+    .footer{
+        position: absolute;
+        bottom: 30px;
+        height: 130px;
+        margin-top: 20px;
+        color: #494e5b;
+    }
+
+}
+.right-panel{
+    min-height: 100vh;
+    overflow-x: hidden;
+    .center-content{
+        position: relative;
+        background:url(/static/images/2_1.png) no-repeat;
+        background-size:100% 100%;
+
+    }
+}
+.center-content{
+    position: relative;
+}
+
+::-webkit-scrollbar {
+    display:none
+}

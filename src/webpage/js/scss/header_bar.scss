@@ -1,0 +1,30 @@
+@import "data.scss";
+
+.header-bar{
+    background-color: rgba(79,81,87,0.8);
+    height: $header_bar_height;
+    position: relative;
+    text-align: center;
+
+  .header-menu  a{
+        color: white;
+
+      &:hover ,&.active{
+        color: #8fb2fe;
+      }
+    }
+
+  .sm-right-top-panel{
+      position: absolute;
+      right: 20px;
+
+      a{
+        color: #b8b8b8;
+
+        &:hover{
+          color: white;
+        }
+      }
+
+  }
+}

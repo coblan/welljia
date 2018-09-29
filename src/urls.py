@@ -21,17 +21,20 @@ from helpers.authuser.engin_view import AuthEngine
 from hello.engine_menu import PcMenu
 
 from django.views.generic import RedirectView 
-from webpage.page_home import Home
+from webpage.page_home import Home, Huxing
+from webpage.views import ZhanShi, Xuanchuan
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/([\w\.]+)/?$',AuthEngine.as_view(),name=AuthEngine.url_name),
     
     url(r'^d/',include('helpers.director.urls'),name='director'),
-    
+    url(r'^zhanshi/?$', ZhanShi.as_view()), 
+    url(r'^xuanchuan/?$', Xuanchuan.as_view()), 
     url(r'^pc/([\w\.]+)/?$',PcMenu.as_view(),name=PcMenu.url_name),
     url(r'^pc/?$',RedirectView.as_view(url='/pc/admin_user')), 
-    
+    url(r'^huxing/?$', Huxing.as_view()), 
     url(r'^$', Home.as_view())
 ]
 

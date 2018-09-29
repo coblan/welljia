@@ -4,13 +4,13 @@ from helpers.director.engine import BaseEngine
 #from webpage.models import Banners
 
 from helpers.director.model_func.dictfy import to_dict
+from helpers.director.kv import get_value
 
 # Create your views here.
 class Home(View):
     def __init__(self, request = None, **kws):
         super().__init__(**kws)
         self.request = request
-        
         
     def get(self,request):
         self.request = request
@@ -35,15 +35,7 @@ class Home(View):
         return ctx
     
     def base_context(self): 
-        ctx = {}
-        #if self.request.user.is_authenticated():
-            #user =  self.request.user
-            #ctx.update({
-                #'userinfo': {
-                    #'head': user.userinfo.head or '/static/lib/images/user.png',
-                    #},
-            #})
-            #page_data['username']= self.request.user.username     
+        ctx = {} 
         ctx.update(self.get_top_heads())
         ctx.update(self.get_header_menu())
         return ctx    
@@ -51,10 +43,10 @@ class Home(View):
     def get_header_menu(self):
         
         dc = { 'header_bar_menu': [
-            {'label':'首页','link':'/','name':'home'},
-            {'label':'工商注册','link':'/p/3d','name':'3d'},
-            {'label':'VR展馆','link':'/p/vr','name':'vr'},
-            {'label':'全景现场','link':'/p/fullscreen','name':'fullscreen'},            
+            {'label':'数字沙盘','link':'/','name':'home'},
+            {'label':'户型鉴赏','link':'/huxing','name':'huxing'},
+            {'label':'区域展示','link':'/zhanshi','name':'zhanshi'},
+            {'label':'品牌宣传','link':'/xuanchuan','name':'xuanchuan'},            
         ]}
         return dc
     
@@ -86,15 +78,22 @@ class Home(View):
      
     def extraCtx(self):
         #banners = [{'img': x.img, 'target_url': x.link} for x in Banners.objects.filter(belong = 1).order_by('-priority')]
-      
+        sha_pan_link = get_value('sha_pan_link')
         return {
             #'banners': banners,
             #'recomPanels': recomPanels,
             'crt_page_name':'home',
-            #'header_bar_menu':self.get_header_menu(),
-            #'page_menu':self.get_page_menu()
+            'link_3d': sha_pan_link
         }
 
     def get_template(self):
         return 'webpage/home.html'
     
+
+class Huxing(Home):
+    def extraCtx(self):
+        huxing_link = get_value('huxing_link')
+        return {
+            'crt_page_name':'huxing',
+            'link_3d': huxing_link
+        }    
