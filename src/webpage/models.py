@@ -7,8 +7,9 @@ PAGES = (
 # Create your models here.
 class ZhanRich(models.Model):
     menu_label = models.CharField('菜单显示名', max_length = 30, blank = True)
-    label = models.CharField('大显示名', max_length = 30, blank = True)
+    label = models.CharField('大显示名', max_length = 30, blank = True, help_text = '显示位置，请参看demo页面')
     cover = PictureField('图片', max_length = 300, blank = True)
-    content = models.TextField('主要内容', blank= True)
     page = models.CharField('从属页面',max_length = 30, blank = True, choices = PAGES)
+    priority = models.IntegerField('优先级', default= 0, help_text= '大的排列在前')
+    content = models.TextField('主要内容', blank= True)
     

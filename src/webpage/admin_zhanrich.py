@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage, ModelFields, director, page_dc, ModelTable
+from helpers.director.shortcut import TablePage, ModelFields, director, page_dc, ModelTable, RowFilter, RowSort
 from .models import ZhanRich
 
 
@@ -21,6 +21,12 @@ class ZhanRichPage(TablePage):
                 head['editor'] = 'com-table-switch-to-tab'
                 head['tab_name'] = 'edit_form'
             return head
+        
+        class filters(RowFilter):
+            names = ['page']
+        
+        class sort(RowSort):
+            names = ['priority']
         
     def get_context(self): 
         ctx = super().get_context()

@@ -8,7 +8,7 @@ class ZhanShi(Home):
         return 'webpage/zhanshi.html'
     
     def extraCtx(self): 
-        pageitems = [sim_dict(x) for x in ZhanRich.objects.filter(page = 'zhanshi')]
+        pageitems = [sim_dict(x) for x in ZhanRich.objects.filter(page = 'zhanshi').order_by('-priority')]
         return {
             'crt_page_name':'zhanshi',
             'pageitems': pageitems,
@@ -19,7 +19,7 @@ class Xuanchuan(Home):
         return 'webpage/zhanshi.html'
     
     def extraCtx(self): 
-        pageitems = [sim_dict(x) for x in ZhanRich.objects.filter(page = 'xuanchuan')]
+        pageitems = [sim_dict(x) for x in ZhanRich.objects.filter(page = 'xuanchuan').order_by('-priority')]
         return {
             'crt_page_name':'xuanchuan',
             'pageitems': pageitems,
