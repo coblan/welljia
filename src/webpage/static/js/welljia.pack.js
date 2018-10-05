@@ -403,6 +403,7 @@ Vue.component('com-builder-floor', {
                 title: false,
                 area: ['90%', '90%'],
                 shade: 0.8,
+                skin: 'img-shower',
                 shadeClose: true
             });
         },
@@ -422,7 +423,7 @@ Vue.component('com-builder-floor', {
 
 Vue.component('com-img-shower', {
     props: ['com_ctx'],
-    template: '<div  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;background-color: grey">\n            <img class="center-vh" :src="com_ctx.img_url" style="max-width: 95%;max-height:95%" alt="">\n    </div>'
+    template: '<div  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;">\n            <img class="center-vh" :src="com_ctx.img_url" style="max-width: 95%;max-height:95%" alt="">\n    </div>'
 });
 
 /***/ }),
@@ -538,7 +539,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.com-builder-floor {\n  width: 250px;\n  background-color: white;\n  height: 100%; }\n  .com-builder-floor .big-title {\n    background-color: #4d69a8;\n    color: white;\n    text-align: center;\n    padding: 2px; }\n  .com-builder-floor .floors {\n    overflow-y: auto;\n    margin-bottom: 0; }\n    .com-builder-floor .floors::-webkit-scrollbar {\n      width: 10px;\n      display: inline-block; }\n    .com-builder-floor .floors::-webkit-scrollbar-thumb {\n      /*滚动条里面小方块*/\n      border-radius: 10px;\n      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);\n      background: #4d69a8; }\n  .com-builder-floor .floor {\n    color: black;\n    padding: 2px;\n    text-align: center;\n    background-color: #d4d4d4; }\n    .com-builder-floor .floor:nth-child(even) {\n      background-color: #eeeeee; }\n    .com-builder-floor .floor:hover {\n      background-color: white; }\n    .com-builder-floor .floor.sold {\n      background-color: #be6b6b; }\n      .com-builder-floor .floor.sold:nth-child(even) {\n        background-color: #ce8e8e; }\n      .com-builder-floor .floor.sold:hover {\n        background-color: #ddb2b2; }\n    .com-builder-floor .floor.avaliable {\n      background-color: #88be6b; }\n      .com-builder-floor .floor.avaliable:nth-child(even) {\n        background-color: #a4ce8e; }\n      .com-builder-floor .floor.avaliable:hover {\n        background-color: #c1ddb2; }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.com-builder-floor {\n  width: 250px;\n  background-color: white;\n  height: 100%; }\n  .com-builder-floor .big-title {\n    background-color: #4d69a8;\n    color: white;\n    text-align: center;\n    padding: 2px; }\n  .com-builder-floor .floors {\n    overflow-y: auto;\n    margin-bottom: 0; }\n    .com-builder-floor .floors::-webkit-scrollbar {\n      width: 10px;\n      display: inline-block; }\n    .com-builder-floor .floors::-webkit-scrollbar-thumb {\n      /*滚动条里面小方块*/\n      border-radius: 10px;\n      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);\n      background: #4d69a8; }\n  .com-builder-floor .floor {\n    color: black;\n    padding: 2px;\n    text-align: center;\n    background-color: #d4d4d4; }\n    .com-builder-floor .floor:nth-child(even) {\n      background-color: #eeeeee; }\n    .com-builder-floor .floor:hover {\n      background-color: white; }\n    .com-builder-floor .floor.sold {\n      background-color: #be6b6b; }\n      .com-builder-floor .floor.sold:nth-child(even) {\n        background-color: #ce8e8e; }\n      .com-builder-floor .floor.sold:hover {\n        background-color: #ddb2b2; }\n    .com-builder-floor .floor.avaliable {\n      background-color: #88be6b; }\n      .com-builder-floor .floor.avaliable:nth-child(even) {\n        background-color: #a4ce8e; }\n      .com-builder-floor .floor.avaliable:hover {\n        background-color: #c1ddb2; }\n\n.img-shower {\n  background-color: rgba(0, 0, 0, 0.3); }\n", ""]);
 
 // exports
 

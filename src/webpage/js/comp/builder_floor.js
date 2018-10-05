@@ -33,6 +33,7 @@ Vue.component('com-builder-floor',{
                 title:false,
                 area: ['90%', '90%'],
                 shade: 0.8,
+                skin: 'img-shower',
                 shadeClose: true,
             })
         },
@@ -52,7 +53,7 @@ Vue.component('com-builder-floor',{
 
 Vue.component('com-img-shower',{
     props:['com_ctx'],
-    template:`<div  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;background-color: grey">
+    template:`<div  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;">
             <img class="center-vh" :src="com_ctx.img_url" style="max-width: 95%;max-height:95%" alt="">
     </div>`
 })
