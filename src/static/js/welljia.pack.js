@@ -422,7 +422,7 @@ Vue.component('com-builder-floor', {
 
 Vue.component('com-img-shower', {
     props: ['com_ctx'],
-    template: '<div  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;background-color: grey">\n        <div class="center-vh">\n            <img :src="com_ctx.img_url" style="max-width: 100%;max-height: 100%" alt="">\n        </div>\n\n    </div>'
+    template: '<div  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;background-color: grey">\n            <img class="center-vh" :src="com_ctx.img_url" style="max-width: 95%;max-height:95%" alt="">\n    </div>'
 });
 
 /***/ }),
