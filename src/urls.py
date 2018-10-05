@@ -21,7 +21,8 @@ from helpers.authuser.engin_view import AuthEngine
 from hello.engine_menu import PcMenu
 
 from django.views.generic import RedirectView 
-from webpage.page_home import Home, Huxing
+from webpage.page_home import Home
+from webpage.page_huxing import  Huxing
 from webpage.views import ZhanShi, Xuanchuan
 
 

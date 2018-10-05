@@ -90,10 +90,3 @@ class Home(View):
         return 'webpage/home.html'
     
 
-class Huxing(Home):
-    def extraCtx(self):
-        huxing_link = get_value('huxing_link')
-        return {
-            'crt_page_name':'huxing',
-            'link_3d': huxing_link
-        }    

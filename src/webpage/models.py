@@ -13,3 +13,35 @@ class ZhanRich(models.Model):
     priority = models.IntegerField('优先级', default= 0, help_text= '大的排列在前')
     content = models.TextField('主要内容', blank= True)
     
+class Building(models.Model):
+    label = models.CharField('显示名', max_length = 30)
+    order = models.IntegerField('顺序', default= 0, help_text= '排序，越小越前面')
+    
+    def __str__(self): 
+        return self.label    
+
+class FloorType(models.Model):
+    label = models.CharField('户型名', max_length = 30)
+    img_2d = PictureField('2D图片', blank = True, max_length = 300)
+    img_3d = models.CharField('3D链接', blank = True, max_length = 300)
+    
+    def __str__(self): 
+        return self.label
+
+FLOOR_STATUS = (
+    ('un_avaliable', '不可用'), 
+    ('sold', '已售'), 
+    ('avaliable', '可用')
+)
+
+class Floor(models.Model):
+    label = models.CharField('显示名', max_length = 30)
+    floortype = models.ForeignKey(FloorType, verbose_name = '户型')
+    build = models.ForeignKey(Building, verbose_name = '栋', blank = True, null = True)
+    status = models.CharField('状态', max_length = 30, choices = FLOOR_STATUS, default = 'un_avaliable')
+    order = models.IntegerField('顺序', default= 0, help_text= '排序，越小越前面')
+    
+    def __str__(self): 
+        return self.label
+
+    

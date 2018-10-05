@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -378,10 +378,47 @@ function updateLink(linkElement, obj) {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+__webpack_require__(12);
+
+Vue.component('com-builder-floor', {
+    props: ['building'],
+    template: '<div class="com-builder-floor clickable flex-v">\n          <div class="big-title"><h5 v-text="building.label"></h5></div>\n          <div class="floors flex-grow">\n            <div v-for="floor in building.floors" :class="[\'floor flex\',floor.status]">\n                <div style="color: #a3a3a3;padding-left: 8px"> <i class="fa fa-home"></i></div>\n                <span class="flex-grow" v-text="floor.label"></span>\n                <span style="display: inline-block;margin-left: 1em;">\n                    <button @click="show_2d(floor.img_2d)">2D</button>\n                    <button @click="show_3d(floor.img_3d)">3D</button>\n                </span>\n\n            </div>\n          </div>\n    </div>',
+    methods: {
+        show_2d: function show_2d(img_url) {
+            layer.open({
+                type: 2,
+                title: '2D展示',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['90%', '90%'],
+                content: img_url //iframe的url
+            });
+        },
+        show_3d: function show_3d(img_url) {
+            layer.open({
+                type: 2,
+                title: '3D展示',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['90%', '90%'],
+                content: img_url //iframe的url
+            });
+        }
+
+    }
+});
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(8);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -401,13 +438,39 @@ if(false) {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(6);
+var content = __webpack_require__(9);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./huxing.scss", function() {
+			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./huxing.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(10);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -427,13 +490,13 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(7);
+var content = __webpack_require__(11);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -453,7 +516,21 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, "@charset \"UTF-8\";\n.com-builder-floor {\n  width: 250px;\n  background-color: white;\n  height: 100%; }\n  .com-builder-floor .big-title {\n    background-color: #4d69a8;\n    color: white;\n    text-align: center;\n    padding: 2px; }\n  .com-builder-floor .floors {\n    overflow-y: auto;\n    margin-bottom: 0; }\n    .com-builder-floor .floors::-webkit-scrollbar {\n      width: 10px;\n      display: inline-block; }\n    .com-builder-floor .floors::-webkit-scrollbar-thumb {\n      /*滚动条里面小方块*/\n      border-radius: 10px;\n      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);\n      background: #4d69a8; }\n  .com-builder-floor .floor {\n    color: black;\n    padding: 2px;\n    text-align: center;\n    background-color: #d4d4d4; }\n    .com-builder-floor .floor:nth-child(even) {\n      background-color: #eeeeee; }\n    .com-builder-floor .floor:hover {\n      background-color: white; }\n    .com-builder-floor .floor.sold {\n      background-color: #be6b6b; }\n      .com-builder-floor .floor.sold:nth-child(even) {\n        background-color: #ce8e8e; }\n      .com-builder-floor .floor.sold:hover {\n        background-color: #ddb2b2; }\n    .com-builder-floor .floor.avaliable {\n      background-color: #88be6b; }\n      .com-builder-floor .floor.avaliable:nth-child(even) {\n        background-color: #a4ce8e; }\n      .com-builder-floor .floor.avaliable:hover {\n        background-color: #c1ddb2; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -467,7 +544,21 @@ exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8
 
 
 /***/ }),
-/* 6 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".huxing-page {\n  background: rgba(0, 0, 0, 0.3);\n  width: 900px;\n  margin: auto;\n  height: 100%; }\n  .huxing-page .swiper-container {\n    height: 100%;\n    padding: 10% 0; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -481,7 +572,7 @@ exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180
 
 
 /***/ }),
-/* 7 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -495,17 +586,50 @@ exports.push([module.i, ".zhanshi-main-content {\n  width: 800px;\n  background-
 
 
 /***/ }),
-/* 8 */
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(7);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./builder_floor.scss", function() {
+			var newContent = require("!!../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./builder_floor.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _builder_floor = __webpack_require__(2);
+
+var builder_floor = _interopRequireWildcard(_builder_floor);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 //import * as kuaifawu_menu from  './kuaifawu_menu.js'
 //require('./scss/yewu.scss')
 
+__webpack_require__(5);
 __webpack_require__(3);
-__webpack_require__(2);
+__webpack_require__(6);
 __webpack_require__(4);
 
 /***/ })

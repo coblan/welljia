@@ -30,6 +30,12 @@ class PcMenu(BaseEngine):
                 {'label':'单页面','url':page('ZhanRichPage'),'visible':can_touch(User, crt_user)},
                         ]}, 
             
+            {'label':_('楼层展示'),'icon':fa('fa-home'), 'visible':True,'submenu':[
+                {'label':'栋管理','url':page('building'),'visible':True},
+                {'label': '户型管理', 'url': page('floortype'),}, 
+                {'label':'楼层管理','url':page('floor'),'visible':True},
+                                ]}, 
+            
             {'label':_('用户管理'),'icon':fa('fa-home'), 'visible':True,'submenu':[
                 {'label':'用户信息','url':page('admin_user'),'visible':can_touch(User, crt_user)},
                 ]}, 

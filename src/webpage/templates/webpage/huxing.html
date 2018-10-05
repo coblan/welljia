@@ -1,0 +1,120 @@
+{% extends 'webpage/site_base.html' %}
+{% load static %}
+{% load jsonify %}
+
+{% block page_content %}
+<link href="https://cdn.bootcss.com/Swiper/4.3.0/css/swiper.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/Swiper/4.3.0/js/swiper.min.js"></script>
+
+<style>
+    #there{
+        position: absolute;
+        top:0;
+        left:0;
+        right: 0;
+        bottom: 0;
+    }
+</style>
+
+<script>
+
+    builds={{ builds | jsonify }}
+
+    $(function(){
+        new Vue({
+            el:'#there',
+            data:function(){
+                return {
+                    buildings:builds,
+                    buildings_debug:[
+                        {label:'1栋',floors:[
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'avaliable'},
+                        ]},
+                        {label:'2栋',floors:[
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'sold'},
+                            {label:'10-0-10',cls:'sold'},
+                        ]},
+                        {label:'3栋',floors:[
+                            {label:'10-0-10'},
+                            {label:'10-0-10',cls:'avaliable'},
+                            {label:'10-0-10',cls:'avaliable'},
+                        ]},
+                    ]
+                }
+            },
+            mounted:function(){
+                var swiper = new Swiper('.swiper-container', {
+                    slidesPerView: 3,
+                    centeredSlides: true,
+                    spaceBetween: 30,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        type: 'fraction',
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                })
+            }
+        })
+    })
+</script>
+
+
+<div id="there" >
+
+    <div class="huxing-page">
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="building in buildings">
+                    <com-builder-floor :building="building"></com-builder-floor>
+                </div>
+            </div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
