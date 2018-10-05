@@ -3591,42 +3591,77 @@ function compare(temp1, temp2) {
 
 var com_date_datetimefield_range = {
     props: ['head', 'search_args'],
-    data: function data() {
-        if (!this.search_args['_start_' + this.head.name]) {
-            Vue.set(this.search_args, '_start_' + this.head.name, '');
-            var start = '';
-        } else {
-            var start = this.search_args['_start_' + this.head.name].slice(0, 10);
-        }
-        if (!this.search_args['_end_' + this.head.name]) {
-            Vue.set(this.search_args, '_end_' + this.head.name, '');
-            var end = '';
-        } else {
-            var end = this.search_args['_end_' + this.head.name].slice(0, 10);
-        }
-        return {
-            start: start,
-            end: end
-        };
-    },
+    //data:function(){
+    //    if(! this.search_args['_start_'+this.head.name]){
+    //        Vue.set(this.search_args,'_start_'+this.head.name,'')
+    //        var start=''
+    //    }else{
+    //        var start=this.search_args['_start_'+this.head.name].slice(0,10)
+    //    }
+    //    if(! this.search_args['_end_'+this.head.name]){
+    //        Vue.set(this.search_args,'_end_'+this.head.name,'')
+    //        var end=''
+    //    }else{
+    //        var end=this.search_args['_end_'+this.head.name].slice(0,10)
+    //    }
+    //    return {
+    //        start:start,
+    //        end:end
+    //    }
+    //},
     template: '<div  class="date-filter flex flex-ac">\n                     <date v-model="start" :placeholder="head.label"></date>\n                    <div style="display: inline-block;margin: 0 2px;" >-</div>\n                        <date  v-model="end" :placeholder="head.label"></date>\n                </div>',
-    watch: {
-        start: function start(nv) {
-            if (nv) {
-                this.search_args['_start_' + this.head.name] = nv + ' 00:00:00';
-            } else {
-                this.search_args['_start_' + this.head.name] = '';
+
+    computed: {
+        start: {
+            get: function get() {
+                if (this.search_args['_start_' + this.head.name]) {
+                    return this.search_args['_start_' + this.head.name].slice(0, 10);
+                } else {
+                    return '';
+                }
+            },
+            set: function set(nv) {
+                if (nv) {
+                    this.search_args['_start_' + this.head.name] = nv + ' 00:00:00';
+                } else {
+                    this.search_args['_start_' + this.head.name] = nv;
+                }
             }
         },
-        end: function end(nv) {
-            if (nv) {
-                this.search_args['_end_' + this.head.name] = nv + ' 23:59:59';
-            } else {
-                this.search_args['_end_' + this.head.name] = '';
+        end: {
+            get: function get() {
+                if (this.search_args['_end_' + this.head.name]) {
+                    return this.search_args['_end_' + this.head.name].slice(0, 10);
+                } else {
+                    return '';
+                }
+            },
+            set: function set(nv) {
+                if (nv) {
+                    this.search_args['_end_' + this.head.name] = nv + ' 23:59:59';
+                } else {
+                    this.search_args['_end_' + this.head.name] = nv;
+                }
             }
         }
-
     }
+    //watch:{
+    //    start:function(nv){
+    //        if(nv){
+    //            this.search_args['_start_'+this.head.name]=nv+' 00:00:00'
+    //        }else{
+    //            this.search_args['_start_'+this.head.name]=''
+    //        }
+    //    },
+    //    end:function(nv){
+    //        if(nv){
+    //            this.search_args['_end_'+this.head.name]=nv+' 23:59:59'
+    //        }else{
+    //            this.search_args['_end_'+this.head.name]=''
+    //        }
+    //    }
+    //
+    //}
 
 };
 Vue.component('com-date-datetimefield-range-filter', com_date_datetimefield_range);
@@ -4375,7 +4410,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "table.fake-suit {\n  border: 1px solid #DDD;\n  border-radius: 6px; }\n  table.fake-suit th {\n    font-weight: bold;\n    background-color: #e5e5e5;\n    background-image: linear-gradient(to bottom, #f3f3f3, #e5e5e5); }\n  table.fake-suit td {\n    border-left: 1px solid #F5F5F5; }\n  table.fake-suit tr > td:first-child {\n    border-left: none; }\n  table.fake-suit tbody tr {\n    background-color: white; }\n  table.fake-suit tbody td {\n    border-top: 1px solid #E7E7E7;\n    padding-top: 3px;\n    padding-bottom: 3px; }\n  table.fake-suit tbody tr:nth-child(even) {\n    background-color: #FAFAFA; }\n  table.fake-suit tbody tr:hover {\n    background-color: #F5F5F5; }\n\n.paginator input {\n  width: 20px; }\n\n.paginator .page-input-block {\n  display: inline-block; }\n\n.paginator button {\n  vertical-align: top; }\n\n.sort-mark img {\n  width: 10px; }\n\nul.pagination li {\n  display: inline;\n  cursor: pointer; }\n\nul.pagination li span {\n  color: black;\n  float: left;\n  padding: 4px 10px;\n  text-decoration: none;\n  border: 1px solid #ddd; }\n\nul.pagination li span.active {\n  background-color: #4CAF50;\n  color: white; }\n\nul.pagination li span:hover:not(.active) {\n  background-color: #ddd; }\n\n.com-filter .date-filter {\n  padding-left: 10px; }\n  .com-filter .date-filter span {\n    padding-left: 5px; }\n  .com-filter .date-filter .datetime-picker {\n    min-width: 10em;\n    max-width: 14em; }\n\n.sortmark {\n  color: #d9d9de; }\n  .sortmark.sort-col {\n    color: black; }\n", ""]);
+exports.push([module.i, "table.fake-suit {\n  border: 1px solid #DDD;\n  border-radius: 6px; }\n  table.fake-suit th {\n    font-weight: bold;\n    background-color: #e5e5e5;\n    background-image: linear-gradient(to bottom, #f3f3f3, #e5e5e5); }\n  table.fake-suit td {\n    border-left: 1px solid #F5F5F5; }\n  table.fake-suit tr > td:first-child {\n    border-left: none; }\n  table.fake-suit tbody tr {\n    background-color: white; }\n  table.fake-suit tbody td {\n    border-top: 1px solid #E7E7E7;\n    padding-top: 3px;\n    padding-bottom: 3px; }\n  table.fake-suit tbody tr:nth-child(even) {\n    background-color: #FAFAFA; }\n  table.fake-suit tbody tr:hover {\n    background-color: #F5F5F5; }\n\n.paginator input {\n  width: 20px; }\n\n.paginator .page-input-block {\n  display: inline-block; }\n\n.paginator button {\n  vertical-align: top; }\n\n.sort-mark img {\n  width: 10px; }\n\nul.pagination li {\n  display: inline;\n  cursor: pointer; }\n\nul.pagination li span {\n  color: black;\n  float: left;\n  padding: 4px 10px;\n  text-decoration: none;\n  border: 1px solid #ddd; }\n\nul.pagination li span.active {\n  background-color: #4CAF50;\n  color: white; }\n\nul.pagination li span:hover:not(.active) {\n  background-color: #ddd; }\n\n.com-filter .date-filter {\n  /*padding-left: 10px;*/ }\n  .com-filter .date-filter span {\n    padding-left: 5px; }\n  .com-filter .date-filter .datetime-picker {\n    min-width: 10em;\n    max-width: 14em; }\n\n.sortmark {\n  color: #d9d9de; }\n  .sortmark.sort-col {\n    color: black; }\n", ""]);
 
 // exports
 
@@ -4403,7 +4438,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".filter-item {\n  margin-right: 0.5em; }\n\n.com-filter {\n  align-items: flex-start;\n  flex-wrap: wrap; }\n\n.row-filter .bootstrap-select {\n  min-width: 10em; }\n", ""]);
+exports.push([module.i, ".filter-item {\n  margin: auto 0.3em;\n  max-width: 300px; }\n\n.com-filter {\n  align-items: flex-start;\n  flex-wrap: wrap; }\n\n.row-filter .bootstrap-select {\n  min-width: 10em; }\n", ""]);
 
 // exports
 

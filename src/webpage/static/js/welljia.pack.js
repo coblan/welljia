@@ -388,19 +388,28 @@ Vue.component('com-builder-floor', {
     template: '<div class="com-builder-floor clickable flex-v">\n          <div class="big-title"><h5 v-text="building.label"></h5></div>\n          <div class="floors flex-grow">\n            <div v-for="floor in building.floors" :class="[\'floor flex\',floor.status]">\n                <div style="color: #a3a3a3;padding-left: 8px"> <i class="fa fa-home"></i></div>\n                <span class="flex-grow" v-text="floor.label"></span>\n                <span style="display: inline-block;margin-left: 1em;">\n                    <button @click="show_2d(floor.img_2d)">2D</button>\n                    <button @click="show_3d(floor.img_3d)">3D</button>\n                </span>\n\n            </div>\n          </div>\n    </div>',
     methods: {
         show_2d: function show_2d(img_url) {
-            layer.open({
-                type: 2,
-                title: '2D展示',
-                shadeClose: true,
-                shade: 0.8,
+            //layer.open({
+            //    type: 2,
+            //    title: false,
+            //    shadeClose: true,
+            //    shade: 0.8,
+            //    area: ['90%', '90%'],
+            //    content: img_url //iframe的url
+            //});
+            var ctx = {
+                img_url: img_url
+            };
+            pop_layer(ctx, 'com-img-shower', function () {}, {
+                title: false,
                 area: ['90%', '90%'],
-                content: img_url //iframe的url
+                shade: 0.8,
+                shadeClose: true
             });
         },
         show_3d: function show_3d(img_url) {
             layer.open({
                 type: 2,
-                title: '3D展示',
+                title: false,
                 shadeClose: true,
                 shade: 0.8,
                 area: ['90%', '90%'],
@@ -409,6 +418,11 @@ Vue.component('com-builder-floor', {
         }
 
     }
+});
+
+Vue.component('com-img-shower', {
+    props: ['com_ctx'],
+    template: '<div  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;background-color: grey">\n        <div class="center-vh">\n            <img :src="com_ctx.img_url" style="max-width: 100%;max-height: 100%" alt="">\n        </div>\n\n    </div>'
 });
 
 /***/ }),
