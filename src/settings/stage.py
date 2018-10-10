@@ -24,4 +24,4 @@ TENCENT = {
     'validate_temp': '199823',
 }
 
-ALLOWED_HOSTS = ['well.enjoyst.com']
+ALLOWED_HOSTS = ['well.enjoyst.com', 'http://211.149.132.181/']
