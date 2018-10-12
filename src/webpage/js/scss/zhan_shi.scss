@@ -13,7 +13,7 @@
         display: flex;
         .big-title{
             position: relative;
-            width: 220px;
+            width: 30%;
             flex-grow: 0;
             flex-shrink: 0;
             background-color: #1d212c;
@@ -58,5 +58,10 @@
         img{
             max-width: 100%;
         }
+    }
+}
+@media (max-width: 900px) {
+    .zhanshi-main-content {
+        width: 100%;
     }
 }
