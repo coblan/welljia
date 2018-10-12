@@ -1,7 +1,29 @@
 
-<html>
-<body>
-<iframe  src="{{ link_3d }}" frameborder="0" style="width: 100%;height: 100%"></iframe>
-</body>
-</html>
+{% extends 'webpage/site_base.html' %}
+{% load static %}
+{% load jsonify %}
 
+{% block page_content %}
+
+<style>
+    #there{
+        position: absolute;
+        top:0;
+        left:0;
+        right: 0;
+        bottom: 0;
+    }
+
+</style>
+
+<script>
+
+</script>
+
+<div id="there" >
+
+    <iframe  src="{{ link_3d }}" frameborder="0" style="width: 100%;height: 100%"></iframe>
+
+</div>
+
+{% endblock %}
