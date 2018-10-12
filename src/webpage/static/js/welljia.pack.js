@@ -581,7 +581,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  position: relative; }\n\n::-webkit-scrollbar {\n  display: none; }\n", ""]);
+exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  position: relative; }\n\n::-webkit-scrollbar {\n  display: none; }\n", ""]);
 
 // exports
 

@@ -22,8 +22,15 @@
         margin-top: 20px;
         color: #494e5b;
     }
-
 }
+
+@media (max-width: 900px) {
+    .left-bar{
+        display: none;
+    }
+}
+
+
 .right-panel{
     min-height: 100vh;
     overflow-x: hidden;
@@ -41,3 +48,4 @@
 ::-webkit-scrollbar {
     display:none
 }
+
