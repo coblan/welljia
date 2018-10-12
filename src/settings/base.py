@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'helpers.case.jb_admin',   
     'helpers.case.site_frame',
     'site_authuser', 
+    'usersystem', 
     'webpage'
 ]
 

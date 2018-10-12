@@ -1,6 +1,6 @@
 from helpers.director.shortcut import ModelTable, ModelFields, director, page_dc, TablePage
 from django.contrib.auth.models import User
-from helpers.authuser.models import UserInfo
+from usersystem.models import UserInfo
 
 class UserAdminPage(TablePage):
     template = 'jb_admin/table.html'
