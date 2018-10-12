@@ -553,7 +553,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu {\n    white-space: nowrap; } }\n", ""]);
+exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu {\n    white-space: nowrap; }\n  .sm-right-top-panel {\n    display: none; } }\n", ""]);
 
 // exports
 
