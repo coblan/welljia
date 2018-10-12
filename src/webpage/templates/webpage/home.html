@@ -13,22 +13,20 @@
         /*bottom: 0;*/
     /*}*/
 
-    #there{
-        flex-shrink: 0;
-        /*width: 100%;*/
-        height: 100%;
-    }
-    .center-content{
-        display: flex;
-        flex-direction: column;
-    }
-
 </style>
 
-<!--<div id="there" >-->
+<script>
+    $(function(){
+        console.log($('.left-bar').height())
+        console.log($('#header-bar').height())
+        $('#there').height($('.left-bar').height() - $('#header-bar').height())
+    })
+</script>
+
+<div id="there" >
 
     <iframe  class="flex-grow"  src="{{ link_3d }}" frameborder="0" style="width: 100%;height: 100%"></iframe>
 
-<!--</div>-->
+</div>
 
 {% endblock %}
