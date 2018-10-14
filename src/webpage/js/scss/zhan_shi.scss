@@ -62,7 +62,9 @@
 @media (max-width: 900px) {
     .zhanshi-main-content {
         width: 100%;
-
+        .banner {
+            margin-top: 0;
+        }
         .html-content{
            padding: 0 20px;
         }
