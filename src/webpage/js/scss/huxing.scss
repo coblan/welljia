@@ -8,5 +8,15 @@
       height: 100%;
       padding:10% 0;
   }
+  .swiper-slide{
+    width: 250px;
+  }
+
+}
+
+@media (max-width: 900px) {
+  .huxing-page{
+    width: 100%;
+  }
 
 }
