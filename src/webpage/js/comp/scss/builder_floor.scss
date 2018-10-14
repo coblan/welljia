@@ -62,8 +62,20 @@ $big_title_color:#4d69a8;
       }
 
   }
+
 }
 
 .img-shower{
   background-color: rgba(0,0,0,0.3);
+}
+.com-pop-huxing {
+    .toogle-btn{
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        color: white;
+        padding: 0.5em;
+        background-color: grey;
+        border-radius: 5px;
+    }
 }

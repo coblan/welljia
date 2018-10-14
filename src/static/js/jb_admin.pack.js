@@ -1651,7 +1651,7 @@ function pop_layer(com_ctx, component_name, callback, layerConfig) {
             }
         },
         //shadeClose: true, //点击遮罩关闭
-        content: '<div id="fields-pop-' + pop_id + '">\n                    <component :is="component_name" :com_ctx="com_ctx" @finish="on_finish($event)"></component>\n                </div>',
+        content: '<div id="fields-pop-' + pop_id + '">\n                    <component :is="component_name" :ctx="com_ctx" @finish="on_finish($event)"></component>\n                </div>',
         end: function end() {
 
             //eventBus.$emit('openlayer_changed')

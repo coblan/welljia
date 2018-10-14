@@ -105,7 +105,15 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="building in buildings">
-                    <com-builder-floor :building="building"></com-builder-floor>
+                    <com-builder-floor :building="building">
+                        <!--<template slot-scope="slot">-->
+                            <!--<div style="color: #a3a3a3;padding-left: 8px"> <i class="fa fa-home"></i></div>-->
+                            <!--<span class="flex-grow" v-text="slot.floor.label"></span>-->
+                <!---->
+                        <!--</template>-->
+
+
+                    </com-builder-floor>
                 </div>
             </div>
 
