@@ -2202,7 +2202,7 @@ var mix_table_data = {
                     var cache_rows = ex.copy(self.selected);
                     ex.each(cache_rows, function (row) {
                         ex.assign(row, all_set_dict);
-                        if (kws.fields_ctx) {
+                        if (kws.fields_ctx && kws.fields_ctx.director_name) {
                             row._cache_director_name = row._director_name; // [1] 有可能是用的特殊的 direcotor
                             row._director_name = kws.fields_ctx.director_name;
                         }

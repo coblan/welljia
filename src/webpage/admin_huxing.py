@@ -9,6 +9,7 @@ class BuildPage(TablePage):
     class tableCls(ModelTable):
         model = Building
         exclude = []
+        pop_edit_field = 'id'
     
 class BuildForm(ModelFields):
     class Meta:
