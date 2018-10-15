@@ -4,7 +4,7 @@ from helpers.authuser.phone import make_phone_validate_code, validate_phone_code
 from helpers.director.shortcut import director
 from helpers.func.random_str import get_str
 from django.utils import timezone
-from helpers.authuser.models import  UserInfo
+from usersystem.models import UserInfo
 from django.contrib.auth.models import User
 from django import forms
 from helpers.third_interface.tencent_msg import send_validate_code

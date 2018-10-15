@@ -1,7 +1,7 @@
 from helpers.authuser.admin_login import LoginFormPage, auth_page_dc, director
 import re
 from django.contrib.auth.models import User
-from helpers.authuser.models import UserInfo
+from usersystem.models import UserInfo
 
 class SiteLoginFormPage(LoginFormPage):
     def get_context(self): 

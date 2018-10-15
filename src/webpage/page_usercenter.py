@@ -2,7 +2,7 @@ from .page_home import Home
 from django.contrib.auth.models import User
 from helpers.authuser.base_data import auth_page_dc
 from helpers.director.shortcut import director, ModelFields
-from helpers.authuser.models import UserInfo
+from usersystem.models import UserInfo
 
 class UserCenter(Home):
     def __init__(self, request, **kwargs): 
