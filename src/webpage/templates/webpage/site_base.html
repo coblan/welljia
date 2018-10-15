@@ -12,6 +12,8 @@
 
 
 {% block site-content %}
+<script src="https://cdn.staticfile.org/slideout/1.0.1/slideout.min.js"></script>
+
 <script src="{{ js_config.js_lib.element }}"></script>
 <link href="{{ js_config.js_lib.element_css }}" rel="stylesheet">
 <script src="{{ js_config.js_lib.director }}"></script>
@@ -24,13 +26,29 @@
     crt_page_name = {{ crt_page_name | jsonify }}
     top_heads={{ top_heads | jsonify }}
 
+    env={}
+    env.width= $(window).width()
+    $(window).resize(function(){
+        env.width=$(window).width()
+    })
+
     $(function(){
+
+        new Vue({
+            el:'.slide-menu',
+            data: {
+                env: env,
+                menu: header_bar_menu,
+                crt_page_name:crt_page_name,
+                top_heads:top_heads,
+            }
+        })
 
         new Vue({
             el:'#header-bar',
             data:{
+                env:env,
                 menu:header_bar_menu,
-
                 crt_page_name:crt_page_name,
                 username:page_data.username,
                 page_menu: page_menu,
@@ -39,10 +57,56 @@
             }
         })
 
+
     })
 </script>
 
-<div class="flex">
+<style>
+    .slideout-menu {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 256px;
+        min-height: 100vh;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        z-index: 0;
+        display: none;
+    }
+
+    .slideout-menu-left {
+        left: 0;
+    }
+
+    .slideout-menu-right {
+        right: 0;
+    }
+
+    .slideout-panel {
+        position: relative;
+        z-index: 1;
+        will-change: transform;
+        background-color: #FFF; /* A background-color is required */
+        min-height: 100vh;
+    }
+
+    .slideout-open,
+    .slideout-open body,
+    .slideout-open .slideout-panel {
+        overflow: hidden;
+    }
+
+    .slideout-open .slideout-menu {
+        display: block;
+    }
+</style>
+<script>
+
+</script>
+
+
+
+<div class="flex" id="main-panel">
 
     <div class="left-bar">
 
@@ -60,26 +124,41 @@
             </div>
 
         </div>
-
     </div>
 
-    <div class="right-panel flex-grow flex-v">
+    <nav class="slide-menu" v-if="env.width<900">
 
-
-        <div id="header-bar" class="header-bar">
-
-            <com-header-menu  class="center-vh" :menu="menu" :active="crt_page_name"></com-header-menu>
-
-            <div class="sm-right-top-panel center-v">
-                <component v-for="head in top_heads" :is="head.editor" :head="head"></component>
+        <com-header-menu  :menu="menu" :active="crt_page_name">
+        </com-header-menu>
+        <div style="margin-top: 2em;border-top:1px solid #313131;padding-top: 1em;">
+            <div class="sm-right-top-panel">
+                <component v-for="head in top_heads" :is="head.mb_editor || head.editor" :head="head"></component>
             </div>
         </div>
 
 
+    </nav>
 
+    <div class="right-panel flex-grow flex-v">
 
+        <div id="header-bar">
 
+            <com-slide-menu v-if="env.width<900" menu=".slide-menu" toggle-btn=".toggle-button" panel=".right-panel">
+            </com-slide-menu>
 
+            <div class="header-bar" >
+                <div v-if="env.width<900" class="slide-btn center-v"  >
+                    <div class="toggle-button" style="color: white">☰</div>
+                </div>
+                <b style="color: #e9e9e9;" v-if="env.width<900" class="center-vh">威尔佳</b>
+
+                <com-header-menu v-if="env.width>=900"  class="center-vh"  :menu="menu" :active="crt_page_name">
+                </com-header-menu>
+                <div v-if="env.width>=900" class="sm-right-top-panel center-v">
+                    <component v-for="head in top_heads" :is="head.editor" :head="head"></component>
+                </div>
+            </div>
+        </div>
 
         <div class="center-content flex-grow">
             {% block page_content %}

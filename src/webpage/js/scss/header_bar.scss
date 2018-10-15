@@ -30,9 +30,16 @@
 }
 @media (max-width: 900px) {
   .header-menu {
-    white-space: nowrap;
+    .menu-item {
+      display:block;
+      a{
+        color:white;
+      }
+    }
   }
   .sm-right-top-panel{
-    display: none ;
+
   }
+
+
 }

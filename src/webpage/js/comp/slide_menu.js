@@ -1,0 +1,23 @@
+require('./scss/slide_menu.scss')
+
+var slide_menu={
+    props:['menu','toggleBtn','panel'],
+    template:`<div>
+    </div>`,
+    mounted:function(){
+        var self=this
+        var slideout = new Slideout({
+            'panel': $(self.panel)[0], //document.getElementById('main-panel'),
+            'menu':  $(self.menu)[0] ,//document.getElementById('menu'),
+            'padding': 256,
+            'tolerance': 70
+        });
+
+        $(self.toggleBtn).click( function() {
+            slideout.toggle();
+        });
+
+    }
+}
+
+Vue.component('com-slide-menu',slide_menu)

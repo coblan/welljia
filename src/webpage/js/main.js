@@ -7,3 +7,4 @@ require('./scss/zhan_shi.scss')
 require('./scss/huxing.scss')
 
 import * as builder_floor from './comp/builder_floor'
+import * as slide_menu from './comp/slide_menu'

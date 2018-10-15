@@ -56,7 +56,9 @@ class Home(View):
         if user.is_authenticated():            
             top_head = {
                 'top_heads': [
-                    {'name': 'userinfo', 'editor': 'com-head-dropdown', 
+                    {'name': 'userinfo', 
+                     'editor': 'com-head-dropdown', 
+                     'mb_editor': 'com-head-sm-link',
                      'label': '<img src="%s" style="display:inline-block;width:24px;height:24px;border-radius:12px;"/>' % (user.userinfo.head or '/static/lib/images/user.png'), #'<i class="fa fa-user-circle"></i>', 
                      'options': [
                         {'url': '/accounts/usercenter', 'label': '修改资料',}, 
