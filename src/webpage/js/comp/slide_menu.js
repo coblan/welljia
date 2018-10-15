@@ -10,7 +10,8 @@ var slide_menu={
             'panel': $(self.panel)[0], //document.getElementById('main-panel'),
             'menu':  $(self.menu)[0] ,//document.getElementById('menu'),
             'padding': 256,
-            'tolerance': 70
+            'tolerance': 70,
+            touch:false
         });
 
         $(self.toggleBtn).click( function() {
