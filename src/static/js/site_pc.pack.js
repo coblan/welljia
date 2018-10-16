@@ -385,7 +385,16 @@ __webpack_require__(10);
 
 Vue.component('com-header-menu', {
     props: ['menu', 'active'],
-    template: '<div class="header-menu">\n        <span class="menu-item" v-for="act in menu">\n            <a :class="{\'active\':active==act.name}"  :href="act.link" v-text="act.label"></a>\n        </span>\n    </div>'
+    template: '<div class="header-menu">\n        <span class="menu-item" v-for="act in menu">\n            <a :class="{\'active\':active==act.name}" href="jacascript::void(0)" @click="on_click(act.link)"  v-text="act.label"></a>\n        </span>\n    </div>',
+    methods: {
+        on_click: function on_click(url) {
+            if (this.$listeners && this.$listeners.jump) {
+                this.$emit('jump', url);
+            } else {
+                location = url;
+            }
+        }
+    }
 
 });
 

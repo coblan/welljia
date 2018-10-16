@@ -13,6 +13,7 @@
 
 {% block site-content %}
 <script src="https://cdn.staticfile.org/slideout/1.0.1/slideout.min.js"></script>
+<!--<script src="https://cdn.staticfile.org/vuex/3.0.1/vuex.min.js"></script>-->
 
 <script src="{{ js_config.js_lib.element }}"></script>
 <link href="{{ js_config.js_lib.element_css }}" rel="stylesheet">
@@ -33,14 +34,36 @@
     })
 
     $(function(){
-
+//        Vue.use(Vuex);
+//
+//        var store = new Vuex.Store({
+//            state:{
+//                count:1
+//            },
+//            mutations:{
+//                increment (state) {
+//                    // 变更状态
+//                    state.count++
+//                }
+//            }
+//        });
         new Vue({
             el:'.slide-menu',
+//            store:store,
             data: {
                 env: env,
                 menu: header_bar_menu,
                 crt_page_name:crt_page_name,
                 top_heads:top_heads,
+            },
+            methods:{
+                on_jump:function(url){
+                    $('.toggle-button').click()
+                    setTimeout(function(){
+                        location=url
+                    },500)
+
+                }
             }
         })
 
@@ -128,7 +151,7 @@
 
     <nav class="slide-menu" v-if="env.width<900">
 
-        <com-header-menu  :menu="menu" :active="crt_page_name">
+        <com-header-menu  :menu="menu" :active="crt_page_name" @jump="on_jump($event)">
         </com-header-menu>
         <div style="margin-top: 2em;border-top:1px solid #313131;padding-top: 1em;">
             <div class="sm-right-top-panel">
