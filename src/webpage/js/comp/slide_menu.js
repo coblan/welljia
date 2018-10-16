@@ -18,6 +18,9 @@ var slide_menu={
             slideout.toggle();
         });
 
+        document.querySelector(self.menu).addEventListener('click', function(eve) {
+            if (eve.target.nodeName === 'A') { slideout.close(); }
+        });
         //$(self.menu).on('click','a',function(){
         //    console.log('hehee')
         //    slideout.close()
