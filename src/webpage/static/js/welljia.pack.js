@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -381,7 +381,7 @@ function updateLink(linkElement, obj) {
 "use strict";
 
 
-__webpack_require__(12);
+__webpack_require__(14);
 
 Vue.component('com-builder-floor', {
     props: ['building'],
@@ -416,10 +416,45 @@ Vue.component('com-pop-huxing', {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+__webpack_require__(15);
+
+var slide_menu = {
+    props: ['menu', 'toggleBtn', 'panel'],
+    template: '<div>\n    </div>',
+    mounted: function mounted() {
+        var self = this;
+        var slideout = new Slideout({
+            'panel': $(self.panel)[0], //document.getElementById('main-panel'),
+            'menu': $(self.menu)[0], //document.getElementById('menu'),
+            'padding': 256,
+            'tolerance': 70,
+            touch: false
+        });
+
+        $(self.toggleBtn).click(function () {
+            slideout.toggle();
+        });
+
+        $(self.menu).on('click', 'a', function () {
+            console.log('hehee');
+            slideout.close();
+        });
+    }
+};
+
+Vue.component('com-slide-menu', slide_menu);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(8);
+var content = __webpack_require__(10);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -439,13 +474,13 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(9);
+var content = __webpack_require__(11);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -465,13 +500,13 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(10);
+var content = __webpack_require__(12);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -491,13 +526,13 @@ if(false) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(13);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -517,7 +552,7 @@ if(false) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -531,20 +566,6 @@ exports.push([module.i, "@charset \"UTF-8\";\n.com-builder-floor {\n  background
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -553,7 +574,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".huxing-page {\n  background: rgba(0, 0, 0, 0.3);\n  width: 900px;\n  margin: auto;\n  height: 100%; }\n  .huxing-page .swiper-container {\n    height: 100%;\n    padding: 10% 0; }\n  .huxing-page .swiper-slide {\n    width: 250px; }\n\n@media (max-width: 900px) {\n  .huxing-page {\n    width: 100%; } }\n", ""]);
+exports.push([module.i, ".slide-menu {\n  background-color: #272727;\n  color: white;\n  padding-top: 2em; }\n", ""]);
 
 // exports
 
@@ -567,7 +588,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  position: relative; }\n\n::-webkit-scrollbar {\n  display: none; }\n", ""]);
+exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
 
 // exports
 
@@ -581,7 +602,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".zhanshi-main-content {\n  width: 800px;\n  background-color: rgba(0, 0, 0, 0.3);\n  height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 30px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    width: 100%;\n    position: relative;\n    background-color: #4c68a6; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      width: 200vw;\n      left: -50vw;\n      opacity: 0.9;\n      z-index: -1; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    overflow: scroll;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    width: 100%; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
+exports.push([module.i, ".huxing-page {\n  background: rgba(0, 0, 0, 0.3);\n  width: 900px;\n  margin: auto;\n  height: 100%; }\n  .huxing-page .swiper-container {\n    height: 100%;\n    padding: 10% 0; }\n  .huxing-page .swiper-slide {\n    width: 250px; }\n\n@media (max-width: 900px) {\n  .huxing-page {\n    width: 100%; } }\n", ""]);
 
 // exports
 
@@ -590,10 +611,38 @@ exports.push([module.i, ".zhanshi-main-content {\n  width: 800px;\n  background-
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  position: relative; }\n\n::-webkit-scrollbar {\n  display: none; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".zhanshi-main-content {\n  width: 800px;\n  background-color: rgba(0, 0, 0, 0.3);\n  height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 30px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    width: 100%;\n    position: relative;\n    background-color: #4c68a6; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      width: 200vw;\n      left: -50vw;\n      opacity: 0.9;\n      z-index: -1; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    overflow: scroll;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    width: 100%; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(7);
+var content = __webpack_require__(8);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -613,82 +662,13 @@ if(false) {
 }
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _builder_floor = __webpack_require__(2);
-
-var builder_floor = _interopRequireWildcard(_builder_floor);
-
-var _slide_menu = __webpack_require__(14);
-
-var slide_menu = _interopRequireWildcard(_slide_menu);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-//import * as kuaifawu_menu from  './kuaifawu_menu.js'
-//require('./scss/yewu.scss')
-
-__webpack_require__(5);
-__webpack_require__(3);
-__webpack_require__(6);
-__webpack_require__(4);
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(16);
-
-var slide_menu = {
-    props: ['menu', 'toggleBtn', 'panel'],
-    template: '<div>\n    </div>',
-    mounted: function mounted() {
-        var self = this;
-        var slideout = new Slideout({
-            'panel': $(self.panel)[0], //document.getElementById('main-panel'),
-            'menu': $(self.menu)[0], //document.getElementById('menu'),
-            'padding': 256,
-            'tolerance': 70,
-            touch: false
-        });
-
-        $(self.toggleBtn).click(function () {
-            slideout.toggle();
-        });
-    }
-};
-
-Vue.component('com-slide-menu', slide_menu);
-
-/***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, ".slide-menu {\n  background-color: #272727;\n  color: white;\n  padding-top: 2em; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(15);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -706,6 +686,31 @@ if(false) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _builder_floor = __webpack_require__(2);
+
+var builder_floor = _interopRequireWildcard(_builder_floor);
+
+var _slide_menu = __webpack_require__(3);
+
+var slide_menu = _interopRequireWildcard(_slide_menu);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+//import * as kuaifawu_menu from  './kuaifawu_menu.js'
+//require('./scss/yewu.scss')
+
+__webpack_require__(6);
+__webpack_require__(4);
+__webpack_require__(7);
+__webpack_require__(5);
 
 /***/ })
 /******/ ]);

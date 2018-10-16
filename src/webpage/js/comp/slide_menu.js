@@ -18,6 +18,11 @@ var slide_menu={
             slideout.toggle();
         });
 
+        $(self.menu).on('click','a',function(){
+            console.log('hehee')
+            slideout.close()
+        })
+
     }
 }
 
