@@ -1442,13 +1442,12 @@ __webpack_require__(91);
 // header 上的小链接
 Vue.component('com-head-sm-link', {
     props: ['head'],
-    template: '<div class="small-link">\n    <span class="item" v-for="action in head.options">\n        <a  @click="on_click(action.url)" class="login-link" v-text="action.label"></a>\n        <span class="space" v-if="action != head.options[head.options.length-1]">&nbsp;|&nbsp;</span>\n    </span>\n    </div>',
+    template: '<div class="small-link">\n    <span class="item" v-for="action in head.options">\n        <a  @click="on_click(action.url)" class="login-link clickable" v-text="action.label"></a>\n        <span class="space" v-if="action != head.options[head.options.length-1]">&nbsp;|&nbsp;</span>\n    </span>\n    </div>',
     methods: {
-        on_click: function on_click() {
+        on_click: function on_click(url) {
             if (this.$listeners && this.$listeners.jump) {
                 this.$emit('jump', url);
             } else {
-
                 location = url;
             }
         }
