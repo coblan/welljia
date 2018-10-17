@@ -391,7 +391,9 @@ Vue.component('com-header-menu', {
             if (this.$listeners && this.$listeners.jump) {
                 this.$emit('jump', url);
             } else {
-                location = url;
+                Vue.nextTick(function () {
+                    location = url;
+                });
             }
         }
     }

@@ -1442,7 +1442,18 @@ __webpack_require__(91);
 // header 上的小链接
 Vue.component('com-head-sm-link', {
     props: ['head'],
-    template: '<div class="small-link">\n    <span class="item" v-for="action in head.options">\n        <a :href="action.url" class="login-link" v-text="action.label"></a>\n        <span class="space" v-if="action != head.options[head.options.length-1]">&nbsp;|&nbsp;</span>\n    </span>\n\n    </div>'
+    template: '<div class="small-link">\n    <span class="item" v-for="action in head.options">\n        <a href="jacascript::void(0)" @click="on_click(action.url)" class="login-link" v-text="action.label"></a>\n        <span class="space" v-if="action != head.options[head.options.length-1]">&nbsp;|&nbsp;</span>\n    </span>\n    </div>',
+    methods: {
+        on_click: function on_click() {
+            if (this.$listeners && this.$listeners.jump) {
+                this.$emit('jump', url);
+            } else {
+                Vue.nextTick(function () {
+                    location = url;
+                });
+            }
+        }
+    }
 });
 
 /***/ }),
@@ -2340,12 +2351,16 @@ var mix_table_data = {
             emitEvent: function emitEvent(e) {
                 self.$emit(e);
             },
+            update_or_insert: function update_or_insert(kws) {
+                self.update_or_insert(kws.new_row, kws.old_row);
+            },
             update_or_insert_rows: function update_or_insert_rows(kws) {
                 var rows = kws.rows;
                 ex.each(rows, function (row) {
                     self.update_or_insert(row);
                 });
             },
+
             export_excel: function export_excel() {
                 var search_args = ex.copy(self.search_args);
                 search_args._perpage = 5000;

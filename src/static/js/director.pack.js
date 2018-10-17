@@ -3561,7 +3561,7 @@ Vue.component('com-search-select', com_search);
 
 var com_select = {
     props: ['head', 'search_args', 'config'],
-    template: '<select v-model=\'search_args[head.name]\' class="form-control input-sm" >\n        <option :value="undefined" v-text=\'head.label\'></option>\n        <option :value="null" disabled >---</option>\n        <option v-for=\'option in orderBy( head.options,"label")\' :value="option.value" v-text=\'option.label\'></option>\n    </select>\n    ',
+    template: '<select v-model=\'search_args[head.name]\' class="form-control input-sm" >\n        <option v-if="head.forbid_select_null" :value="null" disabled v-text=\'head.label\'></option>\n        <option v-else :value="undefined" v-text=\'head.label\' ></option>\n        <option :value="null" disabled >---</option>\n        <option v-for=\'option in orderBy( head.options,"label")\' :value="option.value" v-text=\'option.label\'></option>\n    </select>\n    ',
     data: function data() {
         //var inn_cfg = {
         //    order: this.head.order || false  // 默认false
@@ -4467,7 +4467,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".filter-item {\n  margin: auto 0.3em;\n  max-width: 300px; }\n\n.com-filter {\n  align-items: flex-start;\n  flex-wrap: wrap; }\n\n.row-filter .bootstrap-select {\n  min-width: 10em; }\n", ""]);
+exports.push([module.i, ".filter-item {\n  margin: auto 0.3em;\n  max-width: 300px; }\n\n.com-filter {\n  flex-wrap: wrap; }\n\n.row-filter .bootstrap-select {\n  min-width: 10em; }\n", ""]);
 
 // exports
 
