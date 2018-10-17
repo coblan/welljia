@@ -1,0 +1,21 @@
+
+.plain-panel{
+  width: 600px;
+  margin: auto;
+  margin-top: 3em;
+  background-color: white;
+  padding: 1em 5em;
+  min-height: 500px;
+}
+
+@media (max-width: 900px) {
+  .plain-panel{
+    width: auto;
+    margin: 10px;
+    background-color: white;
+    padding: 1em 1em;
+    min-height: 500px;
+    border-radius: 3px;
+  }
+
+}
