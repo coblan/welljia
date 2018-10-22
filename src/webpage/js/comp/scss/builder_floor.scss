@@ -1,4 +1,4 @@
-$un_availabel_color: #d4d4d4;
+$un_availabel_color: #808080;
 $sold_color: #be6b6b;
 $avaliable_color: #88be6b;
 
@@ -45,20 +45,22 @@ $big_title_color:#4d69a8;
 
       &.sold{
         background-color: $sold_color;
-        &:nth-child(even){
-          background-color: lighten($sold_color,10%);
-        }
+        border: 1px solid #561f1f;
+        //&:nth-child(even){
+        //  background-color: lighten($sold_color,10%);
+        //}
         &:hover{
-          background-color: lighten($sold_color,20%);
+          background-color: lighten($sold_color,10%);
         }
       }
       &.avaliable{
         background-color: $avaliable_color;
-        &:nth-child(even){
-          background-color: lighten($avaliable_color,10%);
-        }
+        border: 1px solid #1f561f;
+        //&:nth-child(even){
+        //  background-color: lighten($avaliable_color,10%);
+        //}
         &:hover{
-          background-color: lighten($avaliable_color,20%);
+          background-color: lighten($avaliable_color,10%);
         }
       }
 
