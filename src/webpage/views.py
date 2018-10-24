@@ -34,3 +34,13 @@ class D3Wrap(Home):
         return {
             'd3_url': d3_url,
         }
+
+class D3WrapE(Home):
+    def get_template(self): 
+        return 'webpage/3d_wrap_e.html'
+    
+    def extraCtx(self): 
+        d3_url = self.request.GET.get('d3_url')
+        return {
+            'd3_url': d3_url,
+        }
