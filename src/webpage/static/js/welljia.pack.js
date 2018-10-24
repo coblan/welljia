@@ -406,7 +406,8 @@ Vue.component('com-pop-huxing', {
     props: ['ctx'],
     data: function data() {
         return {
-            crt_view: '2d'
+            crt_view: '2d',
+            d3_url: ''
         };
     },
     computed: {
@@ -414,7 +415,17 @@ Vue.component('com-pop-huxing', {
             return '/3d_wrap?d3_url=' + encodeURIComponent(this.ctx.floor.img_3d);
         }
     },
-    template: '<div class="com-pop-huxing"  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;">\n\n             <img v-if="crt_view==\'2d\'" class="center-vh" :src="ctx.floor.img_2d" style="max-width: 95%;max-height:95%" alt="">\n             <iframe allowvr="yes" scrolling="no" v-if="crt_view==\'3d\'" :src="wraped_3d" frameborder="0" width="100%" height="100%"></iframe>\n             <div class="toogle-btn clickable" v-if="crt_view==\'2d\'" @click="crt_view=\'3d\'">3D</div>\n             <div class="toogle-btn clickable" v-if="crt_view==\'3d\'" @click="crt_view=\'2d\'">2D</div>\n    </div>'
+    watch: {
+        crt_view: function crt_view(nv) {
+            if (nv == '3d') {
+                var self = this;
+                setTimeout(function () {
+                    self.d3_url = self.wraped_3d;
+                });
+            }
+        }
+    },
+    template: '<div class="com-pop-huxing"  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;">\n\n             <img v-if="crt_view==\'2d\'" class="center-vh" :src="ctx.floor.img_2d" style="max-width: 95%;max-height:95%" alt="">\n             <iframe allowvr="yes" scrolling="no" v-if="crt_view==\'3d\'" :src="d3_url" frameborder="0" width="100%" height="100%"></iframe>\n             <div class="toogle-btn clickable" v-if="crt_view==\'2d\'" @click="crt_view=\'3d\'">3D</div>\n             <div class="toogle-btn clickable" v-if="crt_view==\'3d\'" @click="crt_view=\'2d\'">2D</div>\n    </div>'
 });
 
 /***/ }),
