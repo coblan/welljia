@@ -26,7 +26,7 @@
     <meta name="apple-mobile-web-app-title" content="House Scene">
 
     <meta name="mobile-web-app-capable" content="yes">
-    <!--<script src="{{ js_config.js_lib.jquery }}"></script>-->
+    <script src="{{ js_config.js_lib.jquery }}"></script>
     <!-- Origin Trial Token, feature = WebVR (For Chrome M62+), origin = https://playcanv.as, expires = 2017-12-15 -->
     <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M62+)" data-expires="2017-12-15" content="AmT5IGTRDfjcWjPdMDa8eWoo0n5S9W7CzfTWSPnGwsnlSkmv0sNrdShGozt6SPGy9s8zAsBx5JmRC2zVRiNYcw4AAABjeyJvcmlnaW4iOiJodHRwczovL3BsYXljYW52LmFzOjQ0MyIsImZlYXR1cmUiOiJXZWJWUjEuMU02MiIsImV4cGlyeSI6MTUxMzMzODIwMSwiaXNTdWJkb21haW4iOnRydWV9">
 
@@ -48,19 +48,19 @@
         #container{position:absolute;top:0;right:0;bottom:0;left:0;width:auto;height:auto;overflow:hidden}#frame{border:none;width:100%;height:100%;overflow:hidden}
     </style>
 </head>
-<!--<script>-->
-    <!--$(function(){-->
-        <!--var jjyy = '{{d3_url}}'-->
-        <!--setTimeout(function(){-->
-            <!--$('#frame').attr('src',jjyy)-->
-        <!--},200)-->
+<script>
+    $(function(){
+        var jjyy = '{{d3_url}}'
+        setTimeout(function(){
+            $('#frame').attr('src',jjyy)
+        },200)
 
-    <!--})-->
-<!--</script>-->
+    })
+</script>
 <body>
 <div id='container'>
     <iframe id='frame'
-            src="{{d3_url}}"
+
             webkitallowfullscreen='true'
             mozallowfullscreen='true'
             allowfullscreen='true'
