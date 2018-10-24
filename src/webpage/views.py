@@ -23,4 +23,8 @@ class Xuanchuan(Home):
         return {
             'crt_page_name':'xuanchuan',
             'pageitems': pageitems,
-        }    
+        } 
+
+class D3Wrap(Home):
+    def get_template(self): 
+        return 'webpage/3d_wrap.html'

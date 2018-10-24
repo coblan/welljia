@@ -1,0 +1,202 @@
+
+<!doctype html>
+<html>
+<head>
+    <title>House Scene - PLAYCANVAS</title>
+
+    <meta name="description" content="A WebGL application made with PlayCanvas (https://playcanvas.com)" />
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no' />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@playcanvas" />
+    <meta name="twitter:title" content="House Scene" />
+    <meta name="twitter:description" content="A WebGL application made with PlayCanvas (https://playcanvas.com)" />
+    <meta name="twitter:image" content="//s3-eu-west-1.amazonaws.com/static.playcanvas.com/platform/images/logo/playcanvas-logo-medium.png" />
+    <meta name="twitter:domain" content="https://playcanv.as/p/Mq9bG9Yd/" />
+
+    <meta property="og:url" content="https://playcanv.as/p/Mq9bG9Yd/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="House Scene" />
+    <meta property="og:description" content="A WebGL application made with PlayCanvas (https://playcanvas.com)">
+    <meta property="og:image" content="//s3-eu-west-1.amazonaws.com/static.playcanvas.com/platform/images/logo/playcanvas-logo-medium.png" />
+    <meta property="og:site_name" content="PlayCanvas" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="House Scene">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M62+), origin = https://playcanv.as, expires = 2017-12-15 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M62+)" data-expires="2017-12-15" content="AmT5IGTRDfjcWjPdMDa8eWoo0n5S9W7CzfTWSPnGwsnlSkmv0sNrdShGozt6SPGy9s8zAsBx5JmRC2zVRiNYcw4AAABjeyJvcmlnaW4iOiJodHRwczovL3BsYXljYW52LmFzOjQ0MyIsImZlYXR1cmUiOiJXZWJWUjEuMU02MiIsImV4cGlyeSI6MTUxMzMzODIwMSwiaXNTdWJkb21haW4iOnRydWV9">
+
+    <link rel="icon" href="//s3-eu-west-1.amazonaws.com/static.playcanvas.com/platform/images/logo/playcanvas-logo-small.png">
+
+    <link rel="manifest" href="https://playcanv.as/p/Mq9bG9Yd//manifest.json">
+
+    <link rel="kik-icon" href="//s3-eu-west-1.amazonaws.com/static.playcanvas.com/platform/images/logo/playcanvas-logo-medium.png">
+    <link rel="canonical" href="https://playcanv.as/p/Mq9bG9Yd/">
+
+    <link rel="apple-touch-icon" href="//s3-eu-west-1.amazonaws.com/static.playcanvas.com/platform/images/logo/playcanvas-logo-small.png" />
+
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <style>
+        html{height:100%}
+        body{margin:0;max-width:100%;max-height:100%;min-height:100%;overflow:hidden;font-family:Helvetica, arial, freesans, clean, sans-serif;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+        #container{position:absolute;top:0;right:0;bottom:0;left:0;width:auto;height:auto;overflow:hidden}#frame{border:none;width:100%;height:100%;overflow:hidden}
+    </style>
+</head>
+<body>
+<div id='container'>
+    <iframe id='frame'
+            src='http://www.chenjinhudong.cn/building/werjia/TJGJShangYe1_1516/'
+            webkitallowfullscreen='true'
+            mozallowfullscreen='true'
+            allowfullscreen='true'
+            allowvr
+            scrolling='no'
+            frameBorder='0'>
+    </iframe>
+</div>
+
+<!-- FULLSCREEN -->
+<script type='text/javascript'>
+    var iframe = document.getElementById('frame');
+
+    // aggregate fullscreen to one method
+    iframe.requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+    var button = document.getElementById('fullscreen');
+
+    // detect fullscreen is supported
+    if (iframe.requestFullScreen) {
+        button.classList.add('available');
+        button.addEventListener('click', function() {
+            iframe.requestFullScreen();
+
+            if (kik.enabled) {
+                kik.browser.statusBar(false);
+            }
+        }, false);
+    }
+
+    // focus the iframe window so that keyboard works.
+    // (Chrome Fix: do this after the iframe has loaded
+    // otherwise gamepads don't work)
+    iframe.addEventListener('load', function () {
+        iframe.contentWindow.focus();
+    });
+
+</script>
+
+<script>
+    var kik = {
+        enabled: false
+    };
+</script>
+
+<!-- SHARE -->
+<script type='text/javascript'>
+
+    function addNetwork(network, _class) {
+        var div = document.createElement("div");
+        div.classList.add("share");
+        div.classList.add(_class);
+        div.setAttribute("data-network", network);
+
+        var el = document.getElementById("social");
+        el.appendChild(div);
+    }
+
+
+    if (kik.enabled) {
+        function kik_share() {
+            kik.send({
+                title: 'House Scene',
+                text: 'A WebGL application made with PlayCanvas (https://playcanvas.com)',
+                pic: '//s3-eu-west-1.amazonaws.com/static.playcanvas.com/platform/images/logo/playcanvas-logo-medium.png',
+                big: true,
+            });
+        };
+
+        addNetwork("kik", "kik");
+
+        var buttons = document.querySelectorAll("#social > .share.kik")
+        buttons[0].addEventListener('click', function () {
+            kik_share(this.getAttribute('data-network'));
+        });
+    } else {
+        addNetwork("facebook", "fb");
+        addNetwork("twitter", "tw");
+        addNetwork("google+", "gp");
+
+        var share = function(network) {
+            var title = document.title;
+            var href = window.location;
+            var text = document.head.querySelector('meta[name="description"]').getAttribute('content');
+            var tweet = text;
+            if (tweet.length > 110) {
+                tweet = tweet.slice(0, 107) + '...';
+            }
+            var url = '';
+
+            switch(network) {
+                case 'facebook':
+                    url = "https://facebook.com/sharer.php?u=" + encodeURIComponent(href) + "&t=" + encodeURIComponent(text);
+                    break;
+                case 'twitter':
+                    url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweet) + "&url=" + encodeURIComponent(href)
+                    break;
+                case 'google+':
+                    url = "https://plus.google.com/share?url=" + encodeURIComponent(href);
+                    break;
+            }
+
+            var left = (screen.width / 2) - (640 / 2);
+            var top = (screen.height / 2) - (380 / 2);
+
+            var popup = window.open(url, 'name', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + 640 + ', height=' + 380 +', top=' + top + ', left=' + left);
+            if (window.focus && popup) {
+                popup.focus();
+            }
+        }
+
+        var shareButtons = document.querySelectorAll('#social > .share');
+        for(var i =0; i < shareButtons.length; i++) {
+            shareButtons[i].addEventListener('click', function() {
+                share(this.getAttribute('data-network'));
+            }, false);
+        }
+    }
+</script>
+
+
+<!-- FORMAT VIEWS -->
+<script>
+    var views = document.querySelector("#viewcount");
+    if (views) {
+        var num = parseInt(views.textContent, 10);
+        views.textContent = num.toLocaleString();
+    }
+</script>
+
+<!-- Google Analytics -->
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-23605814-1', 'auto');
+    if (window.navigator.standalone) {
+        ga('set', 'dimension1', true);
+    }
+    ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+<script src="//cdn.webglstats.com/stat.js" defer="defer" async="async"></script>
+</body>
+</html>
