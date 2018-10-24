@@ -28,3 +28,9 @@ class Xuanchuan(Home):
 class D3Wrap(Home):
     def get_template(self): 
         return 'webpage/3d_wrap.html'
+    
+    def extraCtx(self): 
+        d3_url = self.request.GET.get('d3_url')
+        return {
+            'd3_url': d3_url,
+        }
