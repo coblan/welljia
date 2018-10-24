@@ -42,11 +42,15 @@ Vue.component('com-pop-huxing',{
             img_3d:'',
         }
     },
-    mounted:function(){
-        var self=this
-        setTimeout(function(){
-            self.img_3d = self.ctx.floor.img_3d
-        },100)
+    watch:{
+        crt_view:function(nv){
+            if(nv=='3d'){
+                var self=this
+                setTimeout(function(){
+                    self.img_3d = self.ctx.floor.img_3d
+                },100)
+            }
+        }
     },
     template:`<div class="com-pop-huxing"  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;">
              <img v-if="crt_view=='2d'" class="center-vh" :src="ctx.floor.img_2d" style="max-width: 95%;max-height:95%" alt="">
