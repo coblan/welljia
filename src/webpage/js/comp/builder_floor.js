@@ -54,7 +54,7 @@ Vue.component('com-pop-huxing',{
     },
     template:`<div class="com-pop-huxing"  style="position: absolute;top:0;left: 0;bottom: 0;right: 0;">
              <img v-if="crt_view=='2d'" class="center-vh" :src="ctx.floor.img_2d" style="max-width: 95%;max-height:95%" alt="">
-             <iframe allowvr="yes" scrolling="no" v-show="crt_view=='3d'" :src="ctx.floor.img_3d" frameborder="0" width="100%" height="100%"></iframe>
+             <iframe allowvr="yes" scrolling="no" v-show="crt_view=='3d'" :src="wraped_3d" frameborder="0" width="100%" height="100%"></iframe>
              <!--<iframe  allowvr="yes" scrolling="no" v-if="crt_view=='3d'" :src="read_3d" frameborder="0" width="100%" height="100%"></iframe>-->
 
              <div class="toogle-btn clickable" v-if="crt_view=='2d'" @click="crt_view='3d'">3D</div>
