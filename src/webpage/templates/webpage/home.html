@@ -22,7 +22,14 @@ $(function(){
     new Vue({
         el:'#there',
         data:{
-            link_3d:link_3d
+            link_3d:link_3d,
+            jj:false
+        },
+        mounted:function(){
+            var self=this
+            setTimeout(function(){
+                self.jj=true
+            },200)
         },
         computed:{
             wraped_3d:function(){
@@ -34,7 +41,7 @@ $(function(){
 </script>
 
 <div id="there" >
-    <iframe allowvr="yes" scrolling="no" :src="wraped_3d" frameborder="0" style="width: 100%;height: 100%"></iframe>
+    <iframe v-show="jj" allowvr="yes" scrolling="no" :src="wraped_3d" frameborder="0" style="width: 100%;height: 100%"></iframe>
 </div>
 
 {% endblock %}
