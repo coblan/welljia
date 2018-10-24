@@ -48,7 +48,7 @@ Vue.component('com-pop-huxing',{
                 var self=this
                 setTimeout(function(){
                     self.img_3d = self.ctx.floor.img_3d
-                },100)
+                },3000)
             }
         }
     },
