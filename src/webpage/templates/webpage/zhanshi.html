@@ -17,6 +17,23 @@
                 crt_item:pageitems[0]
             },
             mounted:function(){
+                $('.html-content').on('click','img',function(event){
+
+                    layer.open({
+                        type: 1,
+                        content:ex.template('<img src="{src}" />',{src:event.target.src}),
+                        title:false,
+                        area: ['90%', '90%'],
+                        shade: 0.8,
+                        skin: 'img-shower',
+                        shadeClose: true,
+                    });
+                })
+            },
+            methods:{
+                open_image:function(){
+
+                }
             }
         })
 
@@ -49,7 +66,7 @@
         </span>
     </div>
 
-    <div class="html-content flex-grow">
+    <div class="html-content flex-grow" @click="open_image">
         <transition name="fade">
             <div v-html="crt_item.content" :key="crt_item.content"></div>
         </transition>
