@@ -105,25 +105,30 @@
 <div id="there" >
 
     <div class="huxing-page">
-        <!-- Swiper -->
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="building in buildings">
-                    <com-builder-floor :building="building">
-                        <!--<template slot-scope="slot">-->
-                            <!--<div style="color: #a3a3a3;padding-left: 8px"> <i class="fa fa-home"></i></div>-->
-                            <!--<span class="flex-grow" v-text="slot.floor.label"></span>-->
-                <!---->
-                        <!--</template>-->
 
+        <div class="inn-slide">
+            <!-- Swiper -->
+            <div class="swiper-container">
 
-                    </com-builder-floor>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="building in buildings">
+                        <com-builder-floor :building="building">
+                        </com-builder-floor>
+                    </div>
                 </div>
-            </div>
 
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+
+
+            </div>
+            <div class="swiper-button-next">
+                <i class="fa fa-caret-right fa-5x"></i>
+            </div>
+            <div class="swiper-button-prev">
+                <i class="fa fa-caret-left fa-5x"></i>
+            </div>
         </div>
+
+
     </div>
 
 

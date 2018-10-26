@@ -1,17 +1,40 @@
-.huxing-page{
-    background:rgba(0,0,0,0.3);
-    width: 900px;
-    margin: auto;
-    height: 100%;
+.huxing-page {
 
-  .swiper-container{
-      height: 100%;
-      padding:10% 0;
+  width: 900px;
+  margin: auto;
+  height: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  .inn-slide{
+    background: rgba(0, 0, 0, 0.3);
+    height: 100%;
+    position: relative;
+    padding: 0 1rem;
   }
-  .swiper-slide{
+  .swiper-container {
+    height: 100%;
+    padding: 10% 0;
+  }
+  .swiper-slide {
     width: 250px;
   }
+  .swiper-button-prev, .swiper-button-next {
+    color: white;
+    transform: translateY(-50%);
+    background-image: none;
 
+  }
+  .swiper-button-prev{
+    left: -2.5rem;
+  }
+  .swiper-button-next{
+    right: -2.5rem;
+  }
+
+  .swiper-container{
+    //overflow: visible;
+  }
 }
 
 @media (max-width: 900px) {

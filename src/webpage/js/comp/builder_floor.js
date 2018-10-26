@@ -7,7 +7,7 @@ Vue.component('com-builder-floor',{
           <div class="floors flex-grow">
             <div v-for="floor in building.floors" :class="['floor flex',floor.status]" @click="show_img(floor)">
                 <!--<slot :floor="floor"></slot>-->
-                <div style="color: #a3a3a3;padding-left: 8px"> <i class="fa fa-home"></i></div>
+                <div style="color: #a3a3a3;padding-left: 8px"> <i class="fa fa-search"></i></div>
                 <span class="flex-grow" v-text="floor.label"></span>
                 <!--<span style="display: inline-block;margin-left: 1em;">-->
                     <!--<button @click="show_2d(floor.img_2d)">2D</button>-->

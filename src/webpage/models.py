@@ -2,7 +2,7 @@ from django.db import models
 from helpers.director.model_func.cus_fields.cus_picture import PictureField
 PAGES = (
     ('zhanshi', '区域展示'), 
-    ('peitao', '配套商业'), 
+    #('peitao', '配套商业'), 
     ('xuanchuan', '品牌宣传'), 
 )
 # Create your models here.
