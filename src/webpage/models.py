@@ -4,6 +4,7 @@ PAGES = (
     ('zhanshi', '区域展示'), 
     #('peitao', '配套商业'), 
     ('xuanchuan', '品牌宣传'), 
+    ('manual', '项目手册'), 
 )
 # Create your models here.
 class ZhanRich(models.Model):

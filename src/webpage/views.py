@@ -34,6 +34,15 @@ class Xuanchuan(Home):
             'pageitems': pageitems,
         } 
 
+class Manual(ZhanShi):
+    def extraCtx(self): 
+        pageitems = [sim_dict(x) for x in ZhanRich.objects.filter(page = 'manual').order_by('-priority', '-pk')]
+        return {
+            'crt_page_name':'manual',
+            'pageitems': pageitems,
+        }     
+
+
 class D3Wrap(Home):
     def get_template(self): 
         return 'webpage/3d_wrap.html'

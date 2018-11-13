@@ -47,7 +47,8 @@ class Home(View):
             {'label':'户型鉴赏','link':'/huxing','name':'huxing'},
             {'label':'区域展示','link':'/zhanshi','name':'zhanshi'},
             #{'label':'商业配套','link':'/peitao','name':'peitao'},
-            {'label':'品牌宣传','link':'/xuanchuan','name':'xuanchuan'},            
+            {'label':'品牌宣传','link':'/xuanchuan','name':'xuanchuan'},   
+            {'label':'项目手册','link':'/manual','name':'manual'},  
         ]}
         return dc
     
