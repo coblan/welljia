@@ -63,7 +63,7 @@ class Home(View):
                      'mb_editor': 'com-head-sm-link',
                      'label': '<img src="%s" style="display:inline-block;width:24px;height:24px;border-radius:12px;"/>' % (user.userinfo.head or '/static/lib/images/user.png'), #'<i class="fa fa-user-circle"></i>', 
                      'options': [
-                        {'url': '/accounts/usercenter', 'label': '修改资料',}, 
+                        {'url': '/accounts/usercenter', 'label': '个人信息',}, 
                         {'url': '/accounts/pswd', 'label': '修改密码',}, 
                         {'url': '/accounts/logout', 'label': '退出',}
                         ],}

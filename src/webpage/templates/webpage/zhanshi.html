@@ -45,6 +45,12 @@
 //                        shadeClose: true,
 //                    });
                 })
+
+                setTimeout(function(){
+                    ex.stickup('.menu-wrap',{dom:'.center-content',top:'50px'})
+//                    ex.stickupNest('.menu-wrap',{dom:'.center-content',top:'50px'})
+                },100)
+
 //                setTimeout(function(){
 //                    new Zooming({
 //                        zIndex:999999
@@ -70,7 +76,7 @@
     })
 </script>
 
-<div id="there" class="zhanshi-main-content center-h flex-v">
+<div id="there" class="zhanshi-main-content flex-v">
 
     <div class="banner"  style="flex-shrink: 0;">
         <div class="big-title">
@@ -80,9 +86,9 @@
                     </transition>
             </div>
         </div>
-        <div class="flex-grow">
+        <div class="flex-grow" style="overflow: hidden">
             <transition name="fade" >
-                <img :src="crt_item.cover"  :key="crt_item.cover" alt="" width="100%" height="100%">
+                <img :src="crt_item.cover"  :key="crt_item.cover" alt="" height="100%">
             </transition>
         </div>
     </div>

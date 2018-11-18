@@ -5,7 +5,9 @@
     height: $header_bar_height;
     position: relative;
     text-align: center;
-
+  .header-menu{
+    white-space: nowrap;
+  }
   .header-menu  a{
         color: white;
 

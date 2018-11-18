@@ -40,13 +40,16 @@
     overflow-x: hidden;
     .center-content{
         position: relative;
+        height:100%;
         background:url(/static/images/2_1.png) no-repeat;
         background-size:100% 100%;
 
     }
 }
 .center-content{
-    position: relative;
+ 
+    overflow-y:auto;
+    overflow-x: hid
 }
 
 //::-webkit-scrollbar {

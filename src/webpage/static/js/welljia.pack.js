@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -381,7 +381,7 @@ function updateLink(linkElement, obj) {
 "use strict";
 
 
-__webpack_require__(16);
+__webpack_require__(18);
 
 Vue.component('com-builder-floor', {
     props: ['building'],
@@ -430,7 +430,7 @@ Vue.component('com-pop-huxing', {
 "use strict";
 
 
-__webpack_require__(17);
+__webpack_require__(19);
 
 var slide_menu = {
     props: ['menu', 'toggleBtn', 'panel'],
@@ -467,27 +467,15 @@ Vue.component('com-slide-menu', slide_menu);
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
+"use strict";
 
-// load the styles
-var content = __webpack_require__(11);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_bar.scss", function() {
-			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_bar.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
+
+__webpack_require__(20);
+var com_login_banner = {
+        template: ' <div class="com-login-banner" >\n            <h3 style="line-height:200%"><span style="margin: 0 2rem"><img src="/static/images/log.png" alt=""></span>\n            <span style="white-space: nowrap">\u6B22\u8FCE\u6CE8\u518C\u5A01\u5C14\u4F73\u7528\u6237</span></h3>\n        </div>'
+};
+
+Vue.component('com-login-banner', com_login_banner);
 
 /***/ }),
 /* 5 */
@@ -505,8 +493,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./huxing.scss", function() {
-			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./huxing.scss");
+		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_bar.scss", function() {
+			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_bar.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -531,8 +519,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./main_layout.scss", function() {
-			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./main_layout.scss");
+		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./huxing.scss", function() {
+			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./huxing.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -557,8 +545,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./page_usercenter.scss", function() {
-			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./page_usercenter.scss");
+		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./main_layout.scss", function() {
+			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./main_layout.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -583,6 +571,32 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
+		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./page_usercenter.scss", function() {
+			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./page_usercenter.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(16);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
 		module.hot.accept("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./zhan_shi.scss", function() {
 			var newContent = require("!!../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./zhan_shi.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
@@ -594,7 +608,7 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -608,7 +622,7 @@ exports.push([module.i, "@charset \"UTF-8\";\n.com-builder-floor {\n  background
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -622,20 +636,6 @@ exports.push([module.i, ".slide-menu {\n  background-color: #272727;\n  color: w
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -644,7 +644,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".huxing-page {\n  width: 900px;\n  margin: auto;\n  height: 100%;\n  padding-left: 2rem;\n  padding-right: 2rem; }\n  .huxing-page .inn-slide {\n    background: rgba(0, 0, 0, 0.3);\n    height: 100%;\n    position: relative;\n    padding: 0 1rem; }\n  .huxing-page .swiper-container {\n    height: 100%;\n    padding: 10% 0; }\n  .huxing-page .swiper-slide {\n    width: 250px; }\n  .huxing-page .swiper-button-prev, .huxing-page .swiper-button-next {\n    color: white;\n    transform: translateY(-50%);\n    background-image: none; }\n  .huxing-page .swiper-button-prev {\n    left: -2.5rem; }\n  .huxing-page .swiper-button-next {\n    right: -2.5rem; }\n\n@media (max-width: 900px) {\n  .huxing-page {\n    width: 100%; } }\n", ""]);
+exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu {\n    white-space: nowrap; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
 
 // exports
 
@@ -658,7 +658,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  position: relative; }\n", ""]);
+exports.push([module.i, ".huxing-page {\n  width: 80%;\n  margin: auto;\n  height: 100%;\n  padding-left: 2rem;\n  padding-right: 2rem; }\n  .huxing-page .inn-slide {\n    background: rgba(0, 0, 0, 0.3);\n    height: 100%;\n    position: relative;\n    padding: 0 1rem; }\n  .huxing-page .swiper-container {\n    height: 100%;\n    padding: 10% 0; }\n  .huxing-page .swiper-slide {\n    width: 250px; }\n  .huxing-page .swiper-button-prev, .huxing-page .swiper-button-next {\n    color: white;\n    transform: translateY(-50%);\n    background-image: none; }\n  .huxing-page .swiper-button-prev {\n    left: -2.5rem; }\n  .huxing-page .swiper-button-next {\n    right: -2.5rem; }\n\n@media (max-width: 900px) {\n  .huxing-page {\n    width: 100%; } }\n", ""]);
 
 // exports
 
@@ -672,7 +672,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".plain-panel {\n  width: 600px;\n  margin: auto;\n  margin-top: 3em;\n  background-color: white;\n  padding: 1em 5em;\n  min-height: 500px; }\n\n@media (max-width: 900px) {\n  .plain-panel {\n    width: auto;\n    margin: 10px;\n    background-color: white;\n    padding: 1em 1em;\n    min-height: 500px;\n    border-radius: 3px; } }\n", ""]);
+exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    height: 100%;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  overflow-y: auto;\n  overflow-x: hid; }\n", ""]);
 
 // exports
 
@@ -686,7 +686,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".zhanshi-main-content {\n  width: 800px;\n  background-color: rgba(0, 0, 0, 0.3);\n  height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 30px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    width: 100%;\n    position: relative;\n    background-color: #4c68a6; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      width: 200vw;\n      left: -50vw;\n      opacity: 0.9;\n      z-index: -1; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    overflow: auto;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    width: 100%; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
+exports.push([module.i, ".plain-panel {\n  width: 600px;\n  margin: auto;\n  margin-top: 3em;\n  background-color: white;\n  padding: 1em 5em;\n  min-height: 500px; }\n\n@media (max-width: 750px) {\n  .usercenter {\n    width: 90%;\n    margin: auto; }\n  .plain-panel {\n    margin: 10px;\n    background-color: white;\n    padding: 1em 1em;\n    min-height: 500px;\n    border-radius: 3px; } }\n", ""]);
 
 // exports
 
@@ -695,10 +695,38 @@ exports.push([module.i, ".zhanshi-main-content {\n  width: 800px;\n  background-
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".zhanshi-main-content {\n  background-color: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  left: 10%;\n  right: 10%;\n  top: 0;\n  min-height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 30px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    left: 0;\n    right: 0;\n    position: relative;\n    background-color: #4c68a6;\n    flex-shrink: 0; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: -12.5%;\n      right: 100%;\n      opacity: 0.9; }\n    .zhanshi-main-content .menu-wrap:after {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: 100%;\n      right: -12.5%;\n      opacity: 0.9; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".com-login-banner img {\n  width: 4rem; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(9);
+var content = __webpack_require__(10);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -718,13 +746,13 @@ if(false) {
 }
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(10);
+var content = __webpack_require__(11);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -744,7 +772,33 @@ if(false) {
 }
 
 /***/ }),
-/* 18 */
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(17);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./com_login_banner.scss", function() {
+			var newContent = require("!!../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./com_login_banner.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -758,17 +812,21 @@ var _slide_menu = __webpack_require__(3);
 
 var slide_menu = _interopRequireWildcard(_slide_menu);
 
+var _com_login_banner = __webpack_require__(4);
+
+var com_login_banner = _interopRequireWildcard(_com_login_banner);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 //import * as kuaifawu_menu from  './kuaifawu_menu.js'
 //require('./scss/yewu.scss')
 
-__webpack_require__(6);
-__webpack_require__(4);
-__webpack_require__(8);
-__webpack_require__(5);
-
 __webpack_require__(7);
+__webpack_require__(5);
+__webpack_require__(9);
+__webpack_require__(6);
+
+__webpack_require__(8);
 
 /***/ })
 /******/ ]);

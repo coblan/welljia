@@ -15,7 +15,8 @@ class SiteLoginFormPage(LoginFormPage):
                 'regist_url': '%s/regist' % self.engin.engin_url,
                 'copyright': 'Copyright @2018  All Right Reserve',
                 'heads': self.get_heads(),
-                'login_item': '邮箱/手机号',
+                'login_item': '手机号',
+                
                 },
         } 
         

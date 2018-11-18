@@ -25,3 +25,5 @@ TENCENT = {
 }
 
 ALLOWED_HOSTS = ['www.werjia.cn', 'werjia.cn', '211.149.132.181', 'www.vr-home.com.cn']
+
+SELF_URL = 'http://www.vr-home.com.cn'

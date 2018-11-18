@@ -23,3 +23,5 @@ TENCENT = {
     'AppKey': '1a8093135b4e91df3b7d76535437a98f',
     'validate_temp': '199823',
 }
+
+SELF_URL = 'localhost:8000'

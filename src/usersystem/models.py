@@ -18,3 +18,5 @@ class UserInfo(models.Model):
     head = models.CharField('头像', max_length = 300, blank = True)
     birthday = models.DateField(verbose_name= '出生日期', blank = True, null = True)
     address = models.CharField(verbose_name = '地址', max_length = 500, blank = True)
+    invite_code = models.CharField(max_length = 30, verbose_name= '邀请码', blank = True)
+    invite_by = models.ForeignKey(User, verbose_name = '邀请人', blank = True, null = True, related_name= 'sublevel')

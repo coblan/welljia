@@ -1,10 +1,14 @@
 @import "data";
 
 .zhanshi-main-content{
-    width: 800px;
     background-color: rgba(0,0,0,0.3);
-    height: 100%;
-
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top:0;
+    min-height: 100%;
+    //overflow-y:auto;
+    //overflow-x: visible;
     .banner{
         margin: 0;
         margin-top: $logo_top - $header_bar_height - $zhanshi_banner_height + 40px;
@@ -24,9 +28,11 @@
     }
 
     .menu-wrap{
-        width: 100%;
+        left: 0;
+        right: 0;
         position: relative;
         background-color: #4c68a6;
+        flex-shrink: 0;
         &:before{
             content: '';
             display: block;
@@ -34,11 +40,25 @@
             background-color: rgba(161,176,211,0.9);
             height: 100%;
             top:0;
-            width: 200vw;
-            left: -50vw;
+            left: -12.5%;
+            right: 100%;
+            //right: -12.5%;
             opacity: 0.9;
-            z-index: -1;
         }
+        &:after{
+            content: '';
+            display: block;
+            position: absolute;
+            background-color: rgba(161,176,211,0.9);
+            height: 100%;
+            top:0;
+            left: 100%;
+            right: -12.5%;
+            //right: -12.5%;
+            opacity: 0.9;
+        }
+
+
     }
     .menu-item{
         display: inline-block;
@@ -52,7 +72,7 @@
     .html-content{
         color: #d2d4d7;
         padding:0 50px;
-        overflow: auto;
+    //    overflow: auto;
         position: relative;
 
         img{
@@ -62,7 +82,10 @@
 }
 @media (max-width: 900px) {
     .zhanshi-main-content {
-        width: 100%;
+        left: 0;
+        right: 0;
+        top:0;
+        bottom: 0;
         .banner {
             margin-top: 0;
         }

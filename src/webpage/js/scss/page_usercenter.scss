@@ -8,9 +8,13 @@
   min-height: 500px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 750px) {
+  .usercenter{
+    width: 90%;
+    margin: auto;
+  }
   .plain-panel{
-    width: auto;
+    //width: 90;
     margin: 10px;
     background-color: white;
     padding: 1em 1em;
