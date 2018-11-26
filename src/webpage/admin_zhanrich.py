@@ -5,21 +5,27 @@ from .models import ZhanRich
 class ZhanRichPage(TablePage):
     template = 'jb_admin/table.html'
     def get_label(self): 
-        return '单页面管理'
+        return '富文本页面'
     
     class tableCls(ModelTable):
         model = ZhanRich
-        exclude = []
+        exclude = ['id']
         hide_fields = ['content']
     
         def get_operation(self): 
             ops = super().get_operation()
-            ops[0]['tab_name'] = 'edit_form'
+            add_new =  ops[0]
+            add_new.update({
+                'tab_name': 'edit_form',
+                'ctx_name': 'ZhanRichPageTabs',
+            })
             return ops
         def dict_head(self, head): 
-            if head['name'] == 'id':
+            if head['name'] == '_sequence':
                 head['editor'] = 'com-table-switch-to-tab'
+                head['inn_editor'] = 'com-table-sequence'
                 head['tab_name'] = 'edit_form'
+                head['ctx_name'] = 'ZhanRichPageTabs'
             return head
         
         class filters(RowFilter):
@@ -34,7 +40,7 @@ class ZhanRichPage(TablePage):
         ls = [
             {'name':'edit_form',
              'label':'基本信息',
-             'com':'com_tab_fields',
+             'com':'com-tab-fields',
              'get_data':{
                  'fun':'get_row',
                  'kws':{
@@ -51,7 +57,9 @@ class ZhanRichPage(TablePage):
              'ops': form_obj.get_operations()                 
              }, 
         ]
-        ctx['tabs'] = ls
+        ctx['named_ctx'] = {
+            'ZhanRichPageTabs': ls,
+        }
         return ctx
 
 class ZhanForm(ModelFields):

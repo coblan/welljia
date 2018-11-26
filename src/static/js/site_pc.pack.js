@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -381,7 +381,7 @@ function updateLink(linkElement, obj) {
 "use strict";
 
 
-__webpack_require__(10);
+__webpack_require__(6);
 
 Vue.component('com-header-menu', {
     props: ['menu', 'active'],
@@ -402,61 +402,10 @@ Vue.component('com-header-menu', {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-__webpack_require__(11);
-
-Vue.component('com-kuaifawu-menu', {
-    props: ['label', 'menu'],
-    data: function data() {
-        return {
-            expand: false,
-            active_act: {}
-        };
-    }, //
-    template: '<div class="kuaifawu-menu" @mouseenter="expand=true" @mouseleave="on_mouseleave()">\n        <!--<span class="menu-item" v-for="act in menu">-->\n            <!--<a :class="{\'active\':active==act.name}"  :href="act.link" v-text="act.label"></a>-->\n        <!--</span>-->\n\n            <span v-text="label" class="menu-button"></span>\n\n            <div v-show="expand" class="actions">\n                <com-kuaifawu-menu-item v-for="act in menu" :act="act"\n                    :class="[\'menu-item\',{\'active\':active_act.name==act.name}]" @mouseenter.native="active_act=act"></com-kuaifawu-menu-item>\n            </div>\n            <com-kuaifawu-menu-links class="menu-links" v-show="active_act.name" :act="active_act"></com-kuaifawu-menu-links>\n\n    </div>',
-    methods: {
-        on_mouseleave: function on_mouseleave() {
-            this.expand = false;
-            this.active_act = {};
-        }
-    }
-
-});
-
-Vue.component('com-kuaifawu-menu-item', {
-    props: ['act'],
-    template: '<div>\n        <span v-text="act.label"></span>\n    </div>'
-});
-
-Vue.component('com-kuaifawu-menu-links', {
-    props: ['act'],
-    template: '<div>\n        <span v-text="act.label"></span>\n    </div>'
-});
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(12);
-
-Vue.component('com-search-kuaifawu', {
-    props: ['search_args', 'head'],
-    template: '<div class="search-kuaifawu">\n        <input type="text" :placeholder="head.placeholder"/>\n        <span class="search-btn">\u641C\u7D22</span>\n    </div>'
-});
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(6);
+var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -476,7 +425,7 @@ if(false) {
 }
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -490,7 +439,7 @@ exports.push([module.i, ".only-tab.el-tabs--border-card {\n  border-bottom: none
 
 
 /***/ }),
-/* 7 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
@@ -504,41 +453,13 @@ exports.push([module.i, ".header-menu .menu-item {\n  display: inline-block;\n  
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, ".kuaifawu-menu {\n  position: relative;\n  z-index: 100; }\n  .kuaifawu-menu .menu-button {\n    padding: 0.6em 0;\n    width: 200px;\n    display: inline-block;\n    color: white;\n    background-color: #02c9ff; }\n  .kuaifawu-menu .actions {\n    position: absolute;\n    top: 100%;\n    background-color: rgba(20, 20, 20, 0.8);\n    left: 0;\n    width: 200px;\n    color: white; }\n    .kuaifawu-menu .actions .menu-item {\n      border-bottom: 1px solid grey;\n      padding: 1em; }\n      .kuaifawu-menu .actions .menu-item.active {\n        background-color: white;\n        color: black; }\n  .kuaifawu-menu .menu-links {\n    position: absolute;\n    top: 100%;\n    background-color: white;\n    left: 200px;\n    min-height: 200px;\n    padding: 1em; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, ".search-kuaifawu {\n  border: 1px solid #02c9f0;\n  display: inline-block;\n  position: relative;\n  background-color: white;\n  padding-left: 1em; }\n  .search-kuaifawu input {\n    width: 20em;\n    border: none;\n    outline: none; }\n  .search-kuaifawu .search-btn {\n    display: inline-block;\n    background-color: #02c9f0;\n    color: white;\n    padding: 6px 20px; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 10 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(7);
+var content = __webpack_require__(5);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -558,33 +479,32 @@ if(false) {
 }
 
 /***/ }),
-/* 11 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
+"use strict";
 
-// load the styles
-var content = __webpack_require__(8);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./kuaifawu_menu.scss", function() {
-			var newContent = require("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./kuaifawu_menu.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
+
+var _header_menu = __webpack_require__(2);
+
+var header_sim_click = _interopRequireWildcard(_header_menu);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+//import * as kuaifawu_menu from  './pc/kuaifawu_menu.js'
+//import * as search_kuaifawu from  './pc/search_kuaifawu.js'
+
+
+__webpack_require__(3); //require('./scss/fields.scss')
+//require('./table_editor/scss/table_editor_base.scss')
+//require('./scss/tab.scss')
+//require('./scss/table.scss')
+
+
+__webpack_require__(8);
 
 /***/ }),
-/* 12 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -599,8 +519,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./search_kuaifawu.scss", function() {
-			var newContent = require("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./search_kuaifawu.scss");
+		module.hot.accept("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./layout.scss", function() {
+			var newContent = require("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./layout.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -610,30 +530,18 @@ if(false) {
 }
 
 /***/ }),
-/* 13 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+exports = module.exports = __webpack_require__(0)();
+// imports
 
 
-var _header_menu = __webpack_require__(2);
+// module
+exports.push([module.i, ".out-wrap {\n  min-width: 1160px; }\n\n.inn-wrap {\n  width: 1160px;\n  margin: auto; }\n", ""]);
 
-var header_sim_click = _interopRequireWildcard(_header_menu);
+// exports
 
-var _kuaifawu_menu = __webpack_require__(3);
-
-var kuaifawu_menu = _interopRequireWildcard(_kuaifawu_menu);
-
-var _search_kuaifawu = __webpack_require__(4);
-
-var search_kuaifawu = _interopRequireWildcard(_search_kuaifawu);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-__webpack_require__(5); //require('./scss/fields.scss')
-//require('./table_editor/scss/table_editor_base.scss')
-//require('./scss/tab.scss')
-//require('./scss/table.scss')
 
 /***/ })
 /******/ ]);

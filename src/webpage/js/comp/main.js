@@ -1,0 +1,1 @@
+import * as full_home_main from './full_home/main'

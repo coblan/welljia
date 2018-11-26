@@ -161,7 +161,7 @@
         </com-header-menu>
         <div style="margin-top: 2em;border-top:1px solid #313131;padding-top: 1em;">
             <div class="sm-right-top-panel">
-                <component v-for="head in top_heads" :is="head.mb_editor || head.editor"
+                <component class="vertical" v-for="head in top_heads" :is="head.mb_editor || head.editor"
                            @jump="on_jump($event)"
                            :head="head"></component>
             </div>

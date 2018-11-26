@@ -45,5 +45,12 @@ class Floor(models.Model):
     
     def __str__(self): 
         return self.label
+    
+class MapPoint(models.Model):
+    title = models.CharField('显示名', max_length = 100)
+    pos = models.CharField('坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
+    icon = PictureField('图标', max_length = 200)
+    url = models.CharField('跳转地址', max_length = 200)
+    
 
     

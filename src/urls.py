@@ -23,7 +23,7 @@ from hello.engine_menu import PcMenu
 from django.views.generic import RedirectView 
 from webpage.page_home import Home
 from webpage.page_huxing import  Huxing
-from webpage.views import ZhanShi, Xuanchuan, PeiTao, D3Wrap, D3WrapE, Manual
+from webpage.views import ZhanShi, Xuanchuan, PeiTao, D3Wrap, D3WrapE, Manual, FullHome
 
 
 urlpatterns = [
@@ -42,7 +42,8 @@ urlpatterns = [
     url(r'^pc/([\w\.]+)/?$',PcMenu.as_view(),name=PcMenu.url_name),
     url(r'^pc/?$',RedirectView.as_view(url='/pc/admin_user')), 
     url(r'^huxing/?$', Huxing.as_view()), 
-    url(r'^$', Home.as_view())
+    url(r'^digital', Home.as_view()), 
+    url(r'^$', FullHome.as_view()), 
 ]
 
 if settings.DEBUG:

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 32);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -381,7 +381,7 @@ function updateLink(linkElement, obj) {
 "use strict";
 
 
-__webpack_require__(18);
+__webpack_require__(29);
 
 Vue.component('com-builder-floor', {
     props: ['building'],
@@ -430,7 +430,20 @@ Vue.component('com-pop-huxing', {
 "use strict";
 
 
-__webpack_require__(19);
+var _main = __webpack_require__(13);
+
+var full_home_main = _interopRequireWildcard(_main);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(30);
 
 var slide_menu = {
     props: ['menu', 'toggleBtn', 'panel'],
@@ -464,13 +477,13 @@ var slide_menu = {
 Vue.component('com-slide-menu', slide_menu);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(20);
+__webpack_require__(31);
 var com_login_banner = {
         template: ' <div class="com-login-banner" >\n            <h3 style="line-height:200%"><span style="margin: 0 2rem"><img src="/static/images/log.png" alt=""></span>\n            <span style="white-space: nowrap">\u6B22\u8FCE\u6CE8\u518C\u5A01\u5C14\u4F73\u7528\u6237</span></h3>\n        </div>'
 };
@@ -478,13 +491,13 @@ var com_login_banner = {
 Vue.component('com-login-banner', com_login_banner);
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(12);
+var content = __webpack_require__(20);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -504,13 +517,13 @@ if(false) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(13);
+var content = __webpack_require__(21);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -530,13 +543,13 @@ if(false) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(14);
+var content = __webpack_require__(22);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -556,13 +569,13 @@ if(false) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(15);
+var content = __webpack_require__(23);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -582,13 +595,13 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(16);
+var content = __webpack_require__(24);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -608,74 +621,145 @@ if(false) {
 }
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, "@charset \"UTF-8\";\n.com-builder-floor {\n  background-color: white;\n  height: 100%; }\n  .com-builder-floor .big-title {\n    background-color: #4d69a8;\n    color: white;\n    text-align: center;\n    padding: 2px; }\n  .com-builder-floor .floors {\n    overflow-y: auto;\n    margin-bottom: 0; }\n    .com-builder-floor .floors::-webkit-scrollbar {\n      width: 10px;\n      display: inline-block; }\n    .com-builder-floor .floors::-webkit-scrollbar-thumb {\n      /*滚动条里面小方块*/\n      border-radius: 10px;\n      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);\n      background: #4d69a8; }\n  .com-builder-floor .floor {\n    color: black;\n    padding: 2px;\n    text-align: center;\n    background-color: #808080; }\n    .com-builder-floor .floor:nth-child(even) {\n      background-color: #9a9a9a; }\n    .com-builder-floor .floor:hover {\n      background-color: #b3b3b3; }\n    .com-builder-floor .floor.sold {\n      background-color: #be6b6b;\n      border: 1px solid #b27e5e; }\n      .com-builder-floor .floor.sold:hover {\n        background-color: #ce8e8e; }\n    .com-builder-floor .floor.avaliable {\n      background-color: #88be6b;\n      border: 1px solid #71b25e; }\n      .com-builder-floor .floor.avaliable:hover {\n        background-color: #a4ce8e; }\n\n.img-shower {\n  background-color: rgba(0, 0, 0, 0.3); }\n\n.com-pop-huxing .toogle-btn {\n  position: absolute;\n  right: 10px;\n  bottom: 10px;\n  color: white;\n  padding: 0.5em;\n  background-color: grey;\n  border-radius: 5px; }\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)();
-// imports
+"use strict";
 
 
-// module
-exports.push([module.i, ".slide-menu {\n  background-color: #272727;\n  color: white;\n  padding-top: 2em; }\n", ""]);
+__webpack_require__(26);
 
-// exports
-
+Vue.component('com-fullhome-footer', {
+    data: function data() {
+        return {
+            footer_imgs: ['/static/images/foot_1.png', '/static/images/foot_2.png', '/static/images/foot_3.png', '/static/images/foot_4.png']
+        };
+    },
+    template: '<div class="com-fullhome-footer">\n        <img v-for="item in footer_imgs" :src="item" alt="">\n    </div>'
+});
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)();
-// imports
+"use strict";
 
 
-// module
-exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu {\n    white-space: nowrap; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
+__webpack_require__(27);
 
-// exports
-
+Vue.component('com-fullhome-header-bar', {
+    props: ['top_heads'],
+    template: ' <div id="header-bar" class="com-fullhome-header-bar">\n\n            <div class="header-bar" >\n                <img class="center-v" src="/static/images/full_home_logo.png" alt="">\n                <div  class="sm-right-top-panel center-v">\n                    <component v-for="head in top_heads" :is="head.editor" :head="head"></component>\n                </div>\n            </div>\n        </div>'
+});
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)();
-// imports
+"use strict";
 
 
-// module
-exports.push([module.i, ".huxing-page {\n  width: 80%;\n  margin: auto;\n  height: 100%;\n  padding-left: 2rem;\n  padding-right: 2rem; }\n  .huxing-page .inn-slide {\n    background: rgba(0, 0, 0, 0.3);\n    height: 100%;\n    position: relative;\n    padding: 0 1rem; }\n  .huxing-page .swiper-container {\n    height: 100%;\n    padding: 10% 0; }\n  .huxing-page .swiper-slide {\n    width: 250px; }\n  .huxing-page .swiper-button-prev, .huxing-page .swiper-button-next {\n    color: white;\n    transform: translateY(-50%);\n    background-image: none; }\n  .huxing-page .swiper-button-prev {\n    left: -2.5rem; }\n  .huxing-page .swiper-button-next {\n    right: -2.5rem; }\n\n@media (max-width: 900px) {\n  .huxing-page {\n    width: 100%; } }\n", ""]);
+var _header_bar = __webpack_require__(12);
 
-// exports
+var header_bar = _interopRequireWildcard(_header_bar);
 
+var _footer = __webpack_require__(11);
+
+var footer = _interopRequireWildcard(_footer);
+
+var _map = __webpack_require__(14);
+
+var map = _interopRequireWildcard(_map);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)();
-// imports
+"use strict";
 
 
-// module
-exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    height: 100%;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  overflow-y: auto;\n  overflow-x: hid; }\n", ""]);
+__webpack_require__(28);
 
-// exports
+Vue.component('com-fullhome-map', {
+    props: ['map_points'],
+    data: function data() {
+        return {
+            env: cfg.env,
+            el_width: 100
+        };
+    },
+    mounted: function mounted() {
+        this.el_width = $(this.$el).height();
+    },
+    computed: {
+        size: function size() {
+            console.log('ri');
+            var com_height = this.$el ? $(this.$el).height() : this.el_width;
+            var win_ratio = this.env.width / this.env.height;
+            var img_ratio = 1921 / 1007;
+            if (this.env.width > 900) {
+                //return {
+                //    maxWidth:'100%',
+                //    maxHeight:'100%',
+                //}
+                if (com_height * img_ratio > this.env.width) {
+                    return {
+                        width: this.env.width + 'px',
+                        height: this.env.width / img_ratio + 'px'
+                    };
+                } else {
+                    return {
+                        height: com_height + 'px',
+                        width: com_height * img_ratio + 'px'
+                    };
+                }
+            } else {
+                if (win_ratio > 1) {
+                    // 横屏
+                    console.log('横屏');
+                    var out_height = com_height * 1.6;
+                    console.log(out_height);
+                } else {
+                    // 竖屏
+                    console.log('竖屏');
+                    var out_height = com_height * 0.8;
+                }
+                return {
+                    height: out_height + 'px',
+                    width: out_height * img_ratio + 'px'
+                };
+            }
+        }
+    },
+    //1921/1007
+    template: '<div class="com-fullhome-map">\n        <div class="map-wrap center-vh" :style="size">\n             <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->\n             <com-fullhome-pos v-for="pos in map_points" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>\n        </div>\n    </div>'
+});
 
+Vue.component('com-fullhome-pos', {
+    props: ['mapitem', 'scale'],
+    template: '<div class="com-fullhome-pos" :style="{top:loc.y,left:loc.x}" @click="open_page()">\n    <img class="point" src="/static/images/4.png" alt="">\n    <span class="title" >\n    <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n    </span>\n    </div>',
+    computed: {
+        loc: function loc() {
+            var self = this;
+            var ls = this.mapitem.pos.split(',');
+            var out_ls = ex.map(ls, function (ss) {
+                return ss * self.scale;
+            });
+            return {
+                x: out_ls[0] + 'px',
+                y: out_ls[1] + 'px'
+            };
+        }
+    },
+    methods: {
+        open_page: function open_page() {
+            console.log('jj');
+            location = this.mapitem.url;
+        }
+    }
+});
 
 /***/ }),
 /* 15 */
@@ -686,7 +770,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".plain-panel {\n  width: 600px;\n  margin: auto;\n  margin-top: 3em;\n  background-color: white;\n  padding: 1em 5em;\n  min-height: 500px; }\n\n@media (max-width: 750px) {\n  .usercenter {\n    width: 90%;\n    margin: auto; }\n  .plain-panel {\n    margin: 10px;\n    background-color: white;\n    padding: 1em 1em;\n    min-height: 500px;\n    border-radius: 3px; } }\n", ""]);
+exports.push([module.i, ".com-fullhome-footer {\n  height: 6rem;\n  position: absolute;\n  bottom: 0; }\n  .com-fullhome-footer img {\n    display: inline-block;\n    height: 3rem;\n    margin: 0.5rem 1rem; }\n", ""]);
 
 // exports
 
@@ -700,7 +784,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".zhanshi-main-content {\n  background-color: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  left: 10%;\n  right: 10%;\n  top: 0;\n  min-height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 30px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    left: 0;\n    right: 0;\n    position: relative;\n    background-color: #4c68a6;\n    flex-shrink: 0; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: -12.5%;\n      right: 100%;\n      opacity: 0.9; }\n    .zhanshi-main-content .menu-wrap:after {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: 100%;\n      right: -12.5%;\n      opacity: 0.9; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
+exports.push([module.i, ".com-fullhome-header-bar .header-bar {\n  text-align: left;\n  background-color: #20242e;\n  padding: 0 1rem; }\n  .com-fullhome-header-bar .header-bar img {\n    height: 70%; }\n", ""]);
 
 // exports
 
@@ -714,7 +798,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".com-login-banner img {\n  width: 4rem; }\n", ""]);
+exports.push([module.i, ".com-fullhome-map {\n  background-color: #2a3043;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto; }\n  .com-fullhome-map .map-wrap {\n    background: url(/static/images/sichuan.png) no-repeat;\n    background-size: 100% 100%; }\n  .com-fullhome-map .sichuan {\n    width: 100%;\n    height: 100%; }\n\n.com-fullhome-pos {\n  position: absolute;\n  width: 60px;\n  height: 60px;\n  border-radius: 30px;\n  background-color: rgba(0, 0, 0, 0.2);\n  cursor: pointer;\n  transition: background-color .6s; }\n  .com-fullhome-pos .title {\n    opacity: 0;\n    color: #f5f5f5;\n    white-space: nowrap;\n    transition: opacity .6s;\n    position: absolute;\n    top: 5px;\n    left: 50%;\n    transform: translateX(-50%); }\n    .com-fullhome-pos .title .icon {\n      width: 1em;\n      display: inline-block;\n      margin-right: 0.2rem; }\n  .com-fullhome-pos:hover {\n    background-color: rgba(0, 0, 0, 0.4); }\n    .com-fullhome-pos:hover .title {\n      opacity: 1; }\n  .com-fullhome-pos .point {\n    width: 20px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n", ""]);
 
 // exports
 
@@ -723,10 +807,200 @@ exports.push([module.i, ".com-login-banner img {\n  width: 4rem; }\n", ""]);
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, "@charset \"UTF-8\";\n.com-builder-floor {\n  background-color: white;\n  height: 100%; }\n  .com-builder-floor .big-title {\n    background-color: #4d69a8;\n    color: white;\n    text-align: center;\n    padding: 2px; }\n  .com-builder-floor .floors {\n    overflow-y: auto;\n    margin-bottom: 0; }\n    .com-builder-floor .floors::-webkit-scrollbar {\n      width: 10px;\n      display: inline-block; }\n    .com-builder-floor .floors::-webkit-scrollbar-thumb {\n      /*滚动条里面小方块*/\n      border-radius: 10px;\n      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);\n      background: #4d69a8; }\n  .com-builder-floor .floor {\n    color: black;\n    padding: 2px;\n    text-align: center;\n    background-color: #808080; }\n    .com-builder-floor .floor:nth-child(even) {\n      background-color: #9a9a9a; }\n    .com-builder-floor .floor:hover {\n      background-color: #b3b3b3; }\n    .com-builder-floor .floor.sold {\n      background-color: #be6b6b;\n      border: 1px solid #b27e5e; }\n      .com-builder-floor .floor.sold:hover {\n        background-color: #ce8e8e; }\n    .com-builder-floor .floor.avaliable {\n      background-color: #88be6b;\n      border: 1px solid #71b25e; }\n      .com-builder-floor .floor.avaliable:hover {\n        background-color: #a4ce8e; }\n\n.img-shower {\n  background-color: rgba(0, 0, 0, 0.3); }\n\n.com-pop-huxing .toogle-btn {\n  position: absolute;\n  right: 10px;\n  bottom: 10px;\n  color: white;\n  padding: 0.5em;\n  background-color: grey;\n  border-radius: 5px; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".slide-menu {\n  background-color: #272727;\n  color: white;\n  padding-top: 2em; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu {\n    white-space: nowrap; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".huxing-page {\n  width: 80%;\n  margin: auto;\n  height: 100%;\n  padding-left: 2rem;\n  padding-right: 2rem; }\n  .huxing-page .inn-slide {\n    background: rgba(0, 0, 0, 0.3);\n    height: 100%;\n    position: relative;\n    padding: 0 1rem; }\n  .huxing-page .swiper-container {\n    height: 100%;\n    padding: 10% 0; }\n  .huxing-page .swiper-slide {\n    width: 250px; }\n  .huxing-page .swiper-button-prev, .huxing-page .swiper-button-next {\n    color: white;\n    transform: translateY(-50%);\n    background-image: none; }\n  .huxing-page .swiper-button-prev {\n    left: -2.5rem; }\n  .huxing-page .swiper-button-next {\n    right: -2.5rem; }\n\n@media (max-width: 900px) {\n  .huxing-page {\n    width: 100%; } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    height: 100%;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  overflow-y: auto;\n  overflow-x: hid; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".plain-panel {\n  width: 600px;\n  margin: auto;\n  margin-top: 3em;\n  background-color: white;\n  padding: 1em 5em;\n  min-height: 500px; }\n\n@media (max-width: 750px) {\n  .usercenter {\n    width: 90%;\n    margin: auto; }\n  .plain-panel {\n    margin: 10px;\n    background-color: white;\n    padding: 1em 1em;\n    min-height: 500px;\n    border-radius: 3px; } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".zhanshi-main-content {\n  background-color: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  left: 10%;\n  right: 10%;\n  top: 0;\n  min-height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 30px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    left: 0;\n    right: 0;\n    position: relative;\n    background-color: #4c68a6;\n    flex-shrink: 0; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: -12.5%;\n      right: 100%;\n      opacity: 0.9; }\n    .zhanshi-main-content .menu-wrap:after {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: 100%;\n      right: -12.5%;\n      opacity: 0.9; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".com-login-banner img {\n  width: 4rem; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(10);
+var content = __webpack_require__(15);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./footer.scss", function() {
+			var newContent = require("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./footer.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(16);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_bar.scss", function() {
+			var newContent = require("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_bar.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(17);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./map.scss", function() {
+			var newContent = require("!!../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./map.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(18);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -746,13 +1020,13 @@ if(false) {
 }
 
 /***/ }),
-/* 19 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(19);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -772,13 +1046,13 @@ if(false) {
 }
 
 /***/ }),
-/* 20 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(17);
+var content = __webpack_require__(25);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -798,7 +1072,7 @@ if(false) {
 }
 
 /***/ }),
-/* 21 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -808,25 +1082,29 @@ var _builder_floor = __webpack_require__(2);
 
 var builder_floor = _interopRequireWildcard(_builder_floor);
 
-var _slide_menu = __webpack_require__(3);
+var _slide_menu = __webpack_require__(4);
 
 var slide_menu = _interopRequireWildcard(_slide_menu);
 
-var _com_login_banner = __webpack_require__(4);
+var _com_login_banner = __webpack_require__(5);
 
 var com_login_banner = _interopRequireWildcard(_com_login_banner);
+
+var _main = __webpack_require__(3);
+
+var comp_main = _interopRequireWildcard(_main);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 //import * as kuaifawu_menu from  './kuaifawu_menu.js'
 //require('./scss/yewu.scss')
 
-__webpack_require__(7);
-__webpack_require__(5);
-__webpack_require__(9);
-__webpack_require__(6);
-
 __webpack_require__(8);
+__webpack_require__(6);
+__webpack_require__(10);
+__webpack_require__(7);
+
+__webpack_require__(9);
 
 /***/ })
 /******/ ]);

@@ -43,7 +43,7 @@ class Home(View):
     def get_header_menu(self):
         
         dc = { 'header_bar_menu': [
-            {'label':'数字沙盘','link':'/','name':'home'},
+            {'label':'数字沙盘','link':'/Digital_Sand','name':'Digital_Sand'},
             {'label':'户型鉴赏','link':'/huxing','name':'huxing'},
             {'label':'区域展示','link':'/zhanshi','name':'zhanshi'},
             #{'label':'商业配套','link':'/peitao','name':'peitao'},
@@ -86,11 +86,12 @@ class Home(View):
         return {
             #'banners': banners,
             #'recomPanels': recomPanels,
-            'crt_page_name':'home',
+            'crt_page_name':'Digital_Sand',
             'link_3d': sha_pan_link
         }
 
     def get_template(self):
         return 'webpage/home.html'
     
+
 

@@ -7,3 +7,4 @@ from . import admin_zhanrich
 from . import admin_3d
 
 from . import admin_huxing
+from . import admin_mappoints

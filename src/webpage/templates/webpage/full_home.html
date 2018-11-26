@@ -1,0 +1,79 @@
+{% extends 'site_frame/base.html' %}
+{% load static %}
+{% load jsonify %}
+
+{% block custom_meta %}
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+{% endblock %}
+
+{% block site-head %}
+<title>威尔佳</title>
+{% endblock %}
+
+
+{% block site-content %}
+
+<script src="{{ js_config.js_lib.element }}"></script>
+<link href="{{ js_config.js_lib.element_css }}" rel="stylesheet">
+<script src="{{ js_config.js_lib.director }}"></script>
+<script src="{{ js_config.js_lib.jb_admin_pack_js }}"></script>
+<script src="{{ js_config.js_lib.welljia }}"></script>
+<script>
+
+    header_bar_menu = {{ header_bar_menu | jsonify }}
+    page_menu = {{ page_menu |　jsonify }}
+    crt_page_name = {{ crt_page_name | jsonify }}
+    top_heads={{ top_heads | jsonify }}
+    map_points={{ map_points | jsonify }}
+
+//    env={}
+//    env.width= $(window).width()
+//    $(window).resize(function(){
+//        env.width=$(window).width()
+//    })
+
+    $(function(){
+
+
+        new Vue({
+            el:'#main-panel',
+            data:{
+//                env:env,
+                menu:header_bar_menu,
+                crt_page_name:crt_page_name,
+                username:page_data.username,
+                page_menu: page_menu,
+                search_args:{},
+                top_heads:top_heads,
+                map_points:map_points,
+            }
+        })
+    })
+
+
+</script>
+
+<div class="flex" id="main-panel">
+
+    <div class="right-panel flex-grow flex-v">
+        <com-fullhome-header-bar :top_heads="top_heads"></com-fullhome-header-bar>
+
+
+        <div class="flex-grow" style="position: relative">
+            <com-fullhome-map :map_points="map_points"></com-fullhome-map>
+        </div>
+
+        <com-fullhome-footer></com-fullhome-footer>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

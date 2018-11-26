@@ -8,7 +8,7 @@ from helpers.func.collection.container import evalue_container
 from helpers.maintenance.update_static_timestamp import js_stamp
 from django.utils.translation import ugettext as _
 from django.conf import settings
-
+from . import permit
 
 class PcMenu(BaseEngine):
     url_name='admin'
@@ -26,8 +26,9 @@ class PcMenu(BaseEngine):
             
             
             {'label':_('页面管理'),'icon':fa('fa-home'), 'visible':True,'submenu':[
+                {'label': '主页点位', 'url': page('MapPoint'),}, 
                 {'label': '3D页面链接', 'url': page('link_form'),}, 
-                {'label':'单页面','url':page('ZhanRichPage'),'visible':can_touch(User, crt_user)},
+                {'label':'富文本页面','url':page('ZhanRichPage'),'visible':can_touch(User, crt_user)},
                         ]}, 
             
             {'label':_('楼层展示'),'icon':fa('fa-home'), 'visible':True,'submenu':[
