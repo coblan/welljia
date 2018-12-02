@@ -109,7 +109,7 @@ Vue.component('com-fullhome-pos',{
                 return ss* self.scale
             })
             return {
-                x:out_ls[0] -30,
+                x:out_ls[0] -10,
                 y:out_ls[1]+8
             }
         },
