@@ -9,7 +9,7 @@ class MapPointsPage(TablePage):
         return '主页坐标点位'
     
     class tableCls(ModelTable):
-        pop_edit_field = '_sequence'
+        pop_edit_field = 'title'
         model = MapPoint
         exclude = ['id']
 

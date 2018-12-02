@@ -20,10 +20,11 @@ class ZhanRichPage(TablePage):
                 'ctx_name': 'ZhanRichPageTabs',
             })
             return ops
+        
         def dict_head(self, head): 
-            if head['name'] == '_sequence':
+            if head['name'] == 'menu_label':
                 head['editor'] = 'com-table-switch-to-tab'
-                head['inn_editor'] = 'com-table-sequence'
+                #head['inn_editor'] = 'com-table-sequence'
                 head['tab_name'] = 'edit_form'
                 head['ctx_name'] = 'ZhanRichPageTabs'
             return head

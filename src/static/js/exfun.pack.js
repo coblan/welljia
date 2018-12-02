@@ -443,8 +443,9 @@ window.cfg = {
         };
     },
     pop_middle: function pop_middle(editor, ctx, callback) {
+        var width = Math.min(800, cfg.env.width);
         var layercfg = {
-            area: ['750px', '500px']
+            area: [width + 'px', '500px']
         };
         if (ctx.layer) {
             ex.assign(layercfg, ctx.layer);

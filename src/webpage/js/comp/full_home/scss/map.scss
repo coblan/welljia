@@ -1,3 +1,9 @@
+@keyframes rotate{
+  0% { transform:rotate(0deg)}
+  50% {transform:rotate(180deg)}
+  100% { transform:rotate(0deg)}
+}
+
 .com-fullhome-map{
     background-color: #2a3043;
     position: absolute;
@@ -42,9 +48,9 @@
 
 .com-fullhome-pos{
   position: absolute;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
   background-color: rgba(0,0,0,0.2);
   cursor: pointer;
   transition: background-color .6s;
@@ -65,11 +71,24 @@
         margin-right: 0.2rem;
     }
   }
-  &:hover{
+  .line{
+    opacity: 0;
+    transition: opacity .6s;
+    //pointer-events: none;
+  }
+
+  &.show{
     background-color: rgba(0,0,0,0.4);
+
+    .circle img{
+      //transform-origin:50% 50%;
+      animation: rotate 8s linear infinite;
+    }
     .title{
         opacity: 1;
-
+    }
+    .line{
+        opacity: 0.8;
     }
   }
   .point{
@@ -78,7 +97,13 @@
     left: 50%;
     top:50%;
     transform: translate(-50%,-50%);
-
+  }
+  .circle{
+    width: 60px;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
   }
 
 }

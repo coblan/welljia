@@ -12,12 +12,15 @@
 
 
 {% block site-content %}
+<script src="https://cdn.bootcss.com/fabric.js/2.4.3/fabric.min.js"></script>
 
 <script src="{{ js_config.js_lib.element }}"></script>
 <link href="{{ js_config.js_lib.element_css }}" rel="stylesheet">
 <script src="{{ js_config.js_lib.director }}"></script>
 <script src="{{ js_config.js_lib.jb_admin_pack_js }}"></script>
 <script src="{{ js_config.js_lib.welljia }}"></script>
+
+
 <script>
 
     header_bar_menu = {{ header_bar_menu | jsonify }}
@@ -25,13 +28,12 @@
     crt_page_name = {{ crt_page_name | jsonify }}
     top_heads={{ top_heads | jsonify }}
     map_points={{ map_points | jsonify }}
-    area_list={{ area_list | jsonify }}
-    page_item_list= {{ page_item_list | jsonify }}
-//    env={}
-//    env.width= $(window).width()
-//    $(window).resize(function(){
-//        env.width=$(window).width()
-//    })
+
+    //    env={}
+    //    env.width= $(window).width()
+    //    $(window).resize(function(){
+    //        env.width=$(window).width()
+    //    })
 
     $(function(){
 
@@ -47,29 +49,6 @@
                 search_args:{},
                 top_heads:top_heads,
                 map_points:map_points,
-                area_list:area_list,
-                page_item_list:page_item_list,
-                crt_item:page_item_list[0]
-            },
-            computed:{
-                normed_map_pos_list:function(){
-                    var self=this
-                    return ex.filter(this.map_points,function(item){
-                        return ex.isin(item.pk,self.crt_item.project)
-                    })
-                },
-                normed_area_list:function(){
-                    var self=this
-                    return ex.filter(this.area_list,function(item){
-                        return ex.isin(item.pk,self.crt_item.area)
-                    })
-                }
-
-            },
-            methods:{
-                on_action:function(v){
-                    this.crt_item = v
-                }
             }
         })
     })
@@ -83,15 +62,9 @@
         <com-fullhome-header-bar :top_heads="top_heads"></com-fullhome-header-bar>
 
 
-        <div class="flex-grow flex" style="position: relative;">
-
-            <com-fullhome-left-menu :menu-list="page_item_list" @action="on_action($event)"></com-fullhome-left-menu>
-
-
-            <div class="flex-grow" style="position: relative">
-                <com-fullhome-map :map_points="normed_map_pos_list" :area_list="normed_area_list"></com-fullhome-map>
-            </div>
-
+        <div class="flex-grow" style="position: relative">
+            <com-fab-map ></com-fab-map>
+            <!--<com-fullhome-map :map_points="map_points"></com-fullhome-map>-->
         </div>
 
         <com-fullhome-footer></com-fullhome-footer>

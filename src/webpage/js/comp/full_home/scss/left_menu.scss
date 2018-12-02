@@ -1,0 +1,12 @@
+.com-fullhome-left-menu{
+    background-color: black;
+    width: 160px;
+    .action{
+        color:white;
+        cursor: pointer;
+
+        &:hover{
+            color: #bababa;
+        }
+    }
+}

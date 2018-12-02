@@ -26,7 +26,9 @@ class PcMenu(BaseEngine):
             
             
             {'label':_('页面管理'),'icon':fa('fa-home'), 'visible':True,'submenu':[
-                {'label': '主页点位', 'url': page('MapPoint'),}, 
+                {'label': '主页项目', 'url': page('mainpage_cfg'),}, 
+                {'label': '项目点位', 'url': page('MapPoint'),}, 
+                {'label': '区域设置', 'url': page('Area'),}, 
                 {'label': '3D页面链接', 'url': page('link_form'),}, 
                 {'label':'富文本页面','url':page('ZhanRichPage'),'visible':can_touch(User, crt_user)},
                         ]}, 

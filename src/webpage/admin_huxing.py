@@ -9,7 +9,7 @@ class BuildPage(TablePage):
     class tableCls(ModelTable):
         model = Building
         exclude = ['id']
-        pop_edit_field = '_sequence'
+        pop_edit_field = 'label'
         
         @classmethod
         def clean_search_args(cls, search_args): 
@@ -32,7 +32,7 @@ class FloorTypePage(TablePage):
         return '户型管理'
     
     class tableCls(ModelTable):
-        pop_edit_field = '_sequence'
+        pop_edit_field = 'label'
         model = FloorType
         exclude = ['id']
 
@@ -47,7 +47,7 @@ class FloorPage(TablePage):
         return '楼层管理'
     
     class tableCls(ModelTable):
-        pop_edit_field = '_sequence'
+        pop_edit_field = 'label'
         model = Floor
         exclude = ['id']
         

@@ -4255,7 +4255,7 @@ Vue.component('com-filter', {
     * 过滤器的 容器
     * */
     props: ['heads', 'search_args'],
-    template: '<div v-if=\'heads.length>0\' class="com-filter flex flex-grow flex-ac">\n            <com-auto-more>\n                <div class="flex" style="flex-wrap: wrap">\n                     <div v-for="filter in heads" :id="\'filter-\'+filter.name" class="filter-item">\n                            <component @submit="m_submit()" :is="filter.editor" :head="filter" :search_args=\'search_args\' > </component>\n                        </div>\n                </div>\n            </com-auto-more>\n\n                <button name="go" type="button" class="btn btn-success btn-sm" @click=\'m_submit()\' >\n                  <i class="fa fa-search"></i>\n                  <span v-text="search_lable"></span>\n                </button>\n        </div>\n    ',
+    template: '<div v-if=\'heads.length>0\' class="com-filter flex flex-grow flex-ac" >\n            <com-auto-more org-height="2.8em">\n                <div class="flex" style="flex-wrap: wrap;padding: 0.3em">\n                     <div v-for="filter in heads" :id="\'filter-\'+filter.name" class="filter-item" style="margin-bottom: 0.3em">\n                            <component @submit="m_submit()" :is="filter.editor" :head="filter" :search_args=\'search_args\' > </component>\n                     </div>\n                </div>\n            </com-auto-more>\n\n                <button name="go" type="button" class="btn btn-success btn-sm" @click=\'m_submit()\' >\n                  <i class="fa fa-search"></i>\n                  <span v-text="search_lable"></span>\n                </button>\n        </div>\n    ',
     created: function created() {
         var self = this;
         ex.each(self.heads, function (filter) {
@@ -4501,14 +4501,16 @@ window.table_fun = table_fun;
 __webpack_require__(106);
 
 Vue.component('com-auto-more', {
+    props: ['orgHeight'],
     data: function data() {
         return {
             expanded: false
         };
     }, //onmousewheel="return false;"
-    template: '<div class="com-auto-more" >\n        <div class="outer-wrap">\n            <div class="inn-wrap">\n                <slot></slot>\n            </div>\n        </div>\n\n        <div class="toggle-btn clickable" @click="toggle()">\n            <span v-if="expanded">\u6536\u8D77</span>\n            <span v-else>\u66F4\u591A</span>\n        </div>\n    </div>',
+    template: '<div class="com-auto-more" :style="{height:orgHeight}">\n        <div class="outer-wrap" :style="{height:orgHeight}">\n            <div class="inn-wrap">\n                <slot></slot>\n            </div>\n        </div>\n\n        <div class="toggle-btn clickable" @click="toggle()">\n            <span v-if="expanded">\u6536\u8D77</span>\n            <span v-else>\u66F4\u591A</span>\n        </div>\n    </div>',
     mounted: function mounted() {
-        if ($(this.$el).find('.inn-wrap').height() > $(this.$el).height()) {
+        if ($(this.$el).find('.inn-wrap').height() > $(this.$el).height() + 10) {
+            // 10是为了去噪
             $(this.$el).addClass('has-overflow');
         }
     },
@@ -4518,10 +4520,10 @@ Vue.component('com-auto-more', {
         },
         toggle: function toggle() {
             if (this.expanded) {
-                $(this.$el).find('.outer-wrap').css('height', '3rem');
+                $(this.$el).find('.outer-wrap').css('height', this.orgHeight);
                 $(this.$el).removeClass('expanded');
             } else {
-                $(this.$el).find('.outer-wrap').css('height', $(this.$el).find('.inn-wrap').height() + 20 + 'px');
+                $(this.$el).find('.outer-wrap').css('height', $(this.$el).find('.inn-wrap').height() + 2 + 'px');
                 $(this.$el).addClass('expanded');
             }
             this.expanded = !this.expanded;
@@ -4778,7 +4780,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".com-auto-more {\n  height: 3rem;\n  position: relative;\n  flex-shrink: 0;\n  flex-grow: 10; }\n  .com-auto-more .outer-wrap {\n    height: 3rem;\n    transition: height .3s;\n    z-index: 100;\n    position: absolute;\n    overflow: hidden;\n    width: 100%; }\n  .com-auto-more .inn-wrap {\n    width: 100%;\n    background-color: white;\n    padding: 0 3rem 1rem 1rem; }\n  .com-auto-more .toggle-btn {\n    display: none;\n    position: absolute;\n    z-index: 101; }\n  .com-auto-more.has-overflow .toggle-btn {\n    display: block;\n    position: absolute;\n    right: 1rem;\n    top: 0.7rem; }\n  .com-auto-more.expanded .outer-wrap {\n    border-top: 1px solid #f2f2f2;\n    box-shadow: 0px 2px 4px #9c9c9c;\n    -moz-box-shadow: 0px 2px 4px #9c9c9c;\n    -webkit-box-shadow: 0px 2px 4px #9c9c9c; }\n", ""]);
+exports.push([module.i, ".com-auto-more {\n  position: relative;\n  flex-shrink: 0;\n  flex-grow: 10; }\n  .com-auto-more .outer-wrap {\n    padding: 0.2rem;\n    transition: height .3s;\n    z-index: 100;\n    position: absolute;\n    overflow: hidden;\n    width: 100%;\n    background-color: white; }\n  .com-auto-more .inn-wrap {\n    width: 100%;\n    background-color: white;\n    padding: 0 3rem 1rem 1rem; }\n  .com-auto-more .toggle-btn {\n    display: none;\n    position: absolute;\n    z-index: 101; }\n  .com-auto-more.has-overflow .toggle-btn {\n    display: block;\n    position: absolute;\n    right: 1rem;\n    top: 0.7rem; }\n  .com-auto-more.expanded .outer-wrap {\n    border-top: 1px solid #f2f2f2;\n    box-shadow: 0px 2px 4px #9c9c9c;\n    -moz-box-shadow: 0px 2px 4px #9c9c9c;\n    -webkit-box-shadow: 0px 2px 4px #9c9c9c; }\n", ""]);
 
 // exports
 

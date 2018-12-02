@@ -8,3 +8,6 @@ from . import admin_3d
 
 from . import admin_huxing
 from . import admin_mappoints
+
+from .mainpage import mainpage
+from .mainpage import area
