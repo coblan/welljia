@@ -846,7 +846,7 @@ Vue.component('com-fullhome-map', {
         }
     },
     //1921/1007
-    template: '<div class="com-fullhome-map">\n        <div class="map-wrap center-vh" :style="size">\n             <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->\n            <com-fullhome-area v-for="area in area_list" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>\n             <com-fullhome-pos v-for="pos in map_points" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>\n        </div>\n    </div>'
+    template: '<div class="com-fullhome-map">\n        <div class="map-wrap center-vh" :style="size">\n             <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->\n             <transition-group name="fade">\n                <com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>\n                <com-fullhome-pos v-for="pos in map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>\n  </transition-group>\n\n        </div>\n    </div>'
 });
 
 Vue.component('com-fullhome-area', {
@@ -873,10 +873,11 @@ Vue.component('com-fullhome-pos', {
     props: ['mapitem', 'scale'],
     data: function data() {
         return {
-            is_show: false
+            is_show: true
         };
     },
-    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n        @mouseleave="is_show=false" @click="open_page()">\n    <img class="point" src="/static/images/4.png" alt="">\n    <div class="line" :style="line_block_style"></div>\n    <div class="line" :style="line_end_style"></div>\n      <div class="circle" @mouseenter="is_show=true">\n        <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n    </div>\n    <span class="title" :style="{top:label_loc.y,left:label_loc.x}">\n        <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n    </span>\n    </div>',
+    //@mouseleave="is_show=false"
+    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n    <img class="point" src="/static/images/4.png" alt="">\n    <div class="line" :style="line_block_style"></div>\n    <div class="line" :style="line_end_style"></div>\n      <div class="circle" @mouseenter="is_show=true">\n        <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n    </div>\n    <span class="title" :style="{top:label_loc.y,left:label_loc.x}">\n        <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n    </span>\n    </div>',
     computed: {
         line_end_pos: function line_end_pos() {
             var self = this;

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 115);
+/******/ 	return __webpack_require__(__webpack_require__.s = 117);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -782,7 +782,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 //import {use_color} from '../dosome/color.js'
 //import {load_js,load_css} from '../dosome/pkg.js'
-__webpack_require__(93);
+__webpack_require__(94);
 //import * as fb from './field_base.js'
 //import * as js from './adapt.js'
 
@@ -910,8 +910,8 @@ var first_col = _interopRequireWildcard(_first_col);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+__webpack_require__(105);
 __webpack_require__(104);
-__webpack_require__(103);
 
 /***/ }),
 /* 7 */
@@ -926,7 +926,8 @@ var auto_more = _interopRequireWildcard(_auto_more);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-__webpack_require__(107);
+__webpack_require__(108);
+__webpack_require__(109);
 
 /***/ }),
 /* 8 */,
@@ -1682,7 +1683,7 @@ img-uploador
 <<<<
 */
 
-__webpack_require__(94);
+__webpack_require__(95);
 
 var fl = {
     read: function read(file, callback) {
@@ -2351,7 +2352,7 @@ popUrlListen:
 <-<
  */
 
-__webpack_require__(95);
+__webpack_require__(96);
 
 var ln = {
     history_handle: function history_handle(obj) {
@@ -2706,7 +2707,7 @@ function order_by_key(array, key) {
 
 var _basic = __webpack_require__(2);
 
-__webpack_require__(96);
+__webpack_require__(97);
 
 var table_fields = {
     props: ['heads', 'row', 'inputWidth', 'labelWidth'],
@@ -2913,7 +2914,7 @@ Vue.component('datetime', {
 "use strict";
 
 
-__webpack_require__(97);
+__webpack_require__(98);
 
 /***/ }),
 /* 39 */
@@ -3078,7 +3079,7 @@ Vue.component('com-field-select', sim_select);
 "use strict";
 
 
-__webpack_require__(98);
+__webpack_require__(99);
 
 var field_sigle_chosen = {
     props: ['row', 'head'],
@@ -3403,7 +3404,7 @@ Vue.component('com-field-int-bool', field_bool);
 "use strict";
 
 
-__webpack_require__(99);
+__webpack_require__(100);
 
 var multi_chosen = {
     props: ['value', 'options'],
@@ -3555,7 +3556,7 @@ Vue.component('com-table', com_table);
 "use strict";
 
 
-__webpack_require__(100);
+__webpack_require__(101);
 
 var com_date_range = {
     props: ['head', 'search_args'],
@@ -3617,7 +3618,7 @@ Vue.component('com-search-filter', com_search);
 "use strict";
 
 
-__webpack_require__(101);
+__webpack_require__(102);
 
 var com_search = {
     props: ['head', 'search_args'],
@@ -3658,7 +3659,7 @@ Vue.component('com-search-select', com_search);
 "use strict";
 
 
-__webpack_require__(102);
+__webpack_require__(103);
 
 var com_select = {
     props: ['head', 'search_args', 'config'],
@@ -4233,7 +4234,7 @@ var filter_single_select2 = _interopRequireWildcard(_filter_single_select);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-__webpack_require__(105); /**
+__webpack_require__(106); /**
                                       >5>front/table.rst>
                                      
                                       table的过滤器
@@ -4498,7 +4499,7 @@ window.table_fun = table_fun;
 "use strict";
 
 
-__webpack_require__(106);
+__webpack_require__(107);
 
 Vue.component('com-auto-more', {
     props: ['orgHeight'],
@@ -4800,14 +4801,28 @@ exports.push([module.i, "@charset \"UTF-8\";\n.no-scroll-bar {\n  -ms-overflow-s
 
 
 /***/ }),
-/* 86 */,
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".fade-enter-active, .fade-leave-active {\n  transition: opacity .5s; }\n\n.fade-enter, .fade-leave-to {\n  opacity: 0; }\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 87 */,
 /* 88 */,
 /* 89 */,
 /* 90 */,
 /* 91 */,
 /* 92 */,
-/* 93 */
+/* 93 */,
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4833,7 +4848,7 @@ if(false) {
 }
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4859,7 +4874,7 @@ if(false) {
 }
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4885,7 +4900,7 @@ if(false) {
 }
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4911,7 +4926,7 @@ if(false) {
 }
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4937,7 +4952,7 @@ if(false) {
 }
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4963,7 +4978,7 @@ if(false) {
 }
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -4989,7 +5004,7 @@ if(false) {
 }
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5015,7 +5030,7 @@ if(false) {
 }
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5041,7 +5056,7 @@ if(false) {
 }
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5067,7 +5082,7 @@ if(false) {
 }
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5093,7 +5108,7 @@ if(false) {
 }
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5119,7 +5134,7 @@ if(false) {
 }
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5145,7 +5160,7 @@ if(false) {
 }
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5171,7 +5186,7 @@ if(false) {
 }
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -5197,14 +5212,40 @@ if(false) {
 }
 
 /***/ }),
-/* 108 */,
-/* 109 */,
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(86);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./vue_animation.scss", function() {
+			var newContent = require("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./vue_animation.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
 /* 110 */,
 /* 111 */,
 /* 112 */,
 /* 113 */,
 /* 114 */,
-/* 115 */
+/* 115 */,
+/* 116 */,
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

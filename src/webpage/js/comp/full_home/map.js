@@ -54,8 +54,11 @@ Vue.component('com-fullhome-map',{
     template:`<div class="com-fullhome-map">
         <div class="map-wrap center-vh" :style="size">
              <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->
-            <com-fullhome-area v-for="area in area_list" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>
-             <com-fullhome-pos v-for="pos in map_points" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>
+             <transition-group name="fade">
+                <com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>
+                <com-fullhome-pos v-for="pos in map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>
+  </transition-group>
+
         </div>
     </div>`
 })
@@ -86,11 +89,12 @@ Vue.component('com-fullhome-pos',{
     props:['mapitem','scale'],
     data:function(){
         return {
-            is_show:false,
+            is_show:true,
         }
     },
+    //@mouseleave="is_show=false"
     template:`<div :class="['com-fullhome-pos',{'show':is_show,}]" :style="{top:loc.y,left:loc.x}"
-        @mouseleave="is_show=false" @click="open_page()">
+         @click="open_page()">
     <img class="point" src="/static/images/4.png" alt="">
     <div class="line" :style="line_block_style"></div>
     <div class="line" :style="line_end_style"></div>
