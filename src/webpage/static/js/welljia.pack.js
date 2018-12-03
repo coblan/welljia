@@ -759,7 +759,19 @@ __webpack_require__(32);
 
 Vue.component('com-fullhome-left-menu', {
     props: ['menuList'],
-    template: '<div class="com-fullhome-left-menu">\n    <div class="action" v-for="menu in menuList" @click="$emit(\'action\',menu)">\n        <span v-text="menu.label" ></span>\n    </div>\n    </div>'
+    data: function data() {
+        return {
+            crt_action: this.menuList[0]
+        };
+    },
+    template: '<div class="com-fullhome-left-menu">\n    <div :class="[\'action\',{\'is_active\':crt_action==action}]" v-for="action in menuList" @click="on_click(action)">\n        <img v-if="crt_action==action" src="/static/images/big_btn.png" alt="">\n        <span class="center-vh" style="z-index:200" v-text="action.label" ></span>\n\n    </div>\n    </div>',
+    methods: {
+        on_click: function on_click(action) {
+            this.crt_action = action;
+            this.$emit('action', action);
+        }
+    }
+
 });
 
 /***/ }),
@@ -873,11 +885,32 @@ Vue.component('com-fullhome-pos', {
     props: ['mapitem', 'scale'],
     data: function data() {
         return {
-            is_show: true
+            is_show: true,
+            show_info: false
         };
     },
     //@mouseleave="is_show=false"
-    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n    <img class="point" src="/static/images/4.png" alt="">\n    <div class="line" :style="line_block_style"></div>\n    <div class="line" :style="line_end_style"></div>\n      <div class="circle" @mouseenter="is_show=true">\n        <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n    </div>\n    <span class="title" :style="{top:label_loc.y,left:label_loc.x}">\n        <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n    </span>\n    </div>',
+    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n    <img class="point" src="/static/images/4.png" alt="">\n\n    <div class="line" :style="line_block_style">\n        <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>\n    </div>\n\n    <transition name="fade">\n    <div v-show="show_info">\n           <div class="line" :style="line_end_style">\n            </div >\n\n            <span class="title" :style="{top:label_loc.y,left:label_loc.x}">\n                <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n            </span>\n    </div>\n\n    </transition>\n       <div class="circle" @mouseenter="is_show=true">\n                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n            </div>\n\n    </div>',
+
+    mounted: function mounted() {
+        this.draw_line();
+        var self = this;
+        self.show_info = false;
+        setTimeout(function () {
+            self.show_info = true;
+        }, 1000);
+    },
+
+    watch: {
+        line_block_style: function line_block_style(v) {
+            this.draw_line();
+            var self = this;
+            self.show_info = false;
+            setTimeout(function () {
+                self.show_info = true;
+            }, 1000);
+        }
+    },
     computed: {
         line_end_pos: function line_end_pos() {
             var self = this;
@@ -917,24 +950,29 @@ Vue.component('com-fullhome-pos', {
             var height = Math.abs(org_y - label_y);
             var left = Math.min(org_x, label_x);
             var width = Math.abs(org_x - label_x);
+            //if(this.ctx){
+            //    this.ctx.scale(width/100,height/100)
+            //}
+
+
             var dc = {
                 position: 'absolute',
                 top: top + 'px',
                 height: height + 'px',
                 left: left + 'px',
-                width: width + 'px'
-            };
-            if (org_y < label_y) {
-                dc['borderBottom'] = '1px solid #ededed';
-            } else {
-                dc['borderTop'] = '1px solid #ededed';
-            }
-            //if(org_x <label_x){
-            dc['borderLeft'] = '1px solid #ededed';
-            //}else{
-            //
-            //}
-            return dc;
+                width: width + 'px',
+                num_height: height,
+                num_width: width
+
+                //if(org_y <label_y ){
+                //    dc['borderBottom']='1px solid #ededed'
+                //}else{
+                //    dc['borderTop'] = '1px solid #ededed'
+                //}
+                //
+                //dc['borderLeft']='1px solid #ededed'
+
+            };return dc;
         },
         loc: function loc() {
             var self = this;
@@ -963,6 +1001,105 @@ Vue.component('com-fullhome-pos', {
         open_page: function open_page() {
             console.log('jj');
             location = this.mapitem.url;
+        },
+        draw_line: function draw_line() {
+            var self = this;
+            setTimeout(function () {
+                var canvas1 = $(self.$el).find('canvas')[0];
+                //获得2维绘图的上下文
+                var ctx = canvas1.getContext("2d");
+                var endpos = self.line_end_pos;
+                //设置线宽
+                ctx.lineWidth = 2;
+                //设置线的颜色
+                ctx.strokeStyle = "#ededed";
+                if (endpos.x > 0) {
+                    var start_x = 0;
+                    var end_x = canvas1.width;
+                } else {
+                    var start_x = -canvas1.width;
+                    var end_x = 0;
+                }
+                if (endpos.y > 0) {
+                    var start_y = 0;
+                    var end_y = canvas1.height;
+                } else {
+                    var start_y = canvas1.height;
+                    var end_y = 0;
+                }
+                console.log(start_x, start_y);
+                console.log(end_x, end_y);
+
+                //将画笔移动到00点
+                var length = end_x + end_y;
+                var step = length / 50;
+
+                ctx.moveTo(start_x, start_y);
+
+                function draw_y(callback) {
+                    var last_y = start_y;
+                    var direction = Math.sign(end_y - start_y);
+                    var yd = setInterval(function () {
+                        last_y += direction * step;
+                        if (direction == 1) {
+                            if (last_y > end_y) {
+                                ctx.lineTo(start_x, end_y);
+                                ctx.stroke();
+                                clearInterval(yd);
+                                callback();
+                            } else {
+                                ctx.lineTo(start_x, last_y);
+                                ctx.stroke();
+                            }
+                        } else {
+                            if (last_y < end_y) {
+                                ctx.lineTo(start_x, end_y);
+                                ctx.stroke();
+                                clearInterval(yd);
+                                callback();
+                            } else {
+                                ctx.lineTo(start_x, last_y);
+                                ctx.stroke();
+                            }
+                        }
+                    }, 20);
+                }
+
+                function draw_x() {
+                    var last_x = start_x;
+                    var direction = Math.sign(end_x - start_x);
+                    var xd = setInterval(function () {
+                        last_x += direction * step;
+                        if (direction == 1) {
+                            if (last_x > end_x) {
+                                clearInterval(xd);
+                                ctx.lineTo(end_x, end_y);
+                                ctx.stroke();
+                            } else {
+                                ctx.lineTo(last_x, end_y);
+                                ctx.stroke();
+                            }
+                        } else {
+                            if (last_x < end_x) {
+                                clearInterval(xd);
+                                ctx.lineTo(end_x, end_y);
+                                ctx.stroke();
+                            } else {
+                                ctx.lineTo(last_x, end_y);
+                                ctx.stroke();
+                            }
+                        }
+                    }, 20);
+                }
+
+                draw_y(draw_x);
+
+                //画线到800，600的坐标
+                //ctx.lineTo(start_x,end_y);
+                //ctx.lineTo(end_x,end_y)
+
+                //执行画线
+            }, 10);
         }
     }
 });
@@ -1004,7 +1141,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".com-fullhome-left-menu {\n  background-color: black;\n  width: 160px; }\n  .com-fullhome-left-menu .action {\n    color: white;\n    cursor: pointer; }\n    .com-fullhome-left-menu .action:hover {\n      color: #bababa; }\n", ""]);
+exports.push([module.i, ".com-fullhome-left-menu {\n  background-color: black;\n  width: 160px;\n  position: relative; }\n  .com-fullhome-left-menu .action {\n    position: relative;\n    color: white;\n    cursor: pointer;\n    height: 8rem; }\n    .com-fullhome-left-menu .action:hover {\n      color: #bababa; }\n    .com-fullhome-left-menu .action img {\n      position: absolute;\n      left: 0;\n      top: 0;\n      width: 116%;\n      height: 100%;\n      z-index: 100; }\n", ""]);
 
 // exports
 
@@ -1018,7 +1155,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "@keyframes rotate {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(0deg); } }\n\n.com-fullhome-map {\n  background-color: #2a3043;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto; }\n  .com-fullhome-map .map-wrap {\n    background: url(/static/images/sichuan.png) no-repeat;\n    background-size: 100% 100%; }\n  .com-fullhome-map .sichuan {\n    width: 100%;\n    height: 100%; }\n\n.com-fullhome-pos {\n  position: absolute;\n  width: 30px;\n  height: 30px;\n  border-radius: 15px;\n  background-color: rgba(0, 0, 0, 0.2);\n  cursor: pointer;\n  transition: background-color .6s; }\n  .com-fullhome-pos .title {\n    opacity: 0;\n    color: #f5f5f5;\n    font-size: 10px;\n    white-space: nowrap;\n    transition: opacity .6s;\n    position: absolute;\n    top: 5px;\n    left: 50%; }\n    .com-fullhome-pos .title .icon {\n      width: 1em;\n      display: inline-block;\n      margin-right: 0.2rem; }\n  .com-fullhome-pos .line {\n    opacity: 0;\n    transition: opacity .6s; }\n  .com-fullhome-pos.show {\n    background-color: rgba(0, 0, 0, 0.4); }\n    .com-fullhome-pos.show .circle img {\n      animation: rotate 8s linear infinite; }\n    .com-fullhome-pos.show .title {\n      opacity: 1; }\n    .com-fullhome-pos.show .line {\n      opacity: 0.8; }\n  .com-fullhome-pos .point {\n    width: 20px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n  .com-fullhome-pos .circle {\n    width: 60px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n", ""]);
+exports.push([module.i, "@keyframes rotate {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(0deg); } }\n\n.com-fullhome-map {\n  background-color: #2a3043;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto; }\n  .com-fullhome-map .map-wrap {\n    background: url(/static/images/sichuan.png) no-repeat;\n    background-size: 100% 100%; }\n  .com-fullhome-map .sichuan {\n    width: 100%;\n    height: 100%; }\n\n.com-fullhome-pos {\n  position: absolute;\n  width: 30px;\n  height: 30px;\n  border-radius: 15px;\n  cursor: pointer; }\n  .com-fullhome-pos .title {\n    opacity: 0;\n    color: #f5f5f5;\n    font-size: 10px;\n    white-space: nowrap;\n    transition: opacity .6s;\n    position: absolute;\n    top: 5px;\n    left: 50%; }\n    .com-fullhome-pos .title .icon {\n      width: 1em;\n      display: inline-block;\n      margin-right: 0.2rem; }\n  .com-fullhome-pos.show .circle img {\n    animation: rotate 8s linear infinite; }\n  .com-fullhome-pos.show .title {\n    opacity: 1; }\n  .com-fullhome-pos .point {\n    width: 20px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n  .com-fullhome-pos .circle {\n    width: 60px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n", ""]);
 
 // exports
 

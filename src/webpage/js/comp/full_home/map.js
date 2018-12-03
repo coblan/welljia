@@ -90,21 +90,54 @@ Vue.component('com-fullhome-pos',{
     data:function(){
         return {
             is_show:true,
+            show_info:false,
         }
     },
     //@mouseleave="is_show=false"
     template:`<div :class="['com-fullhome-pos',{'show':is_show,}]" :style="{top:loc.y,left:loc.x}"
          @click="open_page()">
     <img class="point" src="/static/images/4.png" alt="">
-    <div class="line" :style="line_block_style"></div>
-    <div class="line" :style="line_end_style"></div>
-      <div class="circle" @mouseenter="is_show=true">
-        <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">
+
+    <div class="line" :style="line_block_style">
+        <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>
     </div>
-    <span class="title" :style="{top:label_loc.y,left:label_loc.x}">
-        <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>
-    </span>
+
+    <transition name="fade">
+    <div v-show="show_info">
+           <div class="line" :style="line_end_style">
+            </div >
+
+            <span class="title" :style="{top:label_loc.y,left:label_loc.x}">
+                <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>
+            </span>
+    </div>
+
+    </transition>
+       <div class="circle" @mouseenter="is_show=true">
+                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">
+            </div>
+
     </div>`,
+
+    mounted:function(){
+        this.draw_line()
+        var self=this
+        self.show_info=false
+        setTimeout(function(){
+            self.show_info=true
+        },1000)
+    },
+
+    watch:{
+        line_block_style:function(v){
+            this.draw_line()
+            var self=this
+            self.show_info=false
+            setTimeout(function(){
+                self.show_info=true
+            },1000)
+        }
+    },
     computed:{
         line_end_pos:function(){
             var self=this
@@ -144,23 +177,29 @@ Vue.component('com-fullhome-pos',{
             var height=Math.abs(org_y-label_y)
             var left = Math.min(org_x,label_x)
             var width=Math.abs(org_x-label_x)
+            //if(this.ctx){
+            //    this.ctx.scale(width/100,height/100)
+            //}
+
+
             var dc ={
                 position:'absolute',
                 top:top+'px',
                 height:height+'px',
                 left:left+'px',
                 width:width+'px',
+                num_height:height,
+                num_width:width,
             }
-            if(org_y <label_y ){
-                dc['borderBottom']='1px solid #ededed'
-            }else{
-                dc['borderTop'] = '1px solid #ededed'
-            }
-            //if(org_x <label_x){
-                dc['borderLeft']='1px solid #ededed'
+
+            //if(org_y <label_y ){
+            //    dc['borderBottom']='1px solid #ededed'
             //}else{
-            //
+            //    dc['borderTop'] = '1px solid #ededed'
             //}
+            //
+            //dc['borderLeft']='1px solid #ededed'
+
             return dc
         },
         loc:function(){
@@ -191,5 +230,110 @@ Vue.component('com-fullhome-pos',{
             console.log('jj')
             location = this.mapitem.url
         },
+        draw_line:function(){
+            var self=this
+            setTimeout(function(){
+                var canvas1=$(self.$el).find('canvas')[0];
+                //获得2维绘图的上下文
+                var ctx=canvas1.getContext("2d");
+                var endpos = self.line_end_pos
+                //设置线宽
+                ctx.lineWidth=2;
+                //设置线的颜色
+                ctx.strokeStyle="#ededed";
+                if(endpos.x > 0){
+                    var start_x =0
+                    var end_x = canvas1.width
+                }else{
+                    var start_x =-canvas1.width
+                    var end_x = 0
+                }
+                if(endpos.y>0){
+                    var start_y =0
+                    var end_y = canvas1.height
+                }else {
+                    var start_y=  canvas1.height
+                    var end_y =0
+                }
+                console.log(start_x,start_y)
+                console.log(end_x,end_y)
+
+                //将画笔移动到00点
+                var length = end_x + end_y
+                var step = length /50
+
+                ctx.moveTo(start_x,start_y);
+
+                function draw_y(callback){
+                    var last_y = start_y
+                    var direction = Math.sign(end_y - start_y)
+                    var yd= setInterval(function(){
+                        last_y += direction * step
+                        if(direction == 1){
+                            if(last_y>end_y){
+                                ctx.lineTo(start_x,end_y);
+                                ctx.stroke();
+                                clearInterval(yd)
+                                callback()
+                            }else{
+                                ctx.lineTo(start_x,last_y);
+                                ctx.stroke();
+                            }
+                        }else{
+                            if(last_y < end_y){
+                                ctx.lineTo(start_x,end_y);
+                                ctx.stroke();
+                                clearInterval(yd)
+                                callback()
+                            }else {
+                                ctx.lineTo(start_x,last_y);
+                                ctx.stroke();
+                            }
+                        }
+                    },20)
+                }
+
+                function draw_x(){
+                    var last_x = start_x
+                    var direction = Math.sign(end_x - start_x)
+                    var xd= setInterval(function(){
+                        last_x += direction * step
+                        if(direction == 1){
+                            if(last_x>end_x){
+                                clearInterval(xd)
+                                ctx.lineTo(end_x,end_y);
+                                ctx.stroke();
+                            }else{
+                                ctx.lineTo(last_x,end_y);
+                                ctx.stroke();
+                            }
+                        }else{
+                            if(last_x < end_x){
+                                clearInterval(xd)
+                                ctx.lineTo(end_x,end_y);
+                                ctx.stroke();
+                            }else {
+                                ctx.lineTo(last_x,end_y);
+                                ctx.stroke();
+                            }
+                        }
+                    },20)
+                }
+
+
+                draw_y(draw_x)
+
+
+
+
+
+                //画线到800，600的坐标
+                //ctx.lineTo(start_x,end_y);
+                //ctx.lineTo(end_x,end_y)
+
+                //执行画线
+
+            },10)
+        }
     }
 })

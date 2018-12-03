@@ -4,6 +4,18 @@
   100% { transform:rotate(0deg)}
 }
 
+//@keyframes lineshow {
+//  0%{transform:scale(0.2,0.2)}
+//  50%{transform:scale(0.2,1)}
+//  100%{transform:scale(1,1)}
+//}
+//@keyframes lineshow {
+//  0%{width: 10%;height: 10%}
+//  50%{height: 100%}
+//  100%{width:100%}
+//}
+
+
 .com-fullhome-map{
     background-color: #2a3043;
     position: absolute;
@@ -13,12 +25,6 @@
     bottom: 0;
     overflow: auto;
 
-    //.sihuan{
-    //    position: relative;
-    //}
-    //image{
-    //  height: 100%;
-    //}
   .map-wrap{
     //background-color: red;
     background:url(/static/images/sichuan.png) no-repeat;
@@ -28,21 +34,6 @@
     width: 100%;
     height: 100%;
   }
-  //@media (max-width: 767px) {
-  //    .sihuan{
-  //      //max-width: 200%;
-  //      //max-height: 140%;
-  //      height: 100%;
-  //      //min-width: 140%;
-  //    }
-  //}
-  //@media (min-width: 767px) {
-  //    .sihuan{
-  //      max-width: 100vw;
-  //      max-height: 100vh;
-  //    }
-  //
-  //}
 
 }
 
@@ -51,9 +42,9 @@
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: rgba(0,0,0,0.2);
+  //background-color: rgba(0,0,0,0.2);
   cursor: pointer;
-  transition: background-color .6s;
+  //transition: background-color .6s;
 
   .title{
     opacity: 0;
@@ -72,13 +63,17 @@
     }
   }
   .line{
-    opacity: 0;
-    transition: opacity .6s;
+    //opacity: 0;
+    //transition: opacity 5.6s;
     //pointer-events: none;
+    //animation: lineshow 10s linear;
+    //
+    //ransform-origin:0 0;
+    //-webkit-transform-origin:0 0;
   }
 
   &.show{
-    background-color: rgba(0,0,0,0.4);
+    //background-color: rgba(0,0,0,0.4);
 
     .circle img{
       //transform-origin:50% 50%;
@@ -87,9 +82,9 @@
     .title{
         opacity: 1;
     }
-    .line{
-        opacity: 0.8;
-    }
+    //.line{
+    //    opacity: 0.8;
+    //}
   }
   .point{
     width: 20px;
