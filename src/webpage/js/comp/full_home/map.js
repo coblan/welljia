@@ -6,10 +6,20 @@ Vue.component('com-fullhome-map',{
         return {
             env:cfg.env,
             el_width:100,
+            normed_map_points:[],
         }
     },
     mounted:function(){
         this.el_width = $(this.$el).height()
+        var self=this
+        setTimeout(function(){
+            self.start_animation()
+        },10)
+    },
+    watch:{
+        map_points:function(v){
+            this.start_animation()
+        }
     },
     computed:{
         size:function(){
@@ -50,13 +60,32 @@ Vue.component('com-fullhome-map',{
             }
         },
     },
+    methods:{
+        start_animation:function(){
+            this.normed_map_points=[]
+            var self=this
+            var count=0
+            if(self.inter_index){
+                clearInterval(self.inter_index)
+                self.inter_index = null
+            }
+            self.inter_index = setInterval(function(){
+                self.normed_map_points.push(self.map_points[count])
+                count+=1
+                if(count>=self.map_points.length){
+                    clearInterval(self.inter_index)
+                    self.inter_index = null
+                }
+            },800)
+        }
+    },
     //1921/1007
     template:`<div class="com-fullhome-map">
         <div class="map-wrap center-vh" :style="size">
              <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->
              <transition-group name="fade">
-                <com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>
-                <com-fullhome-pos v-for="pos in map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>
+                <!--<com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>-->
+                <com-fullhome-pos v-for="pos in normed_map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>
   </transition-group>
 
         </div>
@@ -85,6 +114,7 @@ Vue.component('com-fullhome-area',{
         }
     }
 })
+
 Vue.component('com-fullhome-pos',{
     props:['mapitem','scale'],
     data:function(){
@@ -96,14 +126,23 @@ Vue.component('com-fullhome-pos',{
     //@mouseleave="is_show=false"
     template:`<div :class="['com-fullhome-pos',{'show':is_show,}]" :style="{top:loc.y,left:loc.x}"
          @click="open_page()">
-    <img class="point" src="/static/images/4.png" alt="">
 
-    <div class="line" :style="line_block_style">
-        <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>
-    </div>
+         <div :style="area_style">
+            <img style="width:100%" :src="mapitem.bg_pic" alt="">
+        </div>
+  <div class="wait-area">
+    <div class="glow"></div>
+        <img class="point" src="/static/images/4.png" alt="">
+  </div>
+
+
+        <div class="line" :style="line_block_style">
+            <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>
+        </div>
 
     <transition name="fade">
     <div v-show="show_info">
+            <!--终点小圆点-->
            <div class="line" :style="line_end_style">
             </div >
 
@@ -113,25 +152,33 @@ Vue.component('com-fullhome-pos',{
     </div>
 
     </transition>
+
+
        <div class="circle" @mouseenter="is_show=true">
                 <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">
-            </div>
+       </div>
 
     </div>`,
 
     mounted:function(){
-        this.draw_line()
+
         var self=this
+        setTimeout(function(){
+            self.draw_line()
+        },1200)
         self.show_info=false
         setTimeout(function(){
             self.show_info=true
-        },1000)
+        },2200)
     },
 
     watch:{
         line_block_style:function(v){
-            this.draw_line()
+
+
             var self=this
+            self.draw_line()
+
             self.show_info=false
             setTimeout(function(){
                 self.show_info=true
@@ -139,6 +186,20 @@ Vue.component('com-fullhome-pos',{
         }
     },
     computed:{
+        area_style:function(){
+            var self=this
+            var ls=this.mapitem.bg_pos.split(',')
+            var out_ls= ex.map(ls,function(ss){
+                return ss* self.scale
+            })
+            var width = this.mapitem.bg_width * self.scale
+            return {
+                position:'absolute',
+                top:out_ls[1]+'px',
+                left:out_ls[0]+'px',
+                width:width+'px'
+            }
+        },
         line_end_pos:function(){
             var self=this
             var ls=this.mapitem.label_pos.split(',')

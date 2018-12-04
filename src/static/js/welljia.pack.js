@@ -813,11 +813,21 @@ Vue.component('com-fullhome-map', {
     data: function data() {
         return {
             env: cfg.env,
-            el_width: 100
+            el_width: 100,
+            normed_map_points: []
         };
     },
     mounted: function mounted() {
         this.el_width = $(this.$el).height();
+        var self = this;
+        setTimeout(function () {
+            self.start_animation();
+        }, 10);
+    },
+    watch: {
+        map_points: function map_points(v) {
+            this.start_animation();
+        }
     },
     computed: {
         size: function size() {
@@ -857,8 +867,27 @@ Vue.component('com-fullhome-map', {
             }
         }
     },
+    methods: {
+        start_animation: function start_animation() {
+            this.normed_map_points = [];
+            var self = this;
+            var count = 0;
+            if (self.inter_index) {
+                clearInterval(self.inter_index);
+                self.inter_index = null;
+            }
+            self.inter_index = setInterval(function () {
+                self.normed_map_points.push(self.map_points[count]);
+                count += 1;
+                if (count >= self.map_points.length) {
+                    clearInterval(self.inter_index);
+                    self.inter_index = null;
+                }
+            }, 800);
+        }
+    },
     //1921/1007
-    template: '<div class="com-fullhome-map">\n        <div class="map-wrap center-vh" :style="size">\n             <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->\n             <transition-group name="fade">\n                <com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>\n                <com-fullhome-pos v-for="pos in map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>\n  </transition-group>\n\n        </div>\n    </div>'
+    template: '<div class="com-fullhome-map">\n        <div class="map-wrap center-vh" :style="size">\n             <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->\n             <transition-group name="fade">\n                <!--<com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>-->\n                <com-fullhome-pos v-for="pos in normed_map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>\n  </transition-group>\n\n        </div>\n    </div>'
 });
 
 Vue.component('com-fullhome-area', {
@@ -881,6 +910,7 @@ Vue.component('com-fullhome-area', {
         }
     }
 });
+
 Vue.component('com-fullhome-pos', {
     props: ['mapitem', 'scale'],
     data: function data() {
@@ -890,21 +920,26 @@ Vue.component('com-fullhome-pos', {
         };
     },
     //@mouseleave="is_show=false"
-    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n    <img class="point" src="/static/images/4.png" alt="">\n\n    <div class="line" :style="line_block_style">\n        <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>\n    </div>\n\n    <transition name="fade">\n    <div v-show="show_info">\n           <div class="line" :style="line_end_style">\n            </div >\n\n            <span class="title" :style="{top:label_loc.y,left:label_loc.x}">\n                <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n            </span>\n    </div>\n\n    </transition>\n       <div class="circle" @mouseenter="is_show=true">\n                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n            </div>\n\n    </div>',
+    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n\n         <div :style="area_style">\n            <img style="width:100%" :src="mapitem.bg_pic" alt="">\n        </div>\n  <div class="wait-area">\n    <div class="glow"></div>\n        <img class="point" src="/static/images/4.png" alt="">\n  </div>\n\n\n        <div class="line" :style="line_block_style">\n            <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>\n        </div>\n\n    <transition name="fade">\n    <div v-show="show_info">\n            <!--\u7EC8\u70B9\u5C0F\u5706\u70B9-->\n           <div class="line" :style="line_end_style">\n            </div >\n\n            <span class="title" :style="{top:label_loc.y,left:label_loc.x}">\n                <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n            </span>\n    </div>\n\n    </transition>\n\n\n       <div class="circle" @mouseenter="is_show=true">\n                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n       </div>\n\n    </div>',
 
     mounted: function mounted() {
-        this.draw_line();
+
         var self = this;
+        setTimeout(function () {
+            self.draw_line();
+        }, 1200);
         self.show_info = false;
         setTimeout(function () {
             self.show_info = true;
-        }, 1000);
+        }, 2200);
     },
 
     watch: {
         line_block_style: function line_block_style(v) {
-            this.draw_line();
+
             var self = this;
+            self.draw_line();
+
             self.show_info = false;
             setTimeout(function () {
                 self.show_info = true;
@@ -912,6 +947,20 @@ Vue.component('com-fullhome-pos', {
         }
     },
     computed: {
+        area_style: function area_style() {
+            var self = this;
+            var ls = this.mapitem.bg_pos.split(',');
+            var out_ls = ex.map(ls, function (ss) {
+                return ss * self.scale;
+            });
+            var width = this.mapitem.bg_width * self.scale;
+            return {
+                position: 'absolute',
+                top: out_ls[1] + 'px',
+                left: out_ls[0] + 'px',
+                width: width + 'px'
+            };
+        },
         line_end_pos: function line_end_pos() {
             var self = this;
             var ls = this.mapitem.label_pos.split(',');
@@ -1155,7 +1204,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "@keyframes rotate {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(0deg); } }\n\n.com-fullhome-map {\n  background-color: #2a3043;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto; }\n  .com-fullhome-map .map-wrap {\n    background: url(/static/images/sichuan.png) no-repeat;\n    background-size: 100% 100%; }\n  .com-fullhome-map .sichuan {\n    width: 100%;\n    height: 100%; }\n\n.com-fullhome-pos {\n  position: absolute;\n  width: 30px;\n  height: 30px;\n  border-radius: 15px;\n  cursor: pointer; }\n  .com-fullhome-pos .title {\n    opacity: 0;\n    color: #f5f5f5;\n    font-size: 10px;\n    white-space: nowrap;\n    transition: opacity .6s;\n    position: absolute;\n    top: 5px;\n    left: 50%; }\n    .com-fullhome-pos .title .icon {\n      width: 1em;\n      display: inline-block;\n      margin-right: 0.2rem; }\n  .com-fullhome-pos.show .circle img {\n    animation: rotate 8s linear infinite; }\n  .com-fullhome-pos.show .title {\n    opacity: 1; }\n  .com-fullhome-pos .point {\n    width: 20px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n  .com-fullhome-pos .circle {\n    width: 60px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n", ""]);
+exports.push([module.i, "@keyframes rotate {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(0deg); } }\n\n@keyframes fadein {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.com-fullhome-map {\n  background-color: #2a3043;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto; }\n  .com-fullhome-map .map-wrap {\n    background: url(/static/images/sichuan.png) no-repeat;\n    background-size: 100% 100%; }\n  .com-fullhome-map .sichuan {\n    width: 100%;\n    height: 100%; }\n\n.com-fullhome-pos {\n  position: absolute;\n  width: 30px;\n  height: 30px;\n  border-radius: 15px;\n  cursor: pointer; }\n  .com-fullhome-pos .title {\n    opacity: 0;\n    color: #f5f5f5;\n    font-size: 10px;\n    white-space: nowrap;\n    transition: opacity .6s;\n    position: absolute;\n    top: 5px;\n    left: 50%; }\n    .com-fullhome-pos .title .icon {\n      width: 1em;\n      display: inline-block;\n      margin-right: 0.2rem; }\n  .com-fullhome-pos .circle, .com-fullhome-pos .wait-area {\n    opacity: 0;\n    animation: fadein 0.6s;\n    animation-delay: 1.2s;\n    animation-fill-mode: forwards; }\n  .com-fullhome-pos.show .title {\n    opacity: 1; }\n  .com-fullhome-pos .point {\n    width: 20px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n  .com-fullhome-pos .circle {\n    width: 60px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n\n@keyframes blink {\n  0% {\n    width: 10px;\n    height: 10px;\n    border-radius: 5px; }\n  50% {\n    width: 40px;\n    height: 40px;\n    border-radius: 20px; }\n  100% {\n    width: 10px;\n    height: 10px;\n    border-radius: 5px; } }\n  .com-fullhome-pos .glow {\n    opacity: 0.3;\n    width: 10px;\n    height: 10px;\n    border-radius: 5px;\n    position: absolute;\n    background-color: #ffffff;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n    animation: blink 1.6s linear infinite; }\n", ""]);
 
 // exports
 

@@ -52,6 +52,9 @@ class MapPoint(models.Model):
     icon = PictureField('图标', max_length = 200)
     url = models.CharField('跳转地址', max_length = 200)
     label_pos = models.CharField('标签坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
+    bg_pos = models.CharField('背景坐标', max_length = 30, blank = True, help_text = '请严格按照 x,y 的格式填写')
+    bg_pic =  PictureField('区域图', max_length = 300, blank = True)
+    bg_width = models.IntegerField('宽度', default= 100, help_text= '区域图片宽度，用于地图定位')
     
     def __str__(self): 
         return self.title
