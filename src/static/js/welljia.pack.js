@@ -764,7 +764,7 @@ Vue.component('com-fullhome-left-menu', {
             crt_action: this.menuList[0]
         };
     },
-    template: '<div class="com-fullhome-left-menu">\n    <div :class="[\'action\',{\'is_active\':crt_action==action}]" v-for="action in menuList" @click="on_click(action)">\n        <img v-if="crt_action==action" src="/static/images/big_btn.png" alt="">\n        <span class="center-vh" style="z-index:200" v-text="action.label" ></span>\n\n    </div>\n    </div>',
+    template: '<div class="com-fullhome-left-menu">\n    <div :class="[\'action\',{\'is_active\':crt_action==action}]" v-for="action in menuList" @click="on_click(action)">\n        <img v-if="crt_action==action" src="/static/images/big_btn.png" alt="">\n        <span class="center-vh" style="z-index:200;white-space: nowrap;" v-text="action.label" ></span>\n\n    </div>\n    </div>',
     methods: {
         on_click: function on_click(action) {
             this.crt_action = action;

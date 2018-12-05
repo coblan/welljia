@@ -10,7 +10,7 @@ Vue.component('com-fullhome-left-menu',{
     template:`<div class="com-fullhome-left-menu">
     <div :class="['action',{'is_active':crt_action==action}]" v-for="action in menuList" @click="on_click(action)">
         <img v-if="crt_action==action" src="/static/images/big_btn.png" alt="">
-        <span class="center-vh" style="z-index:200" v-text="action.label" ></span>
+        <span class="center-vh" style="z-index:200;white-space: nowrap;" v-text="action.label" ></span>
 
     </div>
     </div>`,

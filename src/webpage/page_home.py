@@ -43,6 +43,7 @@ class Home(View):
     def get_header_menu(self):
         
         dc = { 'header_bar_menu': [
+            {'label':'首页','link':'/','name':'full_home'},
             {'label':'数字沙盘','link':'/Digital_Sand','name':'Digital_Sand'},
             {'label':'户型鉴赏','link':'/huxing','name':'huxing'},
             {'label':'区域展示','link':'/zhanshi','name':'zhanshi'},
