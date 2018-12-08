@@ -809,110 +809,198 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 __webpack_require__(33);
 
 Vue.component('com-fullhome-map', {
-    props: ['map_points', 'area_list'],
+    props: ['map_points', 'area_list', 'image_list'],
     data: function data() {
         return {
             env: cfg.env,
             el_width: 100,
-            normed_map_points: []
+            normed_area_list: [],
+            normed_map_points: [],
+            normed_image_list: [],
+            draw_loop_index: null
         };
     },
     mounted: function mounted() {
-        this.el_width = $(this.$el).height();
         var self = this;
-        setTimeout(function () {
-            self.start_animation();
-        }, 10);
+        var height = $(this.$el).height();
+        var scale = height / 1080;
+        var child_width = 1980 * scale;
+        $(this.$el).find('.map-wrap').css('transform', 'scale(' + scale + ')');
+
+        var par_width = $(self.$el).width();
+        if (child_width > par_width) {
+            setTimeout(function () {
+                $(self.$el).scrollLeft((child_width - par_width) / 2);
+            }, 10);
+        }
+
+        this.draw();
     },
     watch: {
-        map_points: function map_points(v) {
-            this.start_animation();
+        map_points: function map_points() {
+            this.stop_draw();
+            this.draw();
+        },
+        area_list: function area_list() {
+            this.stop_draw();
+            this.draw();
+        },
+        image_list: function image_list() {
+            this.stop_draw();
+            this.draw();
         }
+        //map_points:function(v){
+        //    this.start_animation()
+        //}
     },
     computed: {
-        size: function size() {
-            var com_height = this.$el ? $(this.$el).height() : this.el_width;
-            var com_width = this.$el ? $(this.$el).width() : this.el_width;
-            var win_ratio = this.env.width / this.env.height;
-            var img_ratio = 1921 / 1007;
-            if (this.env.width > 900) {
-                if (com_height * img_ratio > com_width) {
-                    return {
-                        //width:'100%',
-                        //height:'auto',
-                        width: com_width + 'px',
-                        height: com_width / img_ratio + 'px'
-                    };
-                } else {
-                    return {
-                        height: com_height + 'px',
-                        width: com_height * img_ratio + 'px'
-                    };
-                }
-            } else {
-                if (win_ratio > 1) {
-                    // 横屏
-                    console.log('横屏');
-                    var out_height = com_height * 1.6;
-                    console.log(out_height);
-                } else {
-                    // 竖屏
-                    console.log('竖屏');
-                    var out_height = com_height * 0.8;
-                }
-                return {
-                    height: out_height + 'px',
-                    width: out_height * img_ratio + 'px'
-                };
-            }
+        main_style: function main_style() {
+            var height = $(this.$el).height();
+            var scale = height / 1080;
+            return {
+                transform: 'scale(' + scale + ')'
+            };
         }
+        //size:function(){
+        //    var com_height = this.$el? $(this.$el).height():this.el_width
+        //    var com_width = this.$el? $(this.$el).width():this.el_width
+        //    var win_ratio = this.env.width / this.env.height
+        //    var img_ratio = 1921/1007
+        //    if(this.env.width > 900){
+        //        if(com_height * img_ratio >com_width){
+        //            return {
+        //                //width:'100%',
+        //                //height:'auto',
+        //                width:com_width+'px',
+        //                height:com_width / img_ratio +'px'
+        //            }
+        //        }else{
+        //            return{
+        //                height: com_height+'px',
+        //                width:com_height * img_ratio + 'px'
+        //            }
+        //        }
+        //    }else {
+        //        if(win_ratio > 1){
+        //            // 横屏
+        //            console.log('横屏')
+        //            var out_height = com_height*1.6
+        //            console.log(out_height)
+        //
+        //        }else{
+        //            // 竖屏
+        //            console.log('竖屏')
+        //            var out_height = com_height*0.8
+        //        }
+        //        return {
+        //            height: out_height+'px',
+        //            width:out_height * img_ratio + 'px'
+        //        }
+        //    }
+        //},
     },
     methods: {
-        start_animation: function start_animation() {
+        draw: function draw() {
+            this.normed_area_list = [];
             this.normed_map_points = [];
-            var self = this;
-            var count = 0;
-            if (self.inter_index) {
-                clearInterval(self.inter_index);
-                self.inter_index = null;
+            this.normed_image_list = [];
+            this.draw_loop_index = null;
+            this.draw_area().then(this.draw_point).then(this.draw_image);
+            console.log('draw');
+        },
+        stop_draw: function stop_draw() {
+            if (this.draw_loop_index) {
+                clearInterval(this.draw_loop_index);
+                this.draw_loop_index = null;
             }
-            self.inter_index = setInterval(function () {
-                self.normed_map_points.push(self.map_points[count]);
-                count += 1;
-                if (count >= self.map_points.length) {
-                    clearInterval(self.inter_index);
-                    self.inter_index = null;
+        },
+        draw_area: function draw_area() {
+            var self = this;
+            var p = new Promise(function (resolve, reject) {
+                if (self.area_list.length == 0) {
+                    resolve();
+                    return;
                 }
-            }, 800);
+                var index = 0;
+                self.draw_loop_index = setInterval(function () {
+                    self.normed_area_list.push(self.area_list[index]);
+                    index += 1;
+                    if (index == self.area_list.length) {
+                        clearInterval(self.draw_loop_index);
+                        resolve();
+                    }
+                }, 1000);
+            });
+            return p;
+        },
+        draw_point: function draw_point() {
+            var self = this;
+            var p = new Promise(function (resolve, reject) {
+                if (self.map_points.length == 0) {
+                    resolve();
+                    return;
+                }
+                var index = 0;
+                self.draw_loop_index = setInterval(function () {
+                    self.normed_map_points.push(self.map_points[index]);
+                    index += 1;
+                    if (index == self.map_points.length) {
+                        clearInterval(self.draw_loop_index);
+                        resolve();
+                    }
+                }, 1000);
+            });
+            return p;
+        },
+        draw_image: function draw_image() {
+            var self = this;
+
+            var p = new Promise(function (resolve, reject) {
+                if (self.image_list.length == 0) {
+                    resolve();
+                    return;
+                }
+                var index = 0;
+                self.draw_loop_index = setInterval(function () {
+                    self.normed_image_list.push(self.image_list[index]);
+                    index += 1;
+                    if (index == self.image_list.length) {
+                        clearInterval(self.draw_loop_index);
+                        resolve();
+                    }
+                    console.log('draw image');
+                }, 1000);
+            });
+            return p;
         }
     },
-    //1921/1007
-    template: '<div class="com-fullhome-map">\n        <div class="map-wrap center-vh" :style="size">\n             <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->\n             <transition-group name="fade">\n                <!--<com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>-->\n                <com-fullhome-pos v-for="pos in normed_map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>\n  </transition-group>\n\n        </div>\n    </div>'
+    //1921/1007   no-scroll-bar
+    template: '<div class="com-fullhome-map no-scroll-bar">\n\n        <div class="map-wrap ">\n        <img class="item" id="bg-map"  src="/static/images/1_1.jpg" alt="" >\n             <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->\n             <transition-group name="fade">\n                <com-fullhome-area class="item" v-for="area in normed_area_list" :key="\'area_\'+area.pk" :area="area" ></com-fullhome-area>\n\n             </transition-group>\n        <img class="item" style="left: 886px;top:297px" src="/static/images/text.png" alt="">\n         <transition-group name="fade">\n                <com-fullhome-pos class="item" v-for="pos in normed_map_points" :key="\'pos_\'+pos.pk" :mapitem="pos"></com-fullhome-pos>\n                <com-fullhome-area class="item" v-for="img in normed_image_list" :key="\'img_\'+img.pk" :area="img" ></com-fullhome-area>\n         </transition-group>\n        </div>\n\n    </div>'
 });
 
 Vue.component('com-fullhome-area', {
     props: ['area', 'scale'],
-    template: '<div :style="area_style">\n        <img style="width:100%" :src="area.pic" alt="">\n    </div>',
+    template: '<div :style="area_style">\n        <img :src="area.pic" alt="">\n    </div>',
     computed: {
         area_style: function area_style() {
             var self = this;
-            var ls = this.area.pos.split(',');
-            var out_ls = ex.map(ls, function (ss) {
-                return ss * self.scale;
-            });
-            var width = this.area.width * self.scale;
+            var out_ls = this.area.pos.split(',');
+            //var out_ls= ex.map(ls,function(ss){
+            //    return ss* self.scale
+            //})
+            //var width = this.area.width * self.scale
             return {
                 position: 'absolute',
                 top: out_ls[1] + 'px',
-                left: out_ls[0] + 'px',
-                width: width + 'px'
+                left: out_ls[0] + 'px'
+                //width:width+'px'
             };
         }
     }
 });
 
 Vue.component('com-fullhome-pos', {
-    props: ['mapitem', 'scale'],
+    props: ['mapitem'],
     data: function data() {
         return {
             is_show: true,
@@ -920,131 +1008,133 @@ Vue.component('com-fullhome-pos', {
         };
     },
     //@mouseleave="is_show=false"
-    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n\n         <div :style="area_style">\n            <img style="width:100%" :src="mapitem.bg_pic" alt="">\n        </div>\n  <div class="wait-area">\n    <div class="glow"></div>\n        <img class="point" src="/static/images/4.png" alt="">\n  </div>\n\n\n        <div class="line" :style="line_block_style">\n            <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>\n        </div>\n\n    <transition name="fade">\n    <div v-show="show_info">\n            <!--\u7EC8\u70B9\u5C0F\u5706\u70B9-->\n           <div class="line" :style="line_end_style">\n            </div >\n\n            <span class="title" :style="{top:label_loc.y,left:label_loc.x}">\n                <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>\n            </span>\n    </div>\n\n    </transition>\n\n\n       <div class="circle" @mouseenter="is_show=true">\n                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n       </div>\n\n    </div>',
+    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n\n          <div >\n                <div class="glow"></div>\n                <img class="point" src="/static/images/4.png" alt="">\n          </div>\n\n\n        <!--<div class="line" :style="line_block_style">-->\n            <!--<canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>-->\n        <!--</div>-->\n\n    <!--<transition name="fade">-->\n            <!--<div v-show="show_info">-->\n                    <!--&lt;!&ndash;\u7EC8\u70B9\u5C0F\u5706\u70B9&ndash;&gt;-->\n                   <!--<div class="line" :style="line_end_style">-->\n                    <!--</div >-->\n\n                    <!--<span class="title" :style="{top:label_loc.y,left:label_loc.x}">-->\n                        <!--<img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>-->\n                    <!--</span>-->\n            <!--</div>-->\n\n    <!--</transition>-->\n\n\n       <div class="circle" >\n                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n       </div>\n\n    </div>',
 
     mounted: function mounted() {
 
-        var self = this;
-        setTimeout(function () {
-            self.draw_line();
-        }, 1200);
-        self.show_info = false;
-        setTimeout(function () {
-            self.show_info = true;
-        }, 2200);
+        //var self=this
+        //setTimeout(function(){
+        //    self.draw_line()
+        //},1200)
+        //self.show_info=false
+        //setTimeout(function(){
+        //    self.show_info=true
+        //},2200)
     },
 
     watch: {
-        line_block_style: function line_block_style(v) {
-
-            var self = this;
-            self.draw_line();
-
-            self.show_info = false;
-            setTimeout(function () {
-                self.show_info = true;
-            }, 1000);
-        }
+        //line_block_style:function(v){
+        //
+        //
+        //    var self=this
+        //    self.draw_line()
+        //
+        //    self.show_info=false
+        //    setTimeout(function(){
+        //        self.show_info=true
+        //    },1000)
+        //}
     },
     computed: {
-        area_style: function area_style() {
-            var self = this;
-            var ls = this.mapitem.bg_pos.split(',');
-            var out_ls = ex.map(ls, function (ss) {
-                return ss * self.scale;
-            });
-            var width = this.mapitem.bg_width * self.scale;
-            return {
-                position: 'absolute',
-                top: out_ls[1] + 'px',
-                left: out_ls[0] + 'px',
-                width: width + 'px'
-            };
-        },
-        line_end_pos: function line_end_pos() {
-            var self = this;
-            var ls = this.mapitem.label_pos.split(',');
-            var out_ls = ex.map(ls, function (ss) {
-                return ss * self.scale;
-            });
-            return {
-                x: out_ls[0] - 10,
-                y: out_ls[1] + 8
-            };
-        },
-        line_end_style: function line_end_style() {
-            if (this.line_end_pos.y < 0) {
-                var top = this.line_end_pos.y - 1;
-            } else {
-                var top = this.line_end_pos.y - 2;
-            }
-            return {
-                position: 'absolute',
-                top: top + 'px',
-                left: this.line_end_pos.x + 'px',
-                width: '4px',
-                height: '4px',
-                borderRadius: '2px',
-                backgroundColor: 'white'
-            };
-        },
-        line_block_style: function line_block_style() {
-
-            var org_x = 15;
-            var org_y = 15;
-            var label_x = this.line_end_pos.x;
-            var label_y = this.line_end_pos.y;
-
-            var top = Math.min(org_y, label_y);
-            var height = Math.abs(org_y - label_y);
-            var left = Math.min(org_x, label_x);
-            var width = Math.abs(org_x - label_x);
-            //if(this.ctx){
-            //    this.ctx.scale(width/100,height/100)
-            //}
-
-
-            var dc = {
-                position: 'absolute',
-                top: top + 'px',
-                height: height + 'px',
-                left: left + 'px',
-                width: width + 'px',
-                num_height: height,
-                num_width: width
-
-                //if(org_y <label_y ){
-                //    dc['borderBottom']='1px solid #ededed'
-                //}else{
-                //    dc['borderTop'] = '1px solid #ededed'
-                //}
-                //
-                //dc['borderLeft']='1px solid #ededed'
-
-            };return dc;
-        },
+        //area_style:function(){
+        //    var self=this
+        //    var ls=this.mapitem.bg_pos.split(',')
+        //    var out_ls= ex.map(ls,function(ss){
+        //        return ss* self.scale
+        //    })
+        //    var width = this.mapitem.bg_width * self.scale
+        //    return {
+        //        position:'absolute',
+        //        top:out_ls[1]+'px',
+        //        left:out_ls[0]+'px',
+        //        width:width+'px'
+        //    }
+        //},
+        //line_end_pos:function(){
+        //    var self=this
+        //    var ls=this.mapitem.label_pos.split(',')
+        //    var out_ls= ex.map(ls,function(ss){
+        //        return ss* self.scale
+        //    })
+        //    return {
+        //        x:out_ls[0] -10,
+        //        y:out_ls[1]+8
+        //    }
+        //},
+        //line_end_style:function(){
+        //    if(this.line_end_pos.y<0){
+        //        var top = this.line_end_pos.y -1
+        //    }else{
+        //        var top = this.line_end_pos.y -2
+        //    }
+        //    return {
+        //        position:'absolute',
+        //        top:top+'px',
+        //        left:this.line_end_pos.x+'px',
+        //        width:'4px',
+        //        height:'4px',
+        //        borderRadius:'2px',
+        //        backgroundColor:'white'
+        //    }
+        //},
+        //line_block_style:function(){
+        //
+        //    var org_x=15
+        //    var org_y=15
+        //    var label_x = this.line_end_pos.x
+        //    var label_y = this.line_end_pos.y
+        //
+        //    var top = Math.min(org_y,label_y)
+        //    var height=Math.abs(org_y-label_y)
+        //    var left = Math.min(org_x,label_x)
+        //    var width=Math.abs(org_x-label_x)
+        //    //if(this.ctx){
+        //    //    this.ctx.scale(width/100,height/100)
+        //    //}
+        //
+        //
+        //    var dc ={
+        //        position:'absolute',
+        //        top:top+'px',
+        //        height:height+'px',
+        //        left:left+'px',
+        //        width:width+'px',
+        //        num_height:height,
+        //        num_width:width,
+        //    }
+        //
+        //    //if(org_y <label_y ){
+        //    //    dc['borderBottom']='1px solid #ededed'
+        //    //}else{
+        //    //    dc['borderTop'] = '1px solid #ededed'
+        //    //}
+        //    //
+        //    //dc['borderLeft']='1px solid #ededed'
+        //
+        //    return dc
+        //},
         loc: function loc() {
             var self = this;
-            var ls = this.mapitem.pos.split(',');
-            var out_ls = ex.map(ls, function (ss) {
-                return ss * self.scale;
-            });
-            return {
-                x: out_ls[0] + 'px',
-                y: out_ls[1] + 'px'
-            };
-        },
-        label_loc: function label_loc() {
-            var self = this;
-            var ls = this.mapitem.label_pos.split(',');
-            var out_ls = ex.map(ls, function (ss) {
-                return ss * self.scale;
-            });
+            var out_ls = this.mapitem.pos.split(',');
+            //var out_ls= ex.map(ls,function(ss){
+            //   return ss* self.scale
+            //})
             return {
                 x: out_ls[0] + 'px',
                 y: out_ls[1] + 'px'
             };
         }
+        //label_loc:function(){
+        //    var self=this
+        //    var ls=this.mapitem.label_pos.split(',')
+        //    var out_ls= ex.map(ls,function(ss){
+        //        return ss* self.scale
+        //    })
+        //    return {
+        //        x:out_ls[0] +'px',
+        //        y:out_ls[1]+'px'
+        //    }
+        //}
     },
     methods: {
         open_page: function open_page() {
@@ -1204,7 +1294,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "@keyframes rotate {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(0deg); } }\n\n@keyframes fadein {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.com-fullhome-map {\n  background-color: #2a3043;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto; }\n  .com-fullhome-map .map-wrap {\n    background: url(/static/images/sichuan.png) no-repeat;\n    background-size: 100% 100%; }\n  .com-fullhome-map .sichuan {\n    width: 100%;\n    height: 100%; }\n\n.com-fullhome-pos {\n  position: absolute;\n  width: 30px;\n  height: 30px;\n  border-radius: 15px;\n  cursor: pointer; }\n  .com-fullhome-pos .title {\n    opacity: 0;\n    color: #f5f5f5;\n    font-size: 10px;\n    white-space: nowrap;\n    transition: opacity .6s;\n    position: absolute;\n    top: 5px;\n    left: 50%; }\n    .com-fullhome-pos .title .icon {\n      width: 1em;\n      display: inline-block;\n      margin-right: 0.2rem; }\n  .com-fullhome-pos .circle, .com-fullhome-pos .wait-area {\n    opacity: 0;\n    animation: fadein 0.6s;\n    animation-delay: 1.2s;\n    animation-fill-mode: forwards; }\n  .com-fullhome-pos.show .circle img {\n    animation: rotate 8s linear infinite; }\n  .com-fullhome-pos.show .title {\n    opacity: 1; }\n  .com-fullhome-pos .point {\n    width: 20px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n  .com-fullhome-pos .circle {\n    width: 60px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n\n@keyframes blink {\n  0% {\n    width: 10px;\n    height: 10px;\n    border-radius: 5px; }\n  50% {\n    width: 40px;\n    height: 40px;\n    border-radius: 20px; }\n  100% {\n    width: 10px;\n    height: 10px;\n    border-radius: 5px; } }\n  .com-fullhome-pos .glow {\n    opacity: 0.3;\n    width: 10px;\n    height: 10px;\n    border-radius: 5px;\n    position: absolute;\n    background-color: #ffffff;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n    animation: blink 1.6s linear infinite; }\n", ""]);
+exports.push([module.i, "@keyframes rotate {\n  0% {\n    transform: rotate(0deg); }\n  50% {\n    transform: rotate(180deg); }\n  100% {\n    transform: rotate(0deg); } }\n\n@keyframes fadein {\n  0% {\n    opacity: 0; }\n  100% {\n    opacity: 1; } }\n\n.com-fullhome-map {\n  background-color: #2a3043;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto; }\n  .com-fullhome-map .map-wrap {\n    transform-origin: left top; }\n    .com-fullhome-map .map-wrap .item {\n      position: absolute; }\n\n.com-fullhome-pos {\n  position: absolute;\n  width: 30px;\n  height: 30px;\n  border-radius: 15px;\n  cursor: pointer; }\n  .com-fullhome-pos .title {\n    opacity: 0;\n    color: #f5f5f5;\n    font-size: 10px;\n    white-space: nowrap;\n    transition: opacity .6s;\n    position: absolute;\n    top: 5px;\n    left: 50%; }\n    .com-fullhome-pos .title .icon {\n      width: 1em;\n      display: inline-block;\n      margin-right: 0.2rem; }\n  .com-fullhome-pos .circle, .com-fullhome-pos .wait-area {\n    opacity: 0;\n    animation: fadein 0.6s;\n    animation-delay: 1.2s;\n    animation-fill-mode: forwards; }\n  .com-fullhome-pos.show .circle img {\n    animation: rotate 8s linear infinite; }\n  .com-fullhome-pos.show .title {\n    opacity: 1; }\n  .com-fullhome-pos .point {\n    width: 20px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n  .com-fullhome-pos .circle {\n    width: 120px;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%); }\n\n@keyframes blink {\n  0% {\n    width: 10px;\n    height: 10px;\n    border-radius: 5px; }\n  50% {\n    width: 60px;\n    height: 60px;\n    border-radius: 30px; }\n  100% {\n    width: 10px;\n    height: 10px;\n    border-radius: 5px; } }\n  .com-fullhome-pos .glow {\n    opacity: 0.3;\n    width: 10px;\n    height: 10px;\n    border-radius: 5px;\n    position: absolute;\n    background-color: #ffffff;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n    animation: blink 1.6s linear infinite; }\n", ""]);
 
 // exports
 
@@ -1246,7 +1336,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".header-bar {\n  background-color: rgba(79, 81, 87, 0.8);\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu {\n    white-space: nowrap; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
+exports.push([module.i, ".header-bar {\n  background-color: #464646;\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu {\n    white-space: nowrap; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
 
 // exports
 
@@ -1288,7 +1378,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".plain-panel {\n  width: 600px;\n  margin: auto;\n  margin-top: 3em;\n  background-color: white;\n  padding: 1em 5em;\n  min-height: 500px; }\n\n@media (max-width: 750px) {\n  .usercenter {\n    width: 90%;\n    margin: auto; }\n  .plain-panel {\n    margin: 10px;\n    background-color: white;\n    padding: 1em 1em;\n    min-height: 500px;\n    border-radius: 3px; } }\n", ""]);
+exports.push([module.i, ".plain-panel {\n  width: 600px;\n  margin: auto;\n  margin-top: 3em;\n  background-color: white;\n  padding: 1em 5em;\n  min-height: 500px; }\n\n@media (max-width: 750px) {\n  .usercenter {\n    width: 100%;\n    margin: auto; }\n  .plain-panel {\n    width: 96%;\n    margin: 10px;\n    background-color: white;\n    padding: 1em 1em;\n    min-height: 500px;\n    border-radius: 3px; } }\n", ""]);
 
 // exports
 

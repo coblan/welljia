@@ -1,122 +1,218 @@
 require('./scss/map.scss')
 
 Vue.component('com-fullhome-map',{
-    props:['map_points','area_list'],
+    props:['map_points','area_list','image_list'],
     data:function(){
         return {
             env:cfg.env,
             el_width:100,
+            normed_area_list:[],
             normed_map_points:[],
+            normed_image_list:[],
+            draw_loop_index:null
         }
     },
     mounted:function(){
-        this.el_width = $(this.$el).height()
         var self=this
-        setTimeout(function(){
-            self.start_animation()
-        },10)
+        var height = $(this.$el).height()
+        var scale = height /1080
+        var child_width = 1980 * scale
+        $(this.$el).find('.map-wrap').css('transform','scale('+scale+')')
+
+        var par_width = $(self.$el).width()
+        if(child_width > par_width){
+            setTimeout(function(){
+                $(self.$el).scrollLeft( (child_width - par_width)/2)
+            },10)
+
+        }
+
+
+        this.draw()
     },
     watch:{
-        map_points:function(v){
-            this.start_animation()
-        }
+        map_points:function(){
+            this.stop_draw()
+            this.draw()
+        },
+        area_list:function(){
+            this.stop_draw()
+            this.draw()
+        },
+        image_list:function(){
+            this.stop_draw()
+            this.draw()
+        },
+        //map_points:function(v){
+        //    this.start_animation()
+        //}
     },
     computed:{
-        size:function(){
-            var com_height = this.$el? $(this.$el).height():this.el_width
-            var com_width = this.$el? $(this.$el).width():this.el_width
-            var win_ratio = this.env.width / this.env.height
-            var img_ratio = 1921/1007
-            if(this.env.width > 900){
-                if(com_height * img_ratio >com_width){
-                    return {
-                        //width:'100%',
-                        //height:'auto',
-                        width:com_width+'px',
-                        height:com_width / img_ratio +'px'
-                    }
-                }else{
-                    return{
-                        height: com_height+'px',
-                        width:com_height * img_ratio + 'px'
-                    }
-                }
-            }else {
-                if(win_ratio > 1){
-                    // 横屏
-                    console.log('横屏')
-                    var out_height = com_height*1.6
-                    console.log(out_height)
-
-                }else{
-                    // 竖屏
-                    console.log('竖屏')
-                    var out_height = com_height*0.8
-                }
-                return {
-                    height: out_height+'px',
-                    width:out_height * img_ratio + 'px'
-                }
+        main_style:function(){
+            var height = $(this.$el).height()
+            var scale = height /1080
+            return {
+                transform:'scale('+scale+')'
             }
         },
+        //size:function(){
+        //    var com_height = this.$el? $(this.$el).height():this.el_width
+        //    var com_width = this.$el? $(this.$el).width():this.el_width
+        //    var win_ratio = this.env.width / this.env.height
+        //    var img_ratio = 1921/1007
+        //    if(this.env.width > 900){
+        //        if(com_height * img_ratio >com_width){
+        //            return {
+        //                //width:'100%',
+        //                //height:'auto',
+        //                width:com_width+'px',
+        //                height:com_width / img_ratio +'px'
+        //            }
+        //        }else{
+        //            return{
+        //                height: com_height+'px',
+        //                width:com_height * img_ratio + 'px'
+        //            }
+        //        }
+        //    }else {
+        //        if(win_ratio > 1){
+        //            // 横屏
+        //            console.log('横屏')
+        //            var out_height = com_height*1.6
+        //            console.log(out_height)
+        //
+        //        }else{
+        //            // 竖屏
+        //            console.log('竖屏')
+        //            var out_height = com_height*0.8
+        //        }
+        //        return {
+        //            height: out_height+'px',
+        //            width:out_height * img_ratio + 'px'
+        //        }
+        //    }
+        //},
     },
     methods:{
-        start_animation:function(){
+        draw:function(){
+            this.normed_area_list=[]
             this.normed_map_points=[]
-            var self=this
-            var count=0
-            if(self.inter_index){
-                clearInterval(self.inter_index)
-                self.inter_index = null
+            this.normed_image_list=[]
+            this.draw_loop_index=null
+            this.draw_area().then(this.draw_point).then(this.draw_image)
+            console.log('draw')
+        },
+        stop_draw:function(){
+            if(this.draw_loop_index){
+                clearInterval(this.draw_loop_index)
+                this.draw_loop_index=null
             }
-            self.inter_index = setInterval(function(){
-                self.normed_map_points.push(self.map_points[count])
-                count+=1
-                if(count>=self.map_points.length){
-                    clearInterval(self.inter_index)
-                    self.inter_index = null
+        },
+        draw_area:function(){
+            var self=this
+            var p = new Promise(function(resolve,reject){
+                if(self.area_list.length==0){
+                    resolve()
+                    return
                 }
-            },800)
+                var index = 0
+                self.draw_loop_index = setInterval(function(){
+                    self.normed_area_list.push(self.area_list[index])
+                    index+=1
+                    if(index ==self.area_list.length){
+                        clearInterval(self.draw_loop_index)
+                        resolve()
+                    }
+                },1000)
+            })
+            return p
+        },
+        draw_point:function(){
+            var self=this
+            var p = new Promise(function(resolve,reject){
+                if(self.map_points.length==0){
+                    resolve()
+                    return
+                }
+                var index = 0
+                self.draw_loop_index = setInterval(function(){
+                    self.normed_map_points.push(self.map_points[index])
+                    index+=1
+                    if(index ==self.map_points.length){
+                        clearInterval( self.draw_loop_index)
+                        resolve()
+                    }
+                },1000)
+            })
+            return p
+        },
+        draw_image:function(){
+            var self=this
+
+            var p = new Promise(function(resolve,reject){
+                if(self.image_list.length==0){
+                    resolve()
+                    return
+                }
+                var index = 0
+                self.draw_loop_index = setInterval(function(){
+                    self.normed_image_list.push(self.image_list[index])
+                    index+=1
+                    if(index ==self.image_list.length){
+                        clearInterval( self.draw_loop_index)
+                        resolve()
+                    }
+                    console.log('draw image')
+                },1000)
+            })
+            return p
         }
     },
-    //1921/1007
-    template:`<div class="com-fullhome-map">
-        <div class="map-wrap center-vh" :style="size">
+    //1921/1007   no-scroll-bar
+    template:`<div class="com-fullhome-map no-scroll-bar">
+
+        <div class="map-wrap ">
+        <img class="item" id="bg-map"  src="/static/images/1_1.jpg" alt="" >
              <!--<img class="sichuan" src="/static/images/sichuan.png" alt="">-->
              <transition-group name="fade">
-                <!--<com-fullhome-area v-for="area in area_list" :key="area.pk" :area="area" :scale="parseInt(size.width)/1921"></com-fullhome-area>-->
-                <com-fullhome-pos v-for="pos in normed_map_points" :key="pos.pk" :mapitem="pos" :scale="parseInt(size.width)/1921"></com-fullhome-pos>
-  </transition-group>
+                <com-fullhome-area class="item" v-for="area in normed_area_list" :key="'area_'+area.pk" :area="area" ></com-fullhome-area>
 
+             </transition-group>
+        <img class="item" style="left: 886px;top:297px" src="/static/images/text.png" alt="">
+         <transition-group name="fade">
+                <com-fullhome-pos class="item" v-for="pos in normed_map_points" :key="'pos_'+pos.pk" :mapitem="pos"></com-fullhome-pos>
+                <com-fullhome-area class="item" v-for="img in normed_image_list" :key="'img_'+img.pk" :area="img" ></com-fullhome-area>
+         </transition-group>
         </div>
+
     </div>`
 })
 
 Vue.component('com-fullhome-area',{
     props:['area','scale'],
     template:`<div :style="area_style">
-        <img style="width:100%" :src="area.pic" alt="">
+        <img :src="area.pic" alt="">
     </div>`,
     computed:{
         area_style:function(){
             var self=this
-            var ls=this.area.pos.split(',')
-            var out_ls= ex.map(ls,function(ss){
-                return ss* self.scale
-            })
-            var width = this.area.width * self.scale
+            var out_ls=this.area.pos.split(',')
+            //var out_ls= ex.map(ls,function(ss){
+            //    return ss* self.scale
+            //})
+            //var width = this.area.width * self.scale
             return {
                 position:'absolute',
                 top:out_ls[1]+'px',
                 left:out_ls[0]+'px',
-                width:width+'px'
+                //width:width+'px'
             }
         }
     }
 })
 
 Vue.component('com-fullhome-pos',{
-    props:['mapitem','scale'],
+    props:['mapitem'],
     data:function(){
         return {
             is_show:true,
@@ -127,34 +223,31 @@ Vue.component('com-fullhome-pos',{
     template:`<div :class="['com-fullhome-pos',{'show':is_show,}]" :style="{top:loc.y,left:loc.x}"
          @click="open_page()">
 
-         <div :style="area_style">
-            <img style="width:100%" :src="mapitem.bg_pic" alt="">
-        </div>
-  <div class="wait-area">
-    <div class="glow"></div>
-        <img class="point" src="/static/images/4.png" alt="">
-  </div>
+          <div >
+                <div class="glow"></div>
+                <img class="point" src="/static/images/4.png" alt="">
+          </div>
 
 
-        <div class="line" :style="line_block_style">
-            <canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>
-        </div>
+        <!--<div class="line" :style="line_block_style">-->
+            <!--<canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>-->
+        <!--</div>-->
 
-    <transition name="fade">
-    <div v-show="show_info">
-            <!--终点小圆点-->
-           <div class="line" :style="line_end_style">
-            </div >
+    <!--<transition name="fade">-->
+            <!--<div v-show="show_info">-->
+                    <!--&lt;!&ndash;终点小圆点&ndash;&gt;-->
+                   <!--<div class="line" :style="line_end_style">-->
+                    <!--</div >-->
 
-            <span class="title" :style="{top:label_loc.y,left:label_loc.x}">
-                <img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>
-            </span>
-    </div>
+                    <!--<span class="title" :style="{top:label_loc.y,left:label_loc.x}">-->
+                        <!--<img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>-->
+                    <!--</span>-->
+            <!--</div>-->
 
-    </transition>
+    <!--</transition>-->
 
 
-       <div class="circle" @mouseenter="is_show=true">
+       <div class="circle" >
                 <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">
        </div>
 
@@ -162,129 +255,129 @@ Vue.component('com-fullhome-pos',{
 
     mounted:function(){
 
-        var self=this
-        setTimeout(function(){
-            self.draw_line()
-        },1200)
-        self.show_info=false
-        setTimeout(function(){
-            self.show_info=true
-        },2200)
+        //var self=this
+        //setTimeout(function(){
+        //    self.draw_line()
+        //},1200)
+        //self.show_info=false
+        //setTimeout(function(){
+        //    self.show_info=true
+        //},2200)
     },
 
     watch:{
-        line_block_style:function(v){
-
-
-            var self=this
-            self.draw_line()
-
-            self.show_info=false
-            setTimeout(function(){
-                self.show_info=true
-            },1000)
-        }
+        //line_block_style:function(v){
+        //
+        //
+        //    var self=this
+        //    self.draw_line()
+        //
+        //    self.show_info=false
+        //    setTimeout(function(){
+        //        self.show_info=true
+        //    },1000)
+        //}
     },
     computed:{
-        area_style:function(){
-            var self=this
-            var ls=this.mapitem.bg_pos.split(',')
-            var out_ls= ex.map(ls,function(ss){
-                return ss* self.scale
-            })
-            var width = this.mapitem.bg_width * self.scale
-            return {
-                position:'absolute',
-                top:out_ls[1]+'px',
-                left:out_ls[0]+'px',
-                width:width+'px'
-            }
-        },
-        line_end_pos:function(){
-            var self=this
-            var ls=this.mapitem.label_pos.split(',')
-            var out_ls= ex.map(ls,function(ss){
-                return ss* self.scale
-            })
-            return {
-                x:out_ls[0] -10,
-                y:out_ls[1]+8
-            }
-        },
-        line_end_style:function(){
-            if(this.line_end_pos.y<0){
-                var top = this.line_end_pos.y -1
-            }else{
-                var top = this.line_end_pos.y -2
-            }
-            return {
-                position:'absolute',
-                top:top+'px',
-                left:this.line_end_pos.x+'px',
-                width:'4px',
-                height:'4px',
-                borderRadius:'2px',
-                backgroundColor:'white'
-            }
-        },
-        line_block_style:function(){
-
-            var org_x=15
-            var org_y=15
-            var label_x = this.line_end_pos.x
-            var label_y = this.line_end_pos.y
-
-            var top = Math.min(org_y,label_y)
-            var height=Math.abs(org_y-label_y)
-            var left = Math.min(org_x,label_x)
-            var width=Math.abs(org_x-label_x)
-            //if(this.ctx){
-            //    this.ctx.scale(width/100,height/100)
-            //}
-
-
-            var dc ={
-                position:'absolute',
-                top:top+'px',
-                height:height+'px',
-                left:left+'px',
-                width:width+'px',
-                num_height:height,
-                num_width:width,
-            }
-
-            //if(org_y <label_y ){
-            //    dc['borderBottom']='1px solid #ededed'
-            //}else{
-            //    dc['borderTop'] = '1px solid #ededed'
-            //}
-            //
-            //dc['borderLeft']='1px solid #ededed'
-
-            return dc
-        },
+        //area_style:function(){
+        //    var self=this
+        //    var ls=this.mapitem.bg_pos.split(',')
+        //    var out_ls= ex.map(ls,function(ss){
+        //        return ss* self.scale
+        //    })
+        //    var width = this.mapitem.bg_width * self.scale
+        //    return {
+        //        position:'absolute',
+        //        top:out_ls[1]+'px',
+        //        left:out_ls[0]+'px',
+        //        width:width+'px'
+        //    }
+        //},
+        //line_end_pos:function(){
+        //    var self=this
+        //    var ls=this.mapitem.label_pos.split(',')
+        //    var out_ls= ex.map(ls,function(ss){
+        //        return ss* self.scale
+        //    })
+        //    return {
+        //        x:out_ls[0] -10,
+        //        y:out_ls[1]+8
+        //    }
+        //},
+        //line_end_style:function(){
+        //    if(this.line_end_pos.y<0){
+        //        var top = this.line_end_pos.y -1
+        //    }else{
+        //        var top = this.line_end_pos.y -2
+        //    }
+        //    return {
+        //        position:'absolute',
+        //        top:top+'px',
+        //        left:this.line_end_pos.x+'px',
+        //        width:'4px',
+        //        height:'4px',
+        //        borderRadius:'2px',
+        //        backgroundColor:'white'
+        //    }
+        //},
+        //line_block_style:function(){
+        //
+        //    var org_x=15
+        //    var org_y=15
+        //    var label_x = this.line_end_pos.x
+        //    var label_y = this.line_end_pos.y
+        //
+        //    var top = Math.min(org_y,label_y)
+        //    var height=Math.abs(org_y-label_y)
+        //    var left = Math.min(org_x,label_x)
+        //    var width=Math.abs(org_x-label_x)
+        //    //if(this.ctx){
+        //    //    this.ctx.scale(width/100,height/100)
+        //    //}
+        //
+        //
+        //    var dc ={
+        //        position:'absolute',
+        //        top:top+'px',
+        //        height:height+'px',
+        //        left:left+'px',
+        //        width:width+'px',
+        //        num_height:height,
+        //        num_width:width,
+        //    }
+        //
+        //    //if(org_y <label_y ){
+        //    //    dc['borderBottom']='1px solid #ededed'
+        //    //}else{
+        //    //    dc['borderTop'] = '1px solid #ededed'
+        //    //}
+        //    //
+        //    //dc['borderLeft']='1px solid #ededed'
+        //
+        //    return dc
+        //},
         loc:function(){
             var self=this
-            var ls=this.mapitem.pos.split(',')
-            var out_ls= ex.map(ls,function(ss){
-               return ss* self.scale
-            })
+            var out_ls=this.mapitem.pos.split(',')
+            //var out_ls= ex.map(ls,function(ss){
+            //   return ss* self.scale
+            //})
             return {
                 x:out_ls[0] +'px',
                 y:out_ls[1]+'px'
             }
         },
-        label_loc:function(){
-            var self=this
-            var ls=this.mapitem.label_pos.split(',')
-            var out_ls= ex.map(ls,function(ss){
-                return ss* self.scale
-            })
-            return {
-                x:out_ls[0] +'px',
-                y:out_ls[1]+'px'
-            }
-        }
+        //label_loc:function(){
+        //    var self=this
+        //    var ls=this.mapitem.label_pos.split(',')
+        //    var out_ls= ex.map(ls,function(ss){
+        //        return ss* self.scale
+        //    })
+        //    return {
+        //        x:out_ls[0] +'px',
+        //        y:out_ls[1]+'px'
+        //    }
+        //}
     },
     methods:{
         open_page:function(){

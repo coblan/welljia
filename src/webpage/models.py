@@ -49,12 +49,7 @@ class Floor(models.Model):
 class MapPoint(models.Model):
     title = models.CharField('显示名', max_length = 100)
     pos = models.CharField('坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
-    icon = PictureField('图标', max_length = 200)
     url = models.CharField('跳转地址', max_length = 200)
-    label_pos = models.CharField('标签坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
-    bg_pos = models.CharField('背景坐标', max_length = 30, blank = True, help_text = '请严格按照 x,y 的格式填写')
-    bg_pic =  PictureField('区域图', max_length = 300, blank = True)
-    bg_width = models.IntegerField('宽度', default= 100, help_text= '区域图片宽度，用于地图定位')
     
     def __str__(self): 
         return self.title
@@ -63,15 +58,23 @@ class Area(models.Model):
     label = models.CharField('显示名', max_length = 100)
     pos = models.CharField('坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
     pic =  PictureField('区域图', max_length = 300, blank = True)
-    width = models.IntegerField('宽度', help_text= '区域图片宽度，用于地图定位')
     
     def __str__(self): 
         return self.label
+
+class PageImages(models.Model):
+    label = models.CharField('显示名', max_length = 100)
+    pos = models.CharField('坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
+    pic =  PictureField('区域图', max_length = 300, blank = True)
 
 class MainPageItem(models.Model):
     label =  models.CharField('显示名', max_length = 100)
     project = models.ManyToManyField(MapPoint, verbose_name = '项目点', blank = True)
     area = models.ManyToManyField(Area, verbose_name = '区域', blank = True)
+    img_list = models.ManyToManyField(PageImages, verbose_name = '图片列表', blank = True)
+    
+
+
     
 
     

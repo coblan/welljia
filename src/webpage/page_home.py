@@ -64,9 +64,9 @@ class Home(View):
                      'mb_editor': 'com-head-sm-link',
                      'label': '<img src="%s" style="display:inline-block;width:24px;height:24px;border-radius:12px;"/>' % (user.userinfo.head or '/static/lib/images/user.png'), #'<i class="fa fa-user-circle"></i>', 
                      'options': [
-                        {'url': '/accounts/usercenter', 'label': '个人信息',}, 
-                        {'url': '/accounts/pswd', 'label': '修改密码',}, 
-                        {'url': '/accounts/logout', 'label': '退出',}
+                        {'link': '/accounts/usercenter', 'label': '个人信息',}, 
+                        {'link': '/accounts/pswd', 'label': '修改密码',}, 
+                        {'link': '/accounts/logout', 'label': '退出',}
                         ],}
                     ],
             }
@@ -74,8 +74,8 @@ class Home(View):
             top_head = {
                 'top_heads': [
                     {'name': 'userinfo', 'editor': 'com-head-sm-link',  'options': [
-                        {'url': '/accounts/login', 'label': '登录',}, 
-                        {'url': '/accounts/regist', 'label': '注册',}, 
+                        {'link': '/accounts/login', 'label': '登录',}, 
+                        {'link': '/accounts/regist', 'label': '注册',}, 
                             ],}
                     ],
             }

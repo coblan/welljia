@@ -12,7 +12,7 @@
 
 
 {% block site-content %}
-
+<script src="https://cdn.staticfile.org/slideout/1.0.1/slideout.min.js"></script>
 <script src="{{ js_config.js_lib.element }}"></script>
 <link href="{{ js_config.js_lib.element_css }}" rel="stylesheet">
 <script src="{{ js_config.js_lib.director }}"></script>
@@ -27,6 +27,7 @@
     map_points={{ map_points | jsonify }}
     area_list={{ area_list | jsonify }}
     page_item_list= {{ page_item_list | jsonify }}
+    image_list={{ image_list | jsonify }}
 //    env={}
 //    env.width= $(window).width()
 //    $(window).resize(function(){
@@ -40,6 +41,7 @@
             el:'#main-panel',
             data:{
 //                env:env,
+                env:cfg.env,
                 menu:header_bar_menu,
                 crt_page_name:crt_page_name,
                 username:page_data.username,
@@ -49,7 +51,8 @@
                 map_points:map_points,
                 area_list:area_list,
                 page_item_list:page_item_list,
-                crt_item:page_item_list[0]
+                crt_item:page_item_list[0],
+                image_list:image_list,
             },
             computed:{
                 normed_map_pos_list:function(){
@@ -63,12 +66,32 @@
                     return ex.filter(this.area_list,function(item){
                         return ex.isin(item.pk,self.crt_item.area)
                     })
+                },
+                normed_image_list:function(){
+                    var self=this
+                    return ex.filter(this.image_list,function(item){
+                        return ex.isin(item.pk,self.crt_item.img_list)
+                    })
                 }
 
             },
             methods:{
                 on_action:function(v){
                     this.crt_item = v
+                },
+                switch_project:function(act){
+                    $('.toggle-button').click()
+                    var self=this
+                    setTimeout(function(){
+                        self.crt_item = act
+                    },500)
+                },
+                on_jump:function(act){
+                    $('.toggle-button').click()
+                    setTimeout(function(){
+                        location=act.link
+                    },500)
+
                 }
             }
         })
@@ -79,17 +102,42 @@
 
 <div class="flex" id="main-panel">
 
+    <nav class="slide-menu" v-if="env.width<900">
+
+        <com-header-menu  :menu="page_item_list" active=""  @jump="switch_project($event)">
+        </com-header-menu>
+        <div style="margin-top: 2em;border-top:1px solid #313131;padding-top: 1em;">
+            <div class="sm-right-top-panel">
+                <component class="vertical" v-for="head in top_heads" :is="head.mb_editor || head.editor"
+                           @jump="on_jump($event)"
+                           :head="head"></component>
+            </div>
+        </div>
+    </nav>
+
+
     <div class="right-panel flex-grow flex-v">
-        <com-fullhome-header-bar :top_heads="top_heads"></com-fullhome-header-bar>
+
+        <com-fullhome-header-bar v-if="env.width>900" :top_heads="top_heads"></com-fullhome-header-bar>
+
+        <div v-else style="height: 50px;position: relative;background-color: #464646">
+            <com-slideout-menu v-if="env.width<900" menu=".slide-menu" toggle-btn=".toggle-button" panel=".right-panel"></com-slideout-menu>
+            <div class="slide-btn center-v"  >
+                <div class="toggle-button" style="color: white;padding: 0 0.6em">☰</div>
+            </div>
+            <b style="color: #efefef;" v-if="env.width<900" class="center-vh">
+                <img height="20px" src="/static/images/log.png" alt=""><span style="display: inline-block;width: 0.5rem"></span>威尔佳</b>
+        </div>
+
 
 
         <div class="flex-grow flex" style="position: relative;">
 
-            <com-fullhome-left-menu :menu-list="page_item_list" @action="on_action($event)"></com-fullhome-left-menu>
+            <com-fullhome-left-menu v-if="env.width>900" :menu-list="page_item_list" @action="on_action($event)"></com-fullhome-left-menu>
 
 
             <div class="flex-grow" style="position: relative">
-                <com-fullhome-map :map_points="normed_map_pos_list" :area_list="normed_area_list"></com-fullhome-map>
+                <com-fullhome-map :map_points="normed_map_pos_list" :area_list="normed_area_list" :image_list="normed_image_list"></com-fullhome-map>
             </div>
 
         </div>

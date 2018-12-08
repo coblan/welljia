@@ -19,6 +19,8 @@ class MapPointForm(ModelFields):
         exclude = []
         
 
+
+
 director.update({
     'MapPoint': MapPointsPage.tableCls,
     'MapPoint.edit': MapPointForm,

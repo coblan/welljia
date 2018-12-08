@@ -11,3 +11,4 @@ from . import admin_mappoints
 
 from .mainpage import mainpage
 from .mainpage import area
+from .mainpage import image

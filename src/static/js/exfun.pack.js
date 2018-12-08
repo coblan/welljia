@@ -1034,19 +1034,22 @@ var network = exports.network = {
                     }
                 }
             }
-            if (msg.length != 0) {
-                if (resp.success === false) {
-                    cfg.warning(msg.join('\n'));
-                } else {
-                    cfg.showMsg(msg.join('\n'));
-                }
-            }
             //if (resp.status && typeof resp.status == 'string' && resp.status != 'success') {
             if (resp.success === false) {
                 cfg.hide_load(); // sometime
-                return;
             } else {
-                callback(resp);
+                var rt = callback(resp);
+                if (rt == false) {
+                    return; // 模拟事件冒泡，返回false，就不继续执行下面的语句了。
+                }
+            }
+
+            if (msg.length != 0) {
+                if (resp.success === false) {
+                    cfg.showError(msg.join('\n'));
+                } else {
+                    cfg.showMsg(msg.join('\n'));
+                }
             }
         };
         return $.post(url, data, wrap_callback);

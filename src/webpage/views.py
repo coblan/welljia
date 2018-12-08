@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .page_home import Home
-from .models import ZhanRich, MapPoint, Area, MainPageItem
+from .models import ZhanRich, MapPoint, Area, MainPageItem, PageImages
 from helpers.director.model_func.dictfy import sim_dict
 # Create your views here.
 
@@ -15,10 +15,12 @@ class FullHome(Home):
         map_points = [sim_dict(x) for x in MapPoint.objects.all()]
         area = [sim_dict(x) for x in Area.objects.all()]
         page_item_list = [sim_dict(x) for x in MainPageItem.objects.all()]
+        image_list =   [sim_dict(x) for x in PageImages.objects.all()]
         return {
             'map_points': map_points,
             'area_list': area,
             'page_item_list': page_item_list,
+            'image_list': image_list,
         }
 
 class  OpenExe(Home): 

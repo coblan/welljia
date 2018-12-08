@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -381,17 +381,17 @@ function updateLink(linkElement, obj) {
 "use strict";
 
 
-__webpack_require__(6);
+__webpack_require__(10);
 
 Vue.component('com-header-menu', {
     props: ['menu', 'active'],
-    template: '<div class="header-menu">\n        <span class="menu-item" v-for="act in menu">\n            <a :class="[\'clickable\',{\'active\':active==act.name}]"  @click="on_click(act.link)"  v-text="act.label"></a>\n        </span>\n    </div>',
+    template: '<div class="header-menu">\n        <span class="menu-item" v-for="act in menu">\n            <a :class="[\'clickable\',{\'active\':active==act.name}]"  @click="on_click(act)"  v-text="act.label"></a>\n        </span>\n    </div>',
     methods: {
-        on_click: function on_click(url) {
+        on_click: function on_click(act) {
             if (this.$listeners && this.$listeners.jump) {
-                this.$emit('jump', url);
+                this.$emit('jump', act);
             } else {
-                location = url;
+                location = act.link;
             }
         }
     }
@@ -402,10 +402,23 @@ Vue.component('com-header-menu', {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+var _slideout_menu = __webpack_require__(6);
+
+var slideout_menu = _interopRequireWildcard(_slideout_menu);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(4);
+var content = __webpack_require__(7);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(1)(content, {});
@@ -425,86 +438,7 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, ".only-tab.el-tabs--border-card {\n  border-bottom: none;\n  -webkit-box-shadow: none;\n  box-shadow: none; }\n  .only-tab.el-tabs--border-card .el-tabs__content {\n    display: none; }\n", ""]);
-
-// exports
-
-
-/***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, ".header-menu .menu-item {\n  display: inline-block;\n  margin: 0.6em 1.2em; }\n  .header-menu .menu-item a {\n    text-decoration: none;\n    color: black; }\n  .header-menu .menu-item .active, .header-menu .menu-item a:hover {\n    color: #66b3eb; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(5);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_menu.scss", function() {
-			var newContent = require("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_menu.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _header_menu = __webpack_require__(2);
-
-var header_sim_click = _interopRequireWildcard(_header_menu);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-//import * as kuaifawu_menu from  './pc/kuaifawu_menu.js'
-//import * as search_kuaifawu from  './pc/search_kuaifawu.js'
-
-
-__webpack_require__(3); //require('./scss/fields.scss')
-//require('./table_editor/scss/table_editor_base.scss')
-//require('./scss/tab.scss')
-//require('./scss/table.scss')
-
-
-__webpack_require__(8);
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -530,6 +464,74 @@ if(false) {
 }
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(13);
+
+var slide_menu = {
+    props: ['menu', 'toggleBtn', 'panel'],
+    template: '<div>\n    </div>',
+    mounted: function mounted() {
+        var self = this;
+        var slideout = new Slideout({
+            'panel': $(self.panel)[0], //document.getElementById('main-panel'),
+            'menu': $(self.menu)[0], //document.getElementById('menu'),
+            'padding': 256,
+            'tolerance': 70,
+            touch: false
+        });
+
+        $(self.toggleBtn).click(function () {
+            slideout.toggle();
+        });
+
+        document.querySelector(self.menu).addEventListener('click', function (eve) {
+            if (eve.target.nodeName === 'A') {
+                slideout.close();
+            }
+        });
+        //$(self.menu).on('click','a',function(){
+        //    console.log('hehee')
+        //    slideout.close()
+        //})
+    }
+};
+
+Vue.component('com-slideout-menu', slide_menu);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".only-tab.el-tabs--border-card {\n  border-bottom: none;\n  -webkit-box-shadow: none;\n  box-shadow: none; }\n  .only-tab.el-tabs--border-card .el-tabs__content {\n    display: none; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".header-menu .menu-item {\n  display: inline-block;\n  margin: 0.6em 1.2em; }\n  .header-menu .menu-item a {\n    text-decoration: none;\n    color: black; }\n  .header-menu .menu-item .active, .header-menu .menu-item a:hover {\n    color: #66b3eb; }\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -542,6 +544,101 @@ exports.push([module.i, ".out-wrap {\n  min-width: 1160px; }\n\n.inn-wrap {\n  w
 
 // exports
 
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(8);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_menu.scss", function() {
+			var newContent = require("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./header_menu.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _header_menu = __webpack_require__(2);
+
+var header_sim_click = _interopRequireWildcard(_header_menu);
+
+var _main = __webpack_require__(3);
+
+var ui_main = _interopRequireWildcard(_main);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+//require('./scss/fields.scss')
+//require('./table_editor/scss/table_editor_base.scss')
+//require('./scss/tab.scss')
+//require('./scss/table.scss')
+
+
+__webpack_require__(4);
+//import * as kuaifawu_menu from  './pc/kuaifawu_menu.js'
+//import * as search_kuaifawu from  './pc/search_kuaifawu.js'
+
+__webpack_require__(5);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".slideout-menu {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  width: 256px;\n  min-height: 100vh;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n  z-index: 0;\n  display: none; }\n\n.slideout-menu-left {\n  left: 0; }\n\n.slideout-menu-right {\n  right: 0; }\n\n.slideout-panel {\n  position: relative;\n  z-index: 1;\n  will-change: transform;\n  background-color: #FFF;\n  /* A background-color is required */\n  min-height: 100vh; }\n\n.slideout-open,\n.slideout-open body,\n.slideout-open .slideout-panel {\n  overflow: hidden; }\n\n.slideout-open .slideout-menu {\n  display: block; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(12);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./slideout_menu.scss", function() {
+			var newContent = require("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./slideout_menu.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

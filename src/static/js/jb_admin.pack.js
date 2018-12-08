@@ -409,21 +409,35 @@ var com_sim_fields = exports.com_sim_fields = {
     },
     data: function data() {
         return {
-            small_srn: ex.is_small_screen(),
+            env: cfg.env,
             small: false
+            //small_srn:ex.is_small_screen(),
         };
     },
     mounted: function mounted() {
         // 由于与nicevalidator 有冲突，所以等渲染完成，再检测
-        setTimeout(function () {
-            if ($(this.$el).width() < 600) {
-                this.small = true;
-            } else {
-                this.small = false;
-            }
-        }, 10);
+        var self = this;
+
+        //setTimeout(function(){
+        //    console.log('sss')
+        //    self.update_small()
+        //},5000)
+    },
+    watch: {
+        //'evn.width':function (){
+        //    var self=this
+        //if($(self.$el).width() <450 ){
+        //    self.small=true
+        //}else{
+        //    self.small=false
+        //}
+        //self.update_nice()
+        //}
     },
     computed: {
+        small_srn: function small_srn() {
+            return env.width < 760;
+        },
         normed_heads: function normed_heads() {
             return this.heads;
         },
@@ -446,9 +460,20 @@ var com_sim_fields = exports.com_sim_fields = {
     //},
     components: window._baseInput,
     mixins: [mix_fields_data, mix_nice_validator],
-    template: ' <div :class="[\'field-panel sim-fields\',{\'small\':small,\'msg-bottom\':small}]"\n    style="text-align:center;">\n           <table class="table-fields">\n        <tr v-for="head in heads">\n            <td class="field-label-td"  valign="top" >\n            <div class="field-label" :style="label_width">\n                <span class="label-content">\n                     <span v-text="head.label"></span>\n                     <span class="req_star" v-if=\'head.required\'>*</span>\n                </span>\n\n\n            </div>\n\n            </td>\n            <td class="field-input-td" >\n                <div class="field-input">\n                    <component v-if="head.editor" :is="head.editor"\n                         @field-event="$emit(\'field-event\',$event)"\n                         :head="head" :row="row"></component>\n\n                </div>\n            </td>\n            <td>\n                <span v-if="head.help_text" class="help-text clickable">\n                            <i style="color: #3780af;position: relative;top:10px;"   @click="show_msg(head.help_text,$event)" class="fa fa-question-circle" ></i>\n                </span>\n            </td>\n        </tr>\n        <slot :row="row">\n            <!--\u6309\u94AE\u6A2A\u8DE8\u4E24\u5217 \uFF01\u5C0F\u5C3A\u5BF8\u65F6 \u5F3A\u5236 -->\n             <tr v-if="crossBtn || small" class="btn-row">\n                <td class="field-input-td" colspan="3">\n                    <div class="submit-block">\n                        <button @click="submit" type="btn"\n                            :class="[\'form-control btn\',btnCls]"><span v-text="okBtn"></span></button>\n                    </div>\n                </td>\n            </tr>\n            <!--\u6309\u94AE\u5728\u7B2C\u4E8C\u5217-->\n               <tr v-else class="btn-row">\n                   <td class="field-label-td"></td>\n                    <td class="field-input-td" colspan="1">\n                        <div class="submit-block">\n                            <button @click="panel_submit" type="btn"\n                                :class="[\'btn\',btnCls]"><span v-text="okBtn"></span></button>\n                        </div>\n                     </td>\n                     <td></td>\n               </tr>\n        </slot>\n\n    </table>\n\n\n        </div>',
+    template: ' <div :class="[\'field-panel sim-fields\',{\'msg-bottom\':small_srn}]"\n    style="text-align:center;">\n           <table class="table-fields">\n        <tr v-for="head in heads">\n            <td class="field-label-td"  valign="top" >\n            <div class="field-label" :style="label_width">\n                <span class="label-content">\n                     <span v-text="head.label"></span>\n                     <span class="req_star" v-if=\'head.required\'>*</span>\n                </span>\n\n\n            </div>\n\n            </td>\n            <td class="field-input-td" >\n                <div class="field-input">\n                    <component v-if="head.editor" :is="head.editor"\n                         @field-event="$emit(\'field-event\',$event)"\n                         :head="head" :row="row"></component>\n\n                </div>\n            </td>\n            <td>\n                <span v-if="head.help_text" class="help-text clickable">\n                            <i style="color: #3780af;position: relative;top:10px;"   @click="show_msg(head.help_text,$event)" class="fa fa-question-circle" ></i>\n                </span>\n            </td>\n        </tr>\n        <slot :row="row">\n            <!--\u6309\u94AE\u6A2A\u8DE8\u4E24\u5217 \uFF01\u5C0F\u5C3A\u5BF8\u65F6 \u5F3A\u5236 -->\n             <tr v-if="crossBtn || small_srn" class="btn-row">\n                <td class="field-input-td" colspan="3">\n                    <div class="submit-block">\n                        <button @click="panel_submit" type="btn"\n                            :class="[\'form-control btn\',btnCls]"><span v-text="okBtn"></span></button>\n                    </div>\n                </td>\n            </tr>\n            <!--\u6309\u94AE\u5728\u7B2C\u4E8C\u5217-->\n               <tr v-else class="btn-row">\n                   <td class="field-label-td"></td>\n                    <td class="field-input-td" colspan="1">\n                        <div class="submit-block">\n                            <button @click="panel_submit" type="btn"\n                                :class="[\'btn\',btnCls]"><span v-text="okBtn"></span></button>\n                        </div>\n                     </td>\n                     <td></td>\n               </tr>\n        </slot>\n\n    </table>\n\n\n        </div>',
     methods: {
+        update_small: function update_small() {
+            var self = this;
+            if ($(self.$el).width() < 450) {
+                self.small = true;
+            } else {
+                self.small = false;
+            }
 
+            setTimeout(function () {
+                self.update_nice();
+            }, 100);
+        },
         panel_submit: function panel_submit() {
             if (this.$listeners && this.$listeners.submit) {
                 if (this.isValid()) {
@@ -1789,7 +1814,7 @@ __webpack_require__(130);
 
 Vue.component('com-head-dropdown', {
     props: ['head'],
-    template: '<div class="com-head-userinfo">\n    <div style="z-index:200" class="login" >\n        <el-dropdown class="com-head-userinfo">\n          <span class="el-dropdown-link">\n          <span v-html="head.label"></span>\n            <i class="el-icon-arrow-down el-icon--right"></i>\n          </span>\n          <el-dropdown-menu slot="dropdown">\n            <el-dropdown-item v-for="action in head.options">\n                <a class="com-head-dropdown-action" :href="action.url" v-text="action.label"></a>\n            </el-dropdown-item>\n          </el-dropdown-menu>\n        </el-dropdown>\n    </div>\n    </div>'
+    template: '<div class="com-head-userinfo">\n    <div style="z-index:200" class="login" >\n        <el-dropdown class="com-head-userinfo">\n          <span class="el-dropdown-link">\n          <span v-html="head.label"></span>\n            <i class="el-icon-arrow-down el-icon--right"></i>\n          </span>\n          <el-dropdown-menu slot="dropdown">\n            <el-dropdown-item v-for="action in head.options">\n                <a class="com-head-dropdown-action" :href="action.link" v-text="action.label"></a>\n            </el-dropdown-item>\n          </el-dropdown-menu>\n        </el-dropdown>\n    </div>\n    </div>'
 });
 
 /***/ }),
@@ -1801,16 +1826,16 @@ Vue.component('com-head-dropdown', {
 
 __webpack_require__(131);
 
-// header 上的小链接
+// header 上的小链接,例如右上角的  [登录 | 注册  ]
 Vue.component('com-head-sm-link', {
     props: ['head'],
-    template: '<div class="small-link">\n    <span class="item" v-for="action in head.options">\n        <a  @click="on_click(action.url)" class="login-link clickable" v-text="action.label"></a>\n        <span class="space" v-if="action != head.options[head.options.length-1]">&nbsp;|&nbsp;</span>\n    </span>\n    </div>',
+    template: '<div class="small-link">\n    <span class="item" v-for="action in head.options">\n        <a  @click="on_click(action)" class="login-link clickable" v-text="action.label"></a>\n        <span class="space" v-if="action != head.options[head.options.length-1]">&nbsp;|&nbsp;</span>\n    </span>\n    </div>',
     methods: {
-        on_click: function on_click(url) {
+        on_click: function on_click(action) {
             if (this.$listeners && this.$listeners.jump) {
-                this.$emit('jump', url);
+                this.$emit('jump', action);
             } else {
-                location = url;
+                location = action.link;
             }
         }
     }
@@ -1825,7 +1850,7 @@ Vue.component('com-head-sm-link', {
 
 Vue.component('com-widget-el-tab', {
     props: ['ctx'],
-    template: '<div class="tab-full" style="position: absolute;bottom: 0;top: 0;left: 0;right: 0;" >\n     <el-tabs  v-if="ctx.tabs.length >1" type="border-card"\n                           @tab-click="handleClick"\n                           style="width: 100%;height: 100%;"\n                           :value="ctx.crt_tab_name" >\n\n                    <!--<el-tab-pane v-for="tab in normed_tab( tabgroup.tabs )"-->\n                    <el-tab-pane v-for="tab in normed_tab"\n                                lazy\n                                 :key="tab.name"\n                                 :name="tab.name">\n                        <span slot="label" v-text="tab.label" ></span>\n\n                        <component :is="tab.com" :tab_head="tab"\n                                   :par_row="ctx.par_row"\n                                   :ref="\'_tab_\'+tab.name" @tab-event="up_event($event)"></component>\n\n\n                    </el-tab-pane>\n                </el-tabs>\n\n                <component v-else v-for="tab in ctx.tabs"  :is="tab.com" :tab_head="tab"\n                           :par_row="ctx.par_row"\n                           :ref="\'_tab_\'+tab.name" @tab-event="up_event($event)"></component>\n    </div>',
+    template: '<div class="tab-full active-tab-hightlight-top" style="position: absolute;bottom: 0;top: 0;left: 0;right: 0;" >\n     <el-tabs  v-if="ctx.tabs.length >1" type="border-card"\n                           @tab-click="handleClick"\n                           style="width: 100%;height: 100%;"\n                           :value="ctx.crt_tab_name" >\n\n                    <!--<el-tab-pane v-for="tab in normed_tab( tabgroup.tabs )"-->\n                    <el-tab-pane v-for="tab in normed_tab"\n                                lazy\n                                 :key="tab.name"\n                                 :name="tab.name">\n                        <span slot="label" v-text="tab.label" ></span>\n\n                        <component :is="tab.com" :tab_head="tab"\n                                   :par_row="ctx.par_row"\n                                   :ref="\'_tab_\'+tab.name" @tab-event="up_event($event)"></component>\n\n\n                    </el-tab-pane>\n                </el-tabs>\n\n                <component v-else v-for="tab in ctx.tabs"  :is="tab.com" :tab_head="tab"\n                           :par_row="ctx.par_row"\n                           :ref="\'_tab_\'+tab.name" @tab-event="up_event($event)"></component>\n    </div>',
     watch: {
         'ctx.crt_tab_name': function ctxCrt_tab_name(v) {
             this.show_tab(v);
@@ -2412,7 +2437,11 @@ var mix_fields_data = {
                     self.setErrors(rt.errors);
                     self.showErrors(rt.errors);
                 } else {
-                    cfg.hide_load(2000);
+                    if (resp.msg) {
+                        cfg.hide_load();
+                    } else {
+                        cfg.hide_load(2000);
+                    }
                     ex.vueAssign(self.row, rt.row);
                     self.after_save(rt.row);
                     self.setErrors({});
@@ -2552,6 +2581,9 @@ var nice_validator = {
 "use strict";
 
 
+/*
+被 table_store 替代掉了
+* */
 var mix_table_data = {
     created: function created() {
         if (!this.search_args) {
@@ -2562,7 +2594,6 @@ var mix_table_data = {
         return {
             op_funs: {},
             changed_rows: [],
-
             table_layout: {}
         };
     },
@@ -3288,6 +3319,10 @@ var html_content_panel = _interopRequireWildcard(_html_content_panel);
 var _form_panel = __webpack_require__(91);
 
 var form_panel = _interopRequireWildcard(_form_panel);
+
+var _pop_fields_panel = __webpack_require__(143);
+
+var pop_fields_panel = _interopRequireWildcard(_pop_fields_panel);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -5303,6 +5338,7 @@ var com_pop_field = exports.com_pop_field = {
             //this.$emit('sub_success',{new_row:new_row,old_row:this.row})
             this.$emit('submit-success', new_row);
             ex.assign(this.row, new_row);
+            this.$emit('finish', new_row);
         },
         del_row: function del_row() {
             var self = this;
@@ -5317,7 +5353,7 @@ var com_pop_field = exports.com_pop_field = {
             });
         }
     },
-    template: '<div class="flex-v" style="margin: 0;height: 100%;">\n    <div class = "flex-grow" style="overflow: auto;margin: 0;">\n        <div class="field-panel suit" >\n            <field  v-for="head in normed_heads" :key="head.name" :head="head" :row="row"></field>\n        </div>\n      <div style="height: 1em;">\n      </div>\n    </div>\n     <div style="text-align: right;padding: 8px 3em;">\n        <component v-for="op in ops" :is="op.editor" @operation="on_operation(op)" :head="op"></component>\n    </div>\n     </div>',
+    template: '<div class="flex-v com-pop-fields" style="margin: 0;height: 100%;">\n    <div class = "flex-grow" style="overflow: auto;margin: 0;">\n        <div class="field-panel suit" >\n            <field  v-for="head in normed_heads" :key="head.name" :head="head" :row="row"></field>\n        </div>\n      <div style="height: 1em;">\n      </div>\n    </div>\n     <div style="text-align: right;padding: 8px 3em;">\n        <component v-for="op in ops" :is="op.editor" @operation="on_operation(op)" :head="op"></component>\n    </div>\n     </div>',
     data: function data() {
         return {
             fields_kw: {
@@ -5327,10 +5363,10 @@ var com_pop_field = exports.com_pop_field = {
             }
         };
     }
-
-    //Vue.component('com-pop-fields',)
-
 };
+
+window.com_pop_field = com_pop_field;
+//Vue.component('com-pop-fields',)
 
 /***/ }),
 /* 88 */
@@ -5604,7 +5640,14 @@ var table_store = {
                     } else {
                         cfg.hide_load();
                         // 留到下面的field弹出框，按照nicevalidator的方式去显示错误
-                        //cfg.showError(resp.save_rows.msg)
+                        if (!after_save_callback) {
+                            if (resp.save_rows.msg) {
+                                cfg.showError(resp.save_rows.msg);
+                            } else {
+                                cfg.showError(JSON.stringify(resp.save_rows.errors));
+                            }
+                        }
+                        //
                     }
 
                     //self.op_funs.update_or_insert_rows({rows:resp.save_rows} )
@@ -5682,9 +5725,9 @@ var table_store = {
                     } else {
                         cfg.hide_load();
                     }
-                    if (resp.msg) {
-                        cfg.showMsg(resp.msg);
-                    }
+                    //if(resp.msg){
+                    //    cfg.showMsg(resp.msg)
+                    //}
 
                     if (kws.after_save) {
                         ex.eval(kws.after_save, { resp: resp, ts: self });
@@ -5740,11 +5783,51 @@ var table_store = {
                 rowIndex = _ref.rowIndex,
                 columnIndex = _ref.columnIndex;
 
+            // 计算布局
             if (this.table_layout) {
                 return this.table_layout[rowIndex + ',' + columnIndex] || [1, 1];
             } else {
                 return [1, 1];
             }
+        },
+        delete_selected: function delete_selected() {
+            var self = this;
+            layer.confirm('真的删除吗?', { icon: 3, title: '确认' }, function (index) {
+                layer.close(index);
+                //var ss = layer.load(2);
+                cfg.show_load();
+                var post_data = [{ fun: 'del_rows', rows: self.selected }];
+                ex.post('/d/ajax', JSON.stringify(post_data), function (resp) {
+                    cfg.hide_load();
+                    self.search();
+                });
+            });
+        },
+        pop_panel: function pop_panel(kws) {
+            var self = this;
+            var row_match_fun = kws.row_match || 'many_row';
+            if (!row_match[row_match_fun](self, kws)) {
+                return;
+            }
+            if (kws.panel) {
+                var panel = kws.panel;
+            } else {
+                var panel = ex.eval(kws.panel_express, { ts: self, kws: kws });
+            }
+            var ctx = ex.copy(kws);
+            if (kws.ctx_express) {
+                var cus_ctx = ex.eval(kws.ctx_express, { ts: self, kws: kws });
+                ex.assign(ctx, cus_ctx);
+            }
+            var winclose = cfg.pop_middle(panel, ctx, function (resp) {
+                if (ctx.after_express) {
+                    ex.eval(ctx.after_express, { ts: self, resp: resp });
+                } else {
+                    self.update_or_insert(resp);
+                }
+                self.clearSelection();
+                winclose();
+            });
         }
     }
 
@@ -5867,6 +5950,7 @@ var com_fields_panel = exports.com_fields_panel = {
 };
 window.com_fields_panel = com_fields_panel;
 Vue.component('com-fields-panel', com_fields_panel);
+Vue.component('com-panel-fields', com_fields_panel);
 
 /***/ }),
 /* 91 */
@@ -6186,7 +6270,7 @@ var ele_operations = {
 
     //                      :disabled="get_attr(op.disabled)"
     //v-show="! get_attr(op.hide)"
-    template: '<div class="oprations" style="padding: 5px;">\n                <component v-for="op in ops"\n                           :is="op.editor"\n                           :ref="\'op_\'+op.name"\n                           :head="op"\n                           :disabled="eval(op.disabled)"\n                           v-show="op.show==undefined?true:eval(op.show)"\n                           @operation="on_operation(op)"></component>\n            </div>',
+    template: '<div class="oprations" style="padding: 5px;">\n                <component v-for="op in ops"\n                           :is="op.editor"\n                           :ref="\'op_\'+op.name"\n                           :head="op"\n                           :disabled="eval(op.disabled)"\n                           v-show="is_show(op)"\n                           @operation="on_operation(op)"></component>\n            </div>',
     data: function data() {
         var self = this;
         this.parStore = ex.vueParStore(this);
@@ -6194,7 +6278,18 @@ var ele_operations = {
             ops: this.parStore.ops
         };
     },
+
     methods: {
+        is_show: function is_show(op) {
+            count += 1;
+            console.log(count);
+            console.log(op.label);
+            if (op.show == undefined) {
+                return true;
+            } else {
+                return ex.eval(op.show, { ts: this.parStore });
+            }
+        },
         eval: function _eval(express) {
             if (express == undefined) {
                 return false;
@@ -6210,6 +6305,7 @@ var ele_operations = {
     }
 };
 
+var count = 0;
 Vue.component('com-table-operations', ele_operations);
 
 /***/ }),
@@ -6273,6 +6369,7 @@ Vue.component('com-table-parents', table_parents);
 "use strict";
 
 
+__webpack_require__(145);
 var ele_table = {
     props: ['bus'],
     created: function created() {
@@ -6345,9 +6442,16 @@ var ele_table = {
     },
     // height="100%"
     //style="width: 100%"
+    // :row-class-name="tableRowClassName"  行标记颜色，效果不好，暂时不用
     mixins: [mix_table_data, mix_ele_table_adapter],
     template: '  <div style="position: absolute;top:0;left:0;bottom: 0;right:0;">\n        <el-table class="table flat-head" ref="e_table"\n                              :data="rows"\n                              border\n                              show-summary\n                              :span-method="parStore.arraySpanMethod"\n                              :fit="false"\n                              :stripe="true"\n                              size="mini"\n                              height="100%"\n                              style="width: 100%"\n                              @sort-change="parStore.sortChange($event)"\n                              @selection-change="parStore.handleSelectionChange"\n                              :summary-method="getSum">\n                        <el-table-column v-if="parStore.selectable"\n                                type="selection"\n                                width="55">\n                        </el-table-column>\n\n                        <template  v-for="head in parStore.heads">\n\n                            <el-table-column v-if="head.editor"\n                                             :show-overflow-tooltip="parStore.is_show_tooltip(head) "\n                                             :label="head.label"\n                                             :prop="head.name.toString()"\n                                             :sortable="parStore.is_sort(head)"\n                                             :width="head.width">\n                                <template slot-scope="scope">\n                                    <component :is="head.editor"\n                                               @on-custom-comp="on_td_event($event)"\n                                               :row-data="scope.row" :field="head.name" :index="scope.$index">\n                                    </component>\n\n                                </template>\n\n                            </el-table-column>\n\n                            <el-table-column v-else\n                                             :show-overflow-tooltip="parStore.is_show_tooltip(head) "\n                                             :prop="head.name.toString()"\n                                             :label="head.label"\n                                             :sortable="parStore.is_sort(head)"\n                                             :width="head.width">\n                            </el-table-column>\n\n                        </template>\n\n                    </el-table>\n                    </div>\n',
     methods: {
+        tableRowClassName: function tableRowClassName(_ref) {
+            var row = _ref.row,
+                rowIndex = _ref.rowIndex;
+
+            return row._css_class;
+        },
         bus_search: function bus_search(search_args) {
             ex.assign(this.search_args, search_args);
             this.search();
@@ -6769,7 +6873,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".el-tabs__item.is-top.is-active {\n  color: #3e8ebd; }\n\n.el-tabs__item.is-top.is-active:after {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  width: 100%;\n  height: 3px;\n  background-color: #3e8ebd; }\n\n.tab-full .el-tabs {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n  .tab-full .el-tabs .el-tabs__content {\n    flex-grow: 10;\n    position: relative; }\n\nbody {\n  height: 100%; }\n", ""]);
+exports.push([module.i, ".active-tab-hightlight-top .el-tabs__item.is-top.is-active {\n  color: #3e8ebd; }\n\n.active-tab-hightlight-top .el-tabs__item.is-top.is-active:after {\n  content: '';\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  width: 100%;\n  height: 3px;\n  background-color: #3e8ebd; }\n\n.tab-full .el-tabs {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n  .tab-full .el-tabs .el-tabs__content {\n    flex-grow: 10;\n    position: relative; }\n\nbody {\n  height: 100%; }\n", ""]);
 
 // exports
 
@@ -7592,6 +7696,68 @@ __webpack_require__(77);
 
 
 // store
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _fields_panel = __webpack_require__(90);
+
+var com_pop_fields_panel = {
+    props: ['ctx'],
+    data: function data() {
+        return {
+            fields_editor: this.ctx.fields_editor || com_pop_field
+        };
+    },
+    mixins: [_fields_panel.com_fields_panel],
+    template: '<div :class="[\'flex-v com-fields-panel\',cssCls,{\'small_srn\':small_srn}]" style="height: 100%">\n     <component class="msg-bottom"  :is="fields_editor" :heads="heads" :row="row" :ops="ops"\n       :cross-btn="crossBtn" @finish="on_finish($event)"></component>\n     </div>'
+};
+
+Vue.component('com-panel-pop-fields', com_pop_fields_panel);
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+// imports
+
+
+// module
+exports.push([module.i, ".el-table .success {\n  background: #f0f9eb; }\n\n.el-table--striped .el-table__body tr.success.el-table__row--striped > td {\n  background: #f0f9eb; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(144);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(1)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./table_grid.scss", function() {
+			var newContent = require("!!../../../../../../../../../coblan/webcode/node_modules/css-loader/index.js!../../../../../../../../../coblan/webcode/node_modules/sass-loader/lib/loader.js!./table_grid.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);
