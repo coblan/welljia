@@ -817,7 +817,8 @@ Vue.component('com-fullhome-map', {
             normed_area_list: [],
             normed_map_points: [],
             normed_image_list: [],
-            draw_loop_index: null
+            draw_loop_index: null,
+            delay: 500
         };
     },
     mounted: function mounted() {
@@ -929,7 +930,7 @@ Vue.component('com-fullhome-map', {
                         clearInterval(self.draw_loop_index);
                         resolve();
                     }
-                }, 1000);
+                }, self.delay);
             });
             return p;
         },
@@ -948,7 +949,7 @@ Vue.component('com-fullhome-map', {
                         clearInterval(self.draw_loop_index);
                         resolve();
                     }
-                }, 1000);
+                }, self.delay);
             });
             return p;
         },
@@ -969,7 +970,7 @@ Vue.component('com-fullhome-map', {
                         resolve();
                     }
                     console.log('draw image');
-                }, 1000);
+                }, self.delay);
             });
             return p;
         }
