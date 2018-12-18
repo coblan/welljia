@@ -56,7 +56,7 @@ class Home(View):
                     {'label':'首页','link':'/','name':'full_home'},
                     {'label':'数字沙盘','link':'/digital?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'Digital_Sand'},
                     {'label':'户型鉴赏','link':'/huxing?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'huxing'},
-                    {'label':'区域展示','link':'/zhanshi?projg=%(projg)s&builds=%(builds)s%search_args','name':'zhanshi'},
+                    {'label':'区域展示','link':'/zhanshi?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'zhanshi'},
                     #{'label':'商业配套','link':'/peitao','name':'peitao'},
                     {'label':'品牌宣传','link':'/xuanchuan?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'xuanchuan'},   
                     {'label':'项目手册','link':'/manual?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'manual'},  
