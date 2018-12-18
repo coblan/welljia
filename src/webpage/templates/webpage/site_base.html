@@ -27,22 +27,32 @@
     crt_page_name = {{ crt_page_name | jsonify }}
     top_heads={{ top_heads | jsonify }}
 
+    builds_menu={{ builds_menu | jsonify }}
+
     env={}
     env.width= $(window).width()
     $(window).resize(function(){
         env.width=$(window).width()
     })
 
+
     $(function(){
 
-        new Vue({
-            el:'.slide-menu',
+        var logic = Vue.extend({
 //            store:store,
-            data: {
-                env: env,
-                menu: header_bar_menu,
-                crt_page_name:crt_page_name,
-                top_heads:top_heads,
+            data: function(){
+                var search_args = ex.parseSearch()
+                return {
+                    env: env,
+                    menu: header_bar_menu,
+                    crt_page_name:crt_page_name,
+                    top_heads:top_heads,
+                    username:page_data.username,
+                    page_menu: page_menu,
+                    search_args:{},
+                    builds_menu:builds_menu,
+                    crt_builds:ex.findone(builds_menu,{pk:parseInt(search_args.builds)})
+                }
             },
             methods:{
                 on_jump:function(act){
@@ -50,23 +60,37 @@
                     setTimeout(function(){
                         location=act.link
                     },500)
-
+                },
+                jump_builds:function(builds){
+//                    var search_args =ex.parseSearch()
+//
+//                    var url =ex.appendSearch('/digital',{
+//                        projg:search_args.projg,
+//                        builds:builds.pk
+//                    })
+                    location =builds.link
                 }
             }
         })
 
-        new Vue({
-            el:'#header-bar',
-            data:{
-                env:env,
-                menu:header_bar_menu,
-                crt_page_name:crt_page_name,
-                username:page_data.username,
-                page_menu: page_menu,
-                search_args:{},
-                top_heads:top_heads,
-            }
-        })
+        new logic().$mount('.left-bar')
+        new logic().$mount('.slide-menu')
+        new logic().$mount('#header-bar')
+
+        new logic().$mount('.footer')
+
+//        new Vue({
+//            el:'#header-bar',
+//            data:{
+//                env:env,
+//                menu:header_bar_menu,
+//                crt_page_name:crt_page_name,
+//                username:page_data.username,
+//                page_menu: page_menu,
+//                search_args:{},
+//                top_heads:top_heads,
+//            }
+//        })
     })
 
 
@@ -125,22 +149,32 @@
 
 <div class="flex" id="main-panel">
 
-    <div class="left-bar">
 
-        <div class="logo">
-            <img src="/static/images/1_1.png" alt="">
-        </div>
+    <div class="left-bar flex-v">
 
-        <div class="footer" >
-            <div style="padding-left: 10px;">
-                <span>四川威尔佳科技</span><br>
-                <span>有限责任公司</span>
-            </div>
-            <div style="padding-top: 0.5em;padding-left: 10px">
-                <a>@2014-2018 Jongde Software LLC All rights reserved.</a>
-            </div>
+        <div style="height: 75px;position: relative">
+            <a href="/"><img height="70%" class="center-v" src="/static/images/full_home_logo.png" alt=""></a>
 
         </div>
+
+        <com-fullhome-left-menu v-if="env.width>900" :menu-list="builds_menu" :crt-menu="crt_builds" @action="jump_builds($event)"></com-fullhome-left-menu>
+
+
+        <!--<div class="logo">-->
+        <!--<img src="/static/images/1_1.png" alt="">-->
+        <!--</div>-->
+
+
+        <!--<div class="footer" >-->
+        <!--<div style="padding-left: 10px;">-->
+        <!--<span>四川威尔佳科技</span><br>-->
+        <!--<span>有限责任公司</span>-->
+        <!--</div>-->
+        <!--<div style="padding-top: 0.5em;padding-left: 10px">-->
+        <!--<a>@2014-2018 Jongde Software LLC All rights reserved.</a>-->
+        <!--</div>-->
+
+        <!--</div>-->
     </div>
 
     <nav class="slide-menu" v-if="env.width<900">
@@ -154,7 +188,12 @@
                            :head="head"></component>
             </div>
         </div>
+        <com-fullhome-footer class="mobile-panel"></com-fullhome-footer>
     </nav>
+
+
+
+
 
     <div class="right-panel flex-grow flex-v">
 
@@ -185,6 +224,12 @@
 
             {% endblock %}
         </div>
+
+        <div class="footer" v-if="env.width>900" style="position: relative;height:60px;">
+            <com-fullhome-footer></com-fullhome-footer>
+        </div>
+
+
 
 
     </div>

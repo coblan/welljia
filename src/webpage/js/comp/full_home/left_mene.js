@@ -1,10 +1,10 @@
 require('./scss/left_menu.scss')
 
 Vue.component('com-fullhome-left-menu',{
-    props:['menuList'],
+    props:['menuList','crtMenu'],
     data:function(){
         return {
-            crt_action:this.menuList[0]
+            crt_action:this.crtMenu || this.menuList[0]
         }
     },
     template:`<div class="com-fullhome-left-menu">

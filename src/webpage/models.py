@@ -47,9 +47,10 @@ class Floor(models.Model):
         return self.label
     
 class MapPoint(models.Model):
+    """一个建筑群"""
     title = models.CharField('显示名', max_length = 100)
     pos = models.CharField('坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
-    url = models.CharField('跳转地址', max_length = 200)
+    url = models.CharField('3D资源地址', max_length = 200)
     
     def __str__(self): 
         return self.title
@@ -68,6 +69,7 @@ class PageImages(models.Model):
     pic =  PictureField('区域图', max_length = 300, blank = True)
 
 class MainPageItem(models.Model):
+    """ 表示一个 项目集合，一般包含多地 多个 楼群  """
     label =  models.CharField('显示名', max_length = 100)
     project = models.ManyToManyField(MapPoint, verbose_name = '项目点', blank = True)
     area = models.ManyToManyField(Area, verbose_name = '区域', blank = True)

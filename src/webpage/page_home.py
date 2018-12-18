@@ -5,6 +5,7 @@ from helpers.director.engine import BaseEngine
 
 from helpers.director.model_func.dictfy import to_dict
 from helpers.director.kv import get_value
+from .models import MapPoint,MainPageItem
 
 # Create your views here.
 class Home(View):
@@ -14,6 +15,9 @@ class Home(View):
         
     def get(self,request):
         self.request = request
+        self.projg_pk = request.GET.get('projg')
+        self.builds_pk = request.GET.get('builds')
+        
         ctx = self.get_context()
         template = self.get_template()
         return render(request,template,context=ctx)   
@@ -41,17 +45,29 @@ class Home(View):
         return ctx    
     
     def get_header_menu(self):
+        if self.request.GET.get('projg'):
+            projg = MainPageItem.objects.get(pk=self.projg_pk)
+            search_args = {
+                'projg':self.projg_pk,
+                'builds':self.builds_pk
+            }
+            dc = { 
+                'header_bar_menu': [
+                    {'label':'首页','link':'/','name':'full_home'},
+                    {'label':'数字沙盘','link':'/digital?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'Digital_Sand'},
+                    {'label':'户型鉴赏','link':'/huxing?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'huxing'},
+                    {'label':'区域展示','link':'/zhanshi?projg=%(projg)s&builds=%(builds)s%search_args','name':'zhanshi'},
+                    #{'label':'商业配套','link':'/peitao','name':'peitao'},
+                    {'label':'品牌宣传','link':'/xuanchuan?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'xuanchuan'},   
+                    {'label':'项目手册','link':'/manual?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'manual'},  
+                ],
+                'builds_menu':[
+                    {'pk':x.pk,'label':x.title,'link':'/digital?projg=%(projg)s&builds=%(builds)s'%{'projg':projg.pk,'builds':x.pk}} for x in projg.project.all()
+                ]}
         
-        dc = { 'header_bar_menu': [
-            {'label':'首页','link':'/','name':'full_home'},
-            {'label':'数字沙盘','link':'/Digital_Sand','name':'Digital_Sand'},
-            {'label':'户型鉴赏','link':'/huxing','name':'huxing'},
-            {'label':'区域展示','link':'/zhanshi','name':'zhanshi'},
-            #{'label':'商业配套','link':'/peitao','name':'peitao'},
-            {'label':'品牌宣传','link':'/xuanchuan','name':'xuanchuan'},   
-            {'label':'项目手册','link':'/manual','name':'manual'},  
-        ]}
-        return dc
+            return dc
+        else:
+            return {}
     
     
     def get_top_heads(self): 
@@ -83,11 +99,14 @@ class Home(View):
      
     def extraCtx(self):
         #banners = [{'img': x.img, 'target_url': x.link} for x in Banners.objects.filter(belong = 1).order_by('-priority')]
-        sha_pan_link = get_value('sha_pan_link')
+        
+        builds_pk = self.request.GET.get('builds')
+        builds = MapPoint.objects.get(pk=builds_pk)
+        sha_pan_link =builds.url  #get_value('sha_pan_link')
         return {
             #'banners': banners,
             #'recomPanels': recomPanels,
-            'crt_page_name':'Digital_Sand',
+            'crt_page_name':'digital',
             'link_3d': sha_pan_link
         }
 

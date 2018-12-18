@@ -10,28 +10,17 @@ Vue.component('com-fullhome-map',{
             normed_map_points:[],
             normed_image_list:[],
             draw_loop_index:null,
-            delay:500,
+            delay:150,
         }
     },
     mounted:function(){
-        var self=this
-        var height = $(this.$el).height()
-        var scale = height /1080
-        var child_width = 1980 * scale
-        $(this.$el).find('.map-wrap').css('transform','scale('+scale+')')
-
-        var par_width = $(self.$el).width()
-        if(child_width > par_width){
-            setTimeout(function(){
-                $(self.$el).scrollLeft( (child_width - par_width)/2)
-            },10)
-
-        }
-
-
+        this.update_size()
         this.draw()
     },
     watch:{
+        'env.width':function(){
+            this.update_size()
+        },
         map_points:function(){
             this.stop_draw()
             this.draw()
@@ -95,6 +84,22 @@ Vue.component('com-fullhome-map',{
         //},
     },
     methods:{
+        update_size:function(){
+            var self=this
+            var height = $(this.$el).height()
+            var scale = height /1080
+            var child_width = 1980 * scale
+            $(this.$el).find('.map-wrap').css('transform','scale('+scale+')')
+
+            var par_width = $(self.$el).width()
+            if(child_width > par_width){
+                setTimeout(function(){
+                    $(self.$el).scrollLeft( (child_width - par_width)/2)
+                },10)
+
+            }
+        },
+
         draw:function(){
             this.normed_area_list=[]
             this.normed_map_points=[]
@@ -218,6 +223,7 @@ Vue.component('com-fullhome-pos',{
         return {
             is_show:true,
             show_info:false,
+            parStore:ex.vueParStore(this)
         }
     },
     //@mouseleave="is_show=false"
@@ -229,56 +235,12 @@ Vue.component('com-fullhome-pos',{
                 <img class="point" src="/static/images/4.png" alt="">
           </div>
 
-
-        <!--<div class="line" :style="line_block_style">-->
-            <!--<canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>-->
-        <!--</div>-->
-
-    <!--<transition name="fade">-->
-            <!--<div v-show="show_info">-->
-                    <!--&lt;!&ndash;终点小圆点&ndash;&gt;-->
-                   <!--<div class="line" :style="line_end_style">-->
-                    <!--</div >-->
-
-                    <!--<span class="title" :style="{top:label_loc.y,left:label_loc.x}">-->
-                        <!--<img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>-->
-                    <!--</span>-->
-            <!--</div>-->
-
-    <!--</transition>-->
-
-
        <div class="circle" >
                 <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">
        </div>
 
     </div>`,
 
-    mounted:function(){
-
-        //var self=this
-        //setTimeout(function(){
-        //    self.draw_line()
-        //},1200)
-        //self.show_info=false
-        //setTimeout(function(){
-        //    self.show_info=true
-        //},2200)
-    },
-
-    watch:{
-        //line_block_style:function(v){
-        //
-        //
-        //    var self=this
-        //    self.draw_line()
-        //
-        //    self.show_info=false
-        //    setTimeout(function(){
-        //        self.show_info=true
-        //    },1000)
-        //}
-    },
     computed:{
         //area_style:function(){
         //    var self=this
@@ -383,7 +345,11 @@ Vue.component('com-fullhome-pos',{
     methods:{
         open_page:function(){
             console.log('jj')
-            location = this.mapitem.url
+            var url =ex.appendSearch('/digital',{
+                projg:this.parStore.crt_proj.pk,
+                builds:this.mapitem.pk
+            })
+            location =url
         },
         draw_line:function(){
             var self=this

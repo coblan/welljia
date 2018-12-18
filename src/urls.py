@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^pc/([\w\.]+)/?$',PcMenu.as_view(),name=PcMenu.url_name),
     url(r'^pc/?$',RedirectView.as_view(url='/pc/admin_user')), 
     url(r'^huxing/?$', Huxing.as_view()), 
-    url(r'^digital', Home.as_view()), 
+    url(r'^digital/?$', Home.as_view()), 
     url(r'^open_exe/?$', OpenExe.as_view()), 
     url(r'^$', FullHome.as_view()), 
 ]

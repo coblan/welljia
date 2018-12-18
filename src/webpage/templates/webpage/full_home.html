@@ -41,6 +41,14 @@
             el:'#main-panel',
             data:{
 //                env:env,
+                childStore:new Vue({
+                    data:function(){
+                        return {
+                            crt_proj:page_item_list[0],
+                        }
+                    }
+
+                }),
                 env:cfg.env,
                 menu:header_bar_menu,
                 crt_page_name:crt_page_name,
@@ -77,7 +85,16 @@
             },
             methods:{
                 on_action:function(v){
-                    this.crt_item = v
+                    var self =this
+                    self.crt_item = {
+                        img_list:[],
+                        area:[],
+                        project:[],
+                    }
+                    setTimeout(function(){
+                        self.crt_item = v
+                        self.childStore.crt_proj=v
+                    },100)
                 },
                 switch_project:function(act){
                     $('.toggle-button').click()
@@ -113,6 +130,8 @@
                            :head="head"></component>
             </div>
         </div>
+
+        <com-fullhome-footer class="mobile-panel"></com-fullhome-footer>
     </nav>
 
 
@@ -120,13 +139,13 @@
 
         <com-fullhome-header-bar v-if="env.width>900" :top_heads="top_heads"></com-fullhome-header-bar>
 
-        <div v-else style="height: 50px;position: relative;background-color: #464646">
+        <div v-else style="height: 75px;position: relative;background-color: #464646">
             <com-slideout-menu v-if="env.width<900" menu=".slide-menu" toggle-btn=".toggle-button" panel=".right-panel"></com-slideout-menu>
             <div class="slide-btn center-v"  >
                 <div class="toggle-button" style="color: white;padding: 0 0.6em">☰</div>
             </div>
             <b style="color: #efefef;" v-if="env.width<900" class="center-vh">
-                <img height="20px" src="/static/images/log.png" alt=""><span style="display: inline-block;width: 0.5rem"></span>威尔佳</b>
+                <img height="40px" src="/static/images/log.png" alt=""><span style="display: inline-block;width: 0.5rem"></span>威尔佳</b>
         </div>
 
 
@@ -137,12 +156,22 @@
 
 
             <div class="flex-grow" style="position: relative">
-                <com-fullhome-map :map_points="normed_map_pos_list" :area_list="normed_area_list" :image_list="normed_image_list"></com-fullhome-map>
+                <div class="flex-v" style="height: 100%">
+                    <div class="flex-grow" style="position: relative">
+                        <com-fullhome-map :map_points="normed_map_pos_list" :area_list="normed_area_list" :image_list="normed_image_list"></com-fullhome-map>
+                    </div>
+                    <div v-if="env.width>900" style="position: relative;height:60px;">
+                        <com-fullhome-footer></com-fullhome-footer>
+                    </div>
+
+                </div>
+
             </div>
+
 
         </div>
 
-        <!--<com-fullhome-footer></com-fullhome-footer>-->
+
 
     </div>
 

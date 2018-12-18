@@ -21,6 +21,9 @@
             z-index: 100;
         }
 
+        &.is_active{
+            color: #8fb2fe;
+        }
         //&.is_active{
         //    background:url(/static/images/big_btn.png);
         //    background-size:100% 100%;

@@ -22,6 +22,9 @@ class FullHome(Home):
             'page_item_list': page_item_list,
             'image_list': image_list,
         }
+    
+    def get_header_menu(self):
+        return {}
 
 class  OpenExe(Home): 
     def get_template(self): 

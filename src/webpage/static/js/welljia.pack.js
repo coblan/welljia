@@ -725,13 +725,28 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 __webpack_require__(30);
 
+//Vue.component('com-fullhome-footer',{
+//    data:function(){
+//        return {
+//            footer_imgs:[
+//                '/static/images/foot_1.png',
+//                '/static/images/foot_2.png',
+//                '/static/images/foot_3.png',
+//                '/static/images/foot_4.png',
+//            ]
+//        }
+//    },
+//    template:`<div class="com-fullhome-footer">
+//        <img v-for="item in footer_imgs" :src="item" alt="">
+//    </div>`
+//})
+__webpack_require__(30);
+
 Vue.component('com-fullhome-footer', {
     data: function data() {
-        return {
-            footer_imgs: ['/static/images/foot_1.png', '/static/images/foot_2.png', '/static/images/foot_3.png', '/static/images/foot_4.png']
-        };
+        return {};
     },
-    template: '<div class="com-fullhome-footer">\n        <img v-for="item in footer_imgs" :src="item" alt="">\n    </div>'
+    template: '<div class="com-fullhome-footer">\n         <div style="text-align: center" >\n            <span style="color: #494e5b">\n                <span>\u56DB\u5DDD\u5A01\u5C14\u4F73\u79D1\u6280\u6709\u9650\u8D23\u4EFB\u516C\u53F8</span>\n                <span class="divider"></span>\n                <span>\u8700ICP\u5907160XXXX\u53F7</span>\n            </span>\n                 <br>\n\n                <a style="color: #0093f1">@2014-2018 Jongde Software LLC All rights reserved.</a>\n         </div>\n    </div>'
 });
 
 /***/ }),
@@ -758,10 +773,10 @@ Vue.component('com-fullhome-header-bar', {
 __webpack_require__(32);
 
 Vue.component('com-fullhome-left-menu', {
-    props: ['menuList'],
+    props: ['menuList', 'crtMenu'],
     data: function data() {
         return {
-            crt_action: this.menuList[0]
+            crt_action: this.crtMenu || this.menuList[0]
         };
     },
     template: '<div class="com-fullhome-left-menu">\n    <div :class="[\'action\',{\'is_active\':crt_action==action}]" v-for="action in menuList" @click="on_click(action)">\n        <img v-if="crt_action==action" src="/static/images/big_btn.png" alt="">\n        <span class="center-vh" style="z-index:200;white-space: nowrap;" v-text="action.label" ></span>\n\n    </div>\n    </div>',
@@ -818,26 +833,17 @@ Vue.component('com-fullhome-map', {
             normed_map_points: [],
             normed_image_list: [],
             draw_loop_index: null,
-            delay: 500
+            delay: 150
         };
     },
     mounted: function mounted() {
-        var self = this;
-        var height = $(this.$el).height();
-        var scale = height / 1080;
-        var child_width = 1980 * scale;
-        $(this.$el).find('.map-wrap').css('transform', 'scale(' + scale + ')');
-
-        var par_width = $(self.$el).width();
-        if (child_width > par_width) {
-            setTimeout(function () {
-                $(self.$el).scrollLeft((child_width - par_width) / 2);
-            }, 10);
-        }
-
+        this.update_size();
         this.draw();
     },
     watch: {
+        'env.width': function envWidth() {
+            this.update_size();
+        },
         map_points: function map_points() {
             this.stop_draw();
             this.draw();
@@ -901,6 +907,21 @@ Vue.component('com-fullhome-map', {
         //},
     },
     methods: {
+        update_size: function update_size() {
+            var self = this;
+            var height = $(this.$el).height();
+            var scale = height / 1080;
+            var child_width = 1980 * scale;
+            $(this.$el).find('.map-wrap').css('transform', 'scale(' + scale + ')');
+
+            var par_width = $(self.$el).width();
+            if (child_width > par_width) {
+                setTimeout(function () {
+                    $(self.$el).scrollLeft((child_width - par_width) / 2);
+                }, 10);
+            }
+        },
+
         draw: function draw() {
             this.normed_area_list = [];
             this.normed_map_points = [];
@@ -1005,37 +1026,13 @@ Vue.component('com-fullhome-pos', {
     data: function data() {
         return {
             is_show: true,
-            show_info: false
+            show_info: false,
+            parStore: ex.vueParStore(this)
         };
     },
     //@mouseleave="is_show=false"
-    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n\n          <div >\n                <div class="glow"></div>\n                <img class="point" src="/static/images/4.png" alt="">\n          </div>\n\n\n        <!--<div class="line" :style="line_block_style">-->\n            <!--<canvas style="width: 100%;height: 100%" :width="line_block_style.num_width" :height="line_block_style.num_height"   ></canvas>-->\n        <!--</div>-->\n\n    <!--<transition name="fade">-->\n            <!--<div v-show="show_info">-->\n                    <!--&lt;!&ndash;\u7EC8\u70B9\u5C0F\u5706\u70B9&ndash;&gt;-->\n                   <!--<div class="line" :style="line_end_style">-->\n                    <!--</div >-->\n\n                    <!--<span class="title" :style="{top:label_loc.y,left:label_loc.x}">-->\n                        <!--<img class="icon" :src="mapitem.icon" alt=""><span v-text="mapitem.title"></span>-->\n                    <!--</span>-->\n            <!--</div>-->\n\n    <!--</transition>-->\n\n\n       <div class="circle" >\n                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n       </div>\n\n    </div>',
+    template: '<div :class="[\'com-fullhome-pos\',{\'show\':is_show,}]" :style="{top:loc.y,left:loc.x}"\n         @click="open_page()">\n\n          <div >\n                <div class="glow"></div>\n                <img class="point" src="/static/images/4.png" alt="">\n          </div>\n\n       <div class="circle" >\n                <img style="width: 100%;height: 100%" src="/static/images/4_4.png" alt="">\n       </div>\n\n    </div>',
 
-    mounted: function mounted() {
-
-        //var self=this
-        //setTimeout(function(){
-        //    self.draw_line()
-        //},1200)
-        //self.show_info=false
-        //setTimeout(function(){
-        //    self.show_info=true
-        //},2200)
-    },
-
-    watch: {
-        //line_block_style:function(v){
-        //
-        //
-        //    var self=this
-        //    self.draw_line()
-        //
-        //    self.show_info=false
-        //    setTimeout(function(){
-        //        self.show_info=true
-        //    },1000)
-        //}
-    },
     computed: {
         //area_style:function(){
         //    var self=this
@@ -1140,7 +1137,11 @@ Vue.component('com-fullhome-pos', {
     methods: {
         open_page: function open_page() {
             console.log('jj');
-            location = this.mapitem.url;
+            var url = ex.appendSearch('/digital', {
+                projg: this.parStore.crt_proj.pk,
+                builds: this.mapitem.pk
+            });
+            location = url;
         },
         draw_line: function draw_line() {
             var self = this;
@@ -1253,7 +1254,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".com-fullhome-footer {\n  height: 6rem;\n  position: absolute;\n  bottom: 0; }\n  .com-fullhome-footer img {\n    display: inline-block;\n    height: 3rem;\n    margin: 0.5rem 1rem; }\n", ""]);
+exports.push([module.i, ".com-fullhome-footer {\n  background-color: #1d2027;\n  padding-top: 10px;\n  position: absolute;\n  height: 100%;\n  width: 100%; }\n  .com-fullhome-footer .divider {\n    display: inline-block;\n    width: 3em; }\n\n.com-fullhome-footer.mobile-panel .divider {\n  display: block; }\n", ""]);
 
 // exports
 
@@ -1281,7 +1282,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".com-fullhome-left-menu {\n  background-color: black;\n  width: 160px;\n  position: relative; }\n  .com-fullhome-left-menu .action {\n    position: relative;\n    color: white;\n    cursor: pointer;\n    height: 8rem; }\n    .com-fullhome-left-menu .action:hover {\n      color: #bababa; }\n    .com-fullhome-left-menu .action img {\n      position: absolute;\n      left: 0;\n      top: 0;\n      width: 116%;\n      height: 100%;\n      z-index: 100; }\n", ""]);
+exports.push([module.i, ".com-fullhome-left-menu {\n  background-color: black;\n  width: 160px;\n  position: relative; }\n  .com-fullhome-left-menu .action {\n    position: relative;\n    color: white;\n    cursor: pointer;\n    height: 8rem; }\n    .com-fullhome-left-menu .action:hover {\n      color: #bababa; }\n    .com-fullhome-left-menu .action img {\n      position: absolute;\n      left: 0;\n      top: 0;\n      width: 116%;\n      height: 100%;\n      z-index: 100; }\n    .com-fullhome-left-menu .action.is_active {\n      color: #8fb2fe; }\n", ""]);
 
 // exports
 
@@ -1337,7 +1338,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".header-bar {\n  background-color: #464646;\n  height: 50px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu {\n    white-space: nowrap; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
+exports.push([module.i, ".header-bar {\n  background-color: #464646;\n  height: 75px;\n  position: relative;\n  text-align: center; }\n  .header-bar .header-menu {\n    white-space: nowrap; }\n  .header-bar .header-menu a {\n    color: white; }\n    .header-bar .header-menu a:hover, .header-bar .header-menu a.active {\n      color: #8fb2fe; }\n  .header-bar .sm-right-top-panel {\n    position: absolute;\n    right: 20px; }\n    .header-bar .sm-right-top-panel a {\n      color: #b8b8b8; }\n      .header-bar .sm-right-top-panel a:hover {\n        color: white; }\n\n@media (max-width: 900px) {\n  .header-menu .menu-item {\n    display: block; }\n    .header-menu .menu-item a {\n      color: white; } }\n", ""]);
 
 // exports
 
@@ -1365,7 +1366,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  width: 180px;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    height: 100%;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  overflow-y: auto;\n  overflow-x: hid; }\n", ""]);
+exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    height: 100%;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  overflow-y: auto;\n  overflow-x: hid; }\n", ""]);
 
 // exports
 
@@ -1393,7 +1394,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".zhanshi-main-content {\n  background-color: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  left: 10%;\n  right: 10%;\n  top: 0;\n  min-height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 30px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    left: 0;\n    right: 0;\n    position: relative;\n    background-color: #4c68a6;\n    flex-shrink: 0; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: -12.5%;\n      right: 100%;\n      opacity: 0.9; }\n    .zhanshi-main-content .menu-wrap:after {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: 100%;\n      right: -12.5%;\n      opacity: 0.9; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
+exports.push([module.i, ".zhanshi-main-content {\n  background-color: rgba(0, 0, 0, 0.3);\n  position: absolute;\n  left: 10%;\n  right: 10%;\n  top: 0;\n  min-height: 100%; }\n  .zhanshi-main-content .banner {\n    margin: 0;\n    margin-top: 5px;\n    height: 140px;\n    display: flex; }\n    .zhanshi-main-content .banner .big-title {\n      position: relative;\n      width: 30%;\n      flex-grow: 0;\n      flex-shrink: 0;\n      background-color: #1d212c;\n      color: white;\n      font-size: 200%;\n      white-space: nowrap; }\n  .zhanshi-main-content .menu-wrap {\n    left: 0;\n    right: 0;\n    position: relative;\n    background-color: #4c68a6;\n    flex-shrink: 0; }\n    .zhanshi-main-content .menu-wrap:before {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: -12.5%;\n      right: 100%;\n      opacity: 0.9; }\n    .zhanshi-main-content .menu-wrap:after {\n      content: '';\n      display: block;\n      position: absolute;\n      background-color: rgba(161, 176, 211, 0.9);\n      height: 100%;\n      top: 0;\n      left: 100%;\n      right: -12.5%;\n      opacity: 0.9; }\n  .zhanshi-main-content .menu-item {\n    display: inline-block;\n    margin: auto 10px;\n    color: #8ba0d1;\n    padding-left: 30px; }\n    .zhanshi-main-content .menu-item.active {\n      color: white; }\n  .zhanshi-main-content .html-content {\n    color: #d2d4d7;\n    padding: 0 50px;\n    position: relative; }\n    .zhanshi-main-content .html-content img {\n      max-width: 100%; }\n\n@media (max-width: 900px) {\n  .zhanshi-main-content {\n    left: 0;\n    right: 0;\n    top: 0;\n    bottom: 0; }\n    .zhanshi-main-content .banner {\n      margin-top: 0; }\n    .zhanshi-main-content .html-content {\n      padding: 0 20px; } }\n", ""]);
 
 // exports
 
