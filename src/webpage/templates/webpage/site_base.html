@@ -179,8 +179,17 @@
 
     <nav class="slide-menu" v-if="env.width<900">
 
-        <com-header-menu  :menu="menu" :active="crt_page_name" @jump="on_jump($event)">
-        </com-header-menu>
+        <div style="margin-top: 2em;border-top:1px solid #313131;padding-top: 1em;">
+            <com-header-menu  :menu="menu" :active="crt_page_name" @jump="on_jump($event)">
+            </com-header-menu>
+        </div>
+
+        <div style="margin-top: 2em;border-top:1px solid #313131;padding-top: 1em;">
+            <com-header-menu  :menu="builds_menu" active="" @jump="on_jump($event)">
+            </com-header-menu>
+        </div>
+
+
         <div style="margin-top: 2em;border-top:1px solid #313131;padding-top: 1em;">
             <div class="sm-right-top-panel">
                 <component class="vertical" v-for="head in top_heads" :is="head.mb_editor || head.editor"
@@ -189,6 +198,7 @@
             </div>
         </div>
         <com-fullhome-footer class="mobile-panel"></com-fullhome-footer>
+
     </nav>
 
 
