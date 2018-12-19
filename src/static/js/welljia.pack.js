@@ -1294,7 +1294,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".com-fullhome-header-bar .header-bar {\n  text-align: left;\n  background-color: #20242e;\n  padding: 0 1rem; }\n  .com-fullhome-header-bar .header-bar img {\n    height: 70%; }\n", ""]);
+exports.push([module.i, ".com-fullhome-header-bar .header-bar {\n  text-align: left;\n  background-color: #20242e;\n  padding: 0 1rem; }\n", ""]);
 
 // exports
 
@@ -1308,7 +1308,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".com-fullhome-left-menu {\n  background-color: black;\n  width: 160px;\n  position: relative; }\n  .com-fullhome-left-menu .action {\n    position: relative;\n    color: white;\n    cursor: pointer;\n    height: 8rem; }\n    .com-fullhome-left-menu .action:hover {\n      color: #bababa; }\n    .com-fullhome-left-menu .action img {\n      position: absolute;\n      left: 0;\n      top: 0;\n      width: 116%;\n      height: 100%;\n      z-index: 100; }\n    .com-fullhome-left-menu .action.is_active {\n      color: #8fb2fe; }\n", ""]);
+exports.push([module.i, ".com-fullhome-left-menu {\n  background-color: #17181d;\n  width: 160px;\n  position: relative; }\n  .com-fullhome-left-menu .action {\n    position: relative;\n    color: white;\n    cursor: pointer;\n    height: 8rem; }\n    .com-fullhome-left-menu .action:hover {\n      color: #bababa; }\n    .com-fullhome-left-menu .action img {\n      position: absolute;\n      left: 0;\n      top: 0;\n      width: 116%;\n      height: 100%;\n      z-index: 100; }\n    .com-fullhome-left-menu .action.is_active {\n      color: #8fb2fe; }\n", ""]);
 
 // exports
 
@@ -1392,7 +1392,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    height: 100%;\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  overflow-y: auto;\n  overflow-x: hid; }\n", ""]);
+exports.push([module.i, ".left-bar {\n  background-color: #17181d;\n  height: 100vh;\n  min-height: 600px;\n  position: relative; }\n  .left-bar .logo {\n    position: absolute;\n    z-index: 100;\n    top: 180px; }\n    .left-bar .logo img {\n      width: 113%; }\n  .left-bar .footer {\n    position: absolute;\n    bottom: 30px;\n    height: 130px;\n    margin-top: 20px;\n    color: #494e5b; }\n\n@media (max-width: 900px) {\n  .left-bar {\n    display: none; }\n  .slide-btn {\n    left: 20px; } }\n\n.right-panel {\n  min-height: 100vh;\n  overflow-x: hidden; }\n  .right-panel .center-content {\n    position: relative;\n    /*height:100%;*/\n    background: url(/static/images/2_1.png) no-repeat;\n    background-size: 100% 100%; }\n\n.center-content {\n  overflow-y: auto;\n  overflow-x: hid; }\n", ""]);
 
 // exports
 
