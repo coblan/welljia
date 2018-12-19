@@ -62,7 +62,7 @@ class Home(View):
                     {'label':'项目手册','link':'/manual?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'manual'},  
                 ],
                 'builds_menu':[
-                    {'pk':x.pk,'label':x.title,'link':'/digital?projg=%(projg)s&builds=%(builds)s'%{'projg':projg.pk,'builds':x.pk}} for x in projg.project.all()
+                    {'pk':x.pk,'label':x.title,'link':'/digital?projg=%(projg)s&builds=%(builds)s'%{'projg':projg.pk,'builds':x.pk}} for x in projg.project.all() if x.url
                 ]}
         
             return dc
