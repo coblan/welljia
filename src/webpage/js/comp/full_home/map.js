@@ -14,8 +14,13 @@ Vue.component('com-fullhome-map',{
         }
     },
     mounted:function(){
+        var self=this
         this.update_size()
         this.draw()
+        // 防止图片没加载完，出现不能居中。
+        $(this.$el).find('#bg-map')[0].onload(function(){
+            self.update_size()
+        })
     },
     watch:{
         'env.width':function(){
@@ -85,6 +90,7 @@ Vue.component('com-fullhome-map',{
     },
     methods:{
         update_size:function(){
+            // 使得背景地图水平居中
             var self=this
             var height = $(this.$el).height()
             var scale = height /1080
@@ -196,8 +202,8 @@ Vue.component('com-fullhome-map',{
 
 Vue.component('com-fullhome-area',{
     props:['area','scale'],
-    template:`<div :style="area_style">
-        <img :src="area.pic" alt="">
+    template:`<div class="com-fullhome-area" :style="area_style">
+        <img @click="jump_link()" :class="{clickable:area.link}" :src="area.pic" alt="">
     </div>`,
     computed:{
         area_style:function(){
@@ -214,6 +220,13 @@ Vue.component('com-fullhome-area',{
                 //width:width+'px'
             }
         }
+    },
+    methods:{
+        jump_link:function(){
+            if(this.area.link){
+                location = this.area.link
+            }
+        }
     }
 })
 
@@ -227,9 +240,8 @@ Vue.component('com-fullhome-pos',{
         }
     },
     //@mouseleave="is_show=false"
-    template:`<div :class="['com-fullhome-pos',{'show':is_show,}]" :style="{top:loc.y,left:loc.x}"
+    template:`<div :class="['com-fullhome-pos',{'show':is_show,clickable:mapitem.url}]" :style="{top:loc.y,left:loc.x}"
          @click="open_page()">
-
           <div >
                 <div class="glow"></div>
                 <img class="point" src="/static/images/4.png" alt="">
@@ -242,83 +254,6 @@ Vue.component('com-fullhome-pos',{
     </div>`,
 
     computed:{
-        //area_style:function(){
-        //    var self=this
-        //    var ls=this.mapitem.bg_pos.split(',')
-        //    var out_ls= ex.map(ls,function(ss){
-        //        return ss* self.scale
-        //    })
-        //    var width = this.mapitem.bg_width * self.scale
-        //    return {
-        //        position:'absolute',
-        //        top:out_ls[1]+'px',
-        //        left:out_ls[0]+'px',
-        //        width:width+'px'
-        //    }
-        //},
-        //line_end_pos:function(){
-        //    var self=this
-        //    var ls=this.mapitem.label_pos.split(',')
-        //    var out_ls= ex.map(ls,function(ss){
-        //        return ss* self.scale
-        //    })
-        //    return {
-        //        x:out_ls[0] -10,
-        //        y:out_ls[1]+8
-        //    }
-        //},
-        //line_end_style:function(){
-        //    if(this.line_end_pos.y<0){
-        //        var top = this.line_end_pos.y -1
-        //    }else{
-        //        var top = this.line_end_pos.y -2
-        //    }
-        //    return {
-        //        position:'absolute',
-        //        top:top+'px',
-        //        left:this.line_end_pos.x+'px',
-        //        width:'4px',
-        //        height:'4px',
-        //        borderRadius:'2px',
-        //        backgroundColor:'white'
-        //    }
-        //},
-        //line_block_style:function(){
-        //
-        //    var org_x=15
-        //    var org_y=15
-        //    var label_x = this.line_end_pos.x
-        //    var label_y = this.line_end_pos.y
-        //
-        //    var top = Math.min(org_y,label_y)
-        //    var height=Math.abs(org_y-label_y)
-        //    var left = Math.min(org_x,label_x)
-        //    var width=Math.abs(org_x-label_x)
-        //    //if(this.ctx){
-        //    //    this.ctx.scale(width/100,height/100)
-        //    //}
-        //
-        //
-        //    var dc ={
-        //        position:'absolute',
-        //        top:top+'px',
-        //        height:height+'px',
-        //        left:left+'px',
-        //        width:width+'px',
-        //        num_height:height,
-        //        num_width:width,
-        //    }
-        //
-        //    //if(org_y <label_y ){
-        //    //    dc['borderBottom']='1px solid #ededed'
-        //    //}else{
-        //    //    dc['borderTop'] = '1px solid #ededed'
-        //    //}
-        //    //
-        //    //dc['borderLeft']='1px solid #ededed'
-        //
-        //    return dc
-        //},
         loc:function(){
             var self=this
             var out_ls=this.mapitem.pos.split(',')
@@ -330,26 +265,17 @@ Vue.component('com-fullhome-pos',{
                 y:out_ls[1]+'px'
             }
         },
-        //label_loc:function(){
-        //    var self=this
-        //    var ls=this.mapitem.label_pos.split(',')
-        //    var out_ls= ex.map(ls,function(ss){
-        //        return ss* self.scale
-        //    })
-        //    return {
-        //        x:out_ls[0] +'px',
-        //        y:out_ls[1]+'px'
-        //    }
-        //}
     },
     methods:{
         open_page:function(){
-            console.log('jj')
-            var url =ex.appendSearch('/digital',{
-                projg:this.parStore.crt_proj.pk,
-                builds:this.mapitem.pk
-            })
-            location =url
+            if(this.mapitem.url){
+                var url =ex.appendSearch('/digital',{
+                    projg:this.parStore.crt_proj.pk,
+                    builds:this.mapitem.pk
+                })
+                location =url
+            }
+
         },
         draw_line:function(){
             var self=this
