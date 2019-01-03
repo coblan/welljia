@@ -14,6 +14,8 @@ class ZhanRich(models.Model):
     page = models.CharField('从属页面',max_length = 30, blank = True, choices = PAGES)
     priority = models.IntegerField('优先级', default= 0, help_text= '大的排列在前')
     content = models.TextField('主要内容', blank= True)
+    def __str__(self):
+        return self.label
     
 class Building(models.Model):
     label = models.CharField('显示名', max_length = 30)
@@ -68,6 +70,9 @@ class PageImages(models.Model):
     pos = models.CharField('坐标', max_length = 30, help_text = '请严格按照 x,y 的格式填写')
     pic =  PictureField('区域图', max_length = 300, blank = True)
     link = models.CharField('链接',max_length = 300,blank=True)
+    
+    def __str__(self):
+        return self.label
 
 class MainPageItem(models.Model):
     """ 表示一个 项目集合，一般包含多地 多个 楼群  """
@@ -75,6 +80,9 @@ class MainPageItem(models.Model):
     project = models.ManyToManyField(MapPoint, verbose_name = '项目点', blank = True)
     area = models.ManyToManyField(Area, verbose_name = '区域', blank = True)
     img_list = models.ManyToManyField(PageImages, verbose_name = '图片列表', blank = True)
+    
+    def __str__(self):
+        return self.label
     
 
 
