@@ -10,3 +10,5 @@ DATABASES = {
         'PORT': '3306',        
       },
     }
+
+SELF_URL = 'http://p1.vr-home.com.cn'

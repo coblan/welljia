@@ -24,6 +24,6 @@ TENCENT = {
     'validate_temp': '199823',
 }
 
-ALLOWED_HOSTS = ['www.werjia.cn', 'werjia.cn', '211.149.132.181', 'www.vr-home.com.cn']
+ALLOWED_HOSTS = ['*']
 
 SELF_URL = 'http://www.vr-home.com.cn'
