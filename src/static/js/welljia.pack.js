@@ -1087,7 +1087,9 @@ Vue.component('com-fullhome-pos', {
     },
     methods: {
         open_page: function open_page() {
-            if (this.mapitem.url) {
+            if (this.mapitem.direct_url) {
+                location = this.mapitem.direct_url;
+            } else if (this.mapitem.url) {
                 var url = ex.appendSearch('/digital', {
                     projg: this.parStore.crt_proj.pk,
                     builds: this.mapitem.pk
