@@ -51,6 +51,23 @@ class Home(View):
                 'projg':self.projg_pk,
                 'builds':self.builds_pk
             }
+            builds_menu = []
+            for proj in projg.project.all():
+                title = proj.title
+                pk=proj.pk
+                if proj.direct_url:
+                    link=proj.direct_url
+                elif proj.url:
+                    link='/digital?projg=%(projg)s&builds=%(builds)s'%{'projg':projg.pk,'builds':proj.pk}
+                else:
+                    link=''
+                if link:
+                    builds_menu.append({
+                        'pk':pk,
+                        'label':title,
+                        'link':link
+                    })
+            
             dc = { 
                 'header_bar_menu': [
                     {'label':'首页','link':'/','name':'full_home'},
@@ -61,9 +78,11 @@ class Home(View):
                     {'label':'品牌宣传','link':'/xuanchuan?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'xuanchuan'},   
                     {'label':'项目手册','link':'/manual?projg=%(projg)s&builds=%(builds)s'%search_args,'name':'manual'},  
                 ],
-                'builds_menu':[
-                    {'pk':x.pk,'label':x.title,'link':'/digital?projg=%(projg)s&builds=%(builds)s'%{'projg':projg.pk,'builds':x.pk}} for x in projg.project.all() if x.url
-                ]}
+                'builds_menu':builds_menu
+                #'builds_menu':[
+                    #{'pk':x.pk,'label':x.title,'link':'/digital?projg=%(projg)s&builds=%(builds)s'%{'projg':projg.pk,'builds':x.pk}} for x in projg.project.all() if x.url
+                #]
+            }
         
             return dc
         else:
